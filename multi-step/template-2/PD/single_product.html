@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form Order — tapsite.ai</title>
+  <!-- Hanya gunakan TailwindCSS sesuai rules -->
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+</head>
+
+<body
+  data-products='[{"id":"SP-001","name":"Cupcake Regular","price":6000,"discount_price":0,"description":"Satu produk saja, tanpa varian.","image_url":"https://placehold.co/400x300/e2e8f0/0f766e?text=Single","is_addon":false,"quantity":1,"is_required":true,"allow_custom_price":false,"weight":200}]'
+  data-fields='{"fields":[{"id":"name","label":"Nama","type":"text","required":true},{"id":"email","label":"Email","type":"email","required":false},{"id":"phone","label":"Nomor Telepon","type":"tel","required":true}]}'
+  data-domain="http://localhost:5555"
+  data-origin-id="sp-form2-ms"
+  class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50">
+
+  <!-- Header + Stepper -->
+  <header class="px-4 py-10 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="rounded-3xl bg-gradient-to-b from-teal-700 to-emerald-600 text-white p-6 sm:p-8 shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h1 class="text-3xl font-extrabold tracking-tight">Order Form • Single Product</h1>
+            <p class="mt-2 opacity-90">Buat pesananmu dalam 3 langkah sederhana.</p>
+          </div>
+          <div class="flex items-center gap-3 text-sm opacity-90">
+            <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white/90 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Pembayaran Aman</div>
+            <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white/90 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>Data Terenkripsi</div>
+          </div>
+        </div>
+        <div class="mt-6">
+          <div class="flex items-center justify-between">
+            <span class="text-xs uppercase tracking-wider opacity-90">Langkah <span id="stepIndex">1</span> dari 3</span>
+            <div id="stepLabels" class="flex items-center gap-2">
+              <span data-step-label="1" class="px-2.5 py-1 rounded-full bg-white/20 text-white font-medium">Product</span>
+              <span data-step-label="2" class="px-2.5 py-1 rounded-full bg-white/10 text-white/80">Customer</span>
+              <span data-step-label="3" class="px-2.5 py-1 rounded-full bg-white/10 text-white/80">Summary</span>
+            </div>
+          </div>
+          <div class="mt-3 w-full bg-white/20 rounded-full h-2">
+            <div id="progressBarTop" class="bg-white h-2 rounded-full transition-all" style="width:33%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Steps -->
+  <section class="px-4 pb-12 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <form id="orderForm" class="space-y-6">
+        <!-- Step 1: Product (single) + qty -->
+        <div data-step="1" id="step-1" class="bg-white rounded-3xl shadow-xl ring-1 ring-teal-100 p-6 sm:p-8">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-bold text-gray-900">Konfirmasi Produk</h2>
+              <p class="text-sm text-gray-600 mt-1">Pastikan produk yang dipilih dan tentukan jumlahnya.</p>
+            </div>
+            <div id="step1Alert" class="hidden text-sm px-3 py-2 bg-red-50 text-red-700 border border-red-200 rounded-lg">Jumlah minimal 1.</div>
+          </div>
+
+          <div id="products" class="mt-4">
+            <!-- Template product (no <template> tag) -->
+            <div data-role="product" data-template="product" class="group bg-white/80 backdrop-blur-sm border border-teal-100 rounded-2xl p-3 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:ring-1 hover:ring-teal-300 transition-all duration-300">
+              <div class="flex items-center gap-3">
+                <img data-value="image_url" src="https://placehold.co/300x240/e2e8f0/0f766e?text=Produk" alt="Produk" class="w-20 h-20 rounded-xl object-cover border border-gray-200" />
+                <div class="flex-1 min-w-0">
+                  <h3 class="text-lg font-bold text-gray-900" data-value="name">Nama Produk</h3>
+                  <p class="text-base text-gray-600" data-value="description">Deskripsi singkat produk.</p>
+                  <div class="mt-3 flex items-center justify-between">
+                    <p class="text-lg text-teal-600 font-semibold" data-value="price">Rp 0</p>
+                    <div class="flex items-center gap-2">
+                      <button type="button" id="decreaseQty" class="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+                      </button>
+                      <input type="number" id="quantity" value="1" min="1" class="w-16 h-9 text-center border-2 border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none text-sm" />
+                      <button type="button" id="increaseQty" class="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+                      </button>
+                    </div>
+                  </div>
+                  <p class="mt-1 text-xs text-gray-500">Berat: <span id="weightHint">200</span>g per item</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex items-center justify-end gap-3">
+            <button type="button" id="nextToStep2" class="px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500">Lanjut ke Data Pemesan</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Customer info -->
+        <div data-step="2" id="step-2" class="hidden bg-white rounded-3xl shadow-xl ring-1 ring-teal-100 p-6 sm:p-8">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-bold text-gray-900">Detail Pemesan</h2>
+              <p class="text-sm text-gray-600 mt-1">Lengkapi informasi di bawah ini.</p>
+            </div>
+            <div id="step2Alert" class="hidden text-sm px-3 py-2 bg-red-50 text-red-700 border border-red-200 rounded-lg">Lengkapi semua field yang wajib.</div>
+          </div>
+
+          <div id="forms" class="mt-4 grid grid-cols-1 gap-4">
+            <!-- Template Field -->
+            <div data-role="field" data-template="field" class="space-y-2">
+              <label for="name" class="block text-sm font-medium text-gray-700" data-value="label">Nama <span class="text-red-500">*</span></label>
+              <input type="text" id="name" name="name" required data-value-id data-value-type data-value-required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all" placeholder="Masukkan nama lengkap" />
+            </div>
+          </div>
+
+          <div class="mt-6 flex items-center justify-between gap-3">
+            <button type="button" id="backToStep1" class="px-6 py-3 bg-gray-100 text-gray-800 font-semibold rounded-lg hover:bg-gray-200 transition-colors">Kembali</button>
+            <button type="button" id="nextToStep3" class="px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500">Lanjut ke Ringkasan</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Summary -->
+        <div data-step="3" id="step-3" class="hidden bg-white rounded-3xl shadow-xl ring-1 ring-teal-100 p-6 sm:p-8">
+          <h2 class="text-2xl font-bold text-gray-900">Ringkasan Pesanan</h2>
+          <p class="text-sm text-gray-600 mt-1">Periksa kembali pesananmu sebelum menyelesaikan.</p>
+
+          <div class="mt-4 bg-gradient-to-br from-white to-cyan-50 rounded-2xl p-4 border border-teal-100">
+            <div id="summaryItems" class="space-y-3"></div>
+            <!-- Template summary item -->
+            <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item" data-placeholder="true" class="hidden">
+              <div class="flex items-center justify-between pb-3 border-b border-teal-100">
+                <div>
+                  <h3 class="font-semibold text-gray-900" data-summary="name">Nama Produk</h3>
+                  <p class="text-xs text-gray-500">Berat total: <span data-summary="weight">200</span>g</p>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm text-gray-600">Qty <span data-summary="qty">1</span></p>
+                  <p class="font-semibold text-gray-900">Rp <span data-summary="line_total">0</span></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+              <h3 class="text-lg font-bold text-gray-900">Total</h3>
+              <p class="text-xl font-extrabold text-teal-700">Rp <span id="totalPrice">0</span></p>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500">
+              <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Pembayaran Aman</div>
+              <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>Data Terenkripsi</div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex items-center justify-between gap-3">
+            <button type="button" id="backToStep2" class="px-6 py-3 bg-gray-100 text-gray-800 font-semibold rounded-lg hover:bg-gray-200 transition-colors">Kembali</button>
+            <button type="submit" id="submitBtn" class="px-8 py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">Selesaikan Pesanan</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Success Modal -->
+  <div id="successMessage" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+    <div id="successContent" class="bg-white rounded-2xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0">
+      <div class="text-center">
+        <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Pesanan Berhasil!</h3>
+        <p class="text-gray-600 mb-6">Terima kasih. Kamu akan diarahkan ke halaman pembayaran.</p>
+        <div class="w-full bg-gray-200 rounded-full h-2">
+          <div class="bg-teal-600 h-2 rounded-full" id="progressBar" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const domain = document.body.dataset.domain || '';
+    const originId = document.body.dataset.originId || '';
+    const productWeight = 200; // gram per item default
+
+    let currentStep = 1;
+    const totalSteps = 3;
+
+    const step1 = document.getElementById('step-1');
+    const step2 = document.getElementById('step-2');
+    const step3 = document.getElementById('step-3');
+    const stepIndexEl = document.getElementById('stepIndex');
+    const progressBarTop = document.getElementById('progressBarTop');
+    const stepLabels = document.getElementById('stepLabels');
+    const step1Alert = document.getElementById('step1Alert');
+    const step2Alert = document.getElementById('step2Alert');
+
+    const nextToStep2 = document.getElementById('nextToStep2');
+    const nextToStep3 = document.getElementById('nextToStep3');
+    const backToStep1 = document.getElementById('backToStep1');
+    const backToStep2 = document.getElementById('backToStep2');
+
+    const productsContainer = document.getElementById('products');
+    const summaryItemsContainer = document.getElementById('summaryItems');
+    const summaryItemTemplate = document.getElementById('summaryItemTemplate');
+    const totalPriceEl = document.getElementById('totalPrice');
+    const orderForm = document.getElementById('orderForm');
+    const successMessage = document.getElementById('successMessage');
+    const successContent = document.getElementById('successContent');
+    const progressBar = document.getElementById('progressBar');
+    const weightHint = document.getElementById('weightHint');
+
+    const state = { product: null, qty: 1 };
+
+    // Product rendering (single)
+    (function initProduct() {
+      try {
+        const raw = document.body.dataset.products || '[]';
+        const products = JSON.parse(raw.replace(/'/g, '"'));
+        const p = products[0];
+        state.product = p || null;
+        if (!productsContainer) return;
+        const template = productsContainer.querySelector('[data-role="product"]');
+        if (!template || !p) return;
+
+        const el = template.cloneNode(true);
+        const img = el.querySelector('[data-value="image_url"]'); if (img && p.image_url) img.src = p.image_url;
+        const nameEl = el.querySelector('[data-value="name"]'); nameEl && (nameEl.textContent = p.name || '');
+        const descEl = el.querySelector('[data-value="description"]'); descEl && (descEl.textContent = p.description || '');
+        const priceEl = el.querySelector('[data-value="price"]'); priceEl && (priceEl.textContent = 'Rp ' + (p.price||0).toLocaleString('id-ID'));
+
+        // qty controls
+        const decBtn = el.querySelector('#decreaseQty');
+        const incBtn = el.querySelector('#increaseQty');
+        const qtyEl = el.querySelector('#quantity');
+        if (qtyEl) qtyEl.value = Math.max(1, parseInt(p.quantity || 1, 10));
+        state.qty = parseInt(qtyEl.value, 10);
+        weightHint && (weightHint.textContent = (p.weight || productWeight));
+
+        const setQty = (val) => {
+          const v = Math.max(1, parseInt(val || 1, 10));
+          qtyEl.value = v; state.qty = v; renderSummary();
+        };
+        decBtn && decBtn.addEventListener('click', () => setQty(parseInt(qtyEl.value, 10) - 1));
+        incBtn && incBtn.addEventListener('click', () => setQty(parseInt(qtyEl.value, 10) + 1));
+        qtyEl && qtyEl.addEventListener('input', () => setQty(qtyEl.value));
+
+        productsContainer.innerHTML = el.outerHTML;
+      } catch (err) {
+        console.warn('Gagal render produk:', err);
+      }
+    })();
+
+    // Fields rendering
+    (function initFields() {
+      try {
+        const raw = document.body.dataset.fields || '{}';
+        const parsed = JSON.parse(raw.replace(/'/g, '"'));
+        const fields = Array.isArray(parsed.fields) ? parsed.fields : [];
+        const container = document.getElementById('forms');
+        const template = container ? container.querySelector('[data-role="field"]') : null;
+        if (!container || !template) return;
+        container.innerHTML = '';
+        fields.forEach(f => {
+          const el = template.cloneNode(true);
+          const label = el.querySelector('[data-value="label"]');
+          const input = el.querySelector('input');
+          if (label) label.textContent = f.label + (f.required ? ' *' : '');
+          if (input) {
+            input.id = f.id; input.name = f.id; input.type = f.type || 'text'; input.required = !!f.required; input.placeholder = `Masukkan ${f.label}`;
+          }
+          container.appendChild(el);
+        });
+      } catch (err) {
+        console.warn('Gagal render fields:', err);
+      }
+    })();
+
+    function renderSummary() {
+      const p = state.product; if (!p) return;
+      const qty = state.qty;
+      const total = (p.price || 0) * qty;
+      if (!summaryItemTemplate || !summaryItemsContainer) return;
+      const el = summaryItemTemplate.cloneNode(true);
+      el.classList.remove('hidden'); el.removeAttribute('data-placeholder');
+      const nameEl = el.querySelector('[data-summary="name"]');
+      const wEl = el.querySelector('[data-summary="weight"]');
+      const qtyEl = el.querySelector('[data-summary="qty"]');
+      const lineEl = el.querySelector('[data-summary="line_total"]');
+      nameEl && (nameEl.textContent = p.name || '');
+      wEl && (wEl.textContent = ((p.weight || productWeight) * qty));
+      qtyEl && (qtyEl.textContent = qty);
+      lineEl && (lineEl.textContent = total.toLocaleString('id-ID'));
+      summaryItemsContainer.innerHTML = el.outerHTML;
+      totalPriceEl.textContent = total.toLocaleString('id-ID');
+    }
+
+    // initial summary
+    renderSummary();
+
+    // Validations
+    function validateStep1() {
+      const ok = state.qty >= 1;
+      step1Alert.classList.toggle('hidden', ok);
+      return ok;
+    }
+    function validateStep2() {
+      let ok = true; step2Alert.classList.add('hidden');
+      orderForm.querySelectorAll('#step-2 input').forEach(inp => {
+        inp.classList.remove('ring-2', 'ring-red-500');
+        if (inp.required && !inp.value?.trim()) { ok = false; inp.classList.add('ring-2', 'ring-red-500'); }
+      });
+      step2Alert.classList.toggle('hidden', ok);
+      return ok;
+    }
+
+    function setStep(step) {
+      currentStep = Math.max(1, Math.min(totalSteps, step));
+      stepIndexEl.textContent = String(currentStep);
+      step1.classList.toggle('hidden', currentStep !== 1);
+      step2.classList.toggle('hidden', currentStep !== 2);
+      step3.classList.toggle('hidden', currentStep !== 3);
+      const pct = currentStep === 1 ? 33 : currentStep === 2 ? 66 : 100;
+      progressBarTop.style.width = pct + '%';
+      stepLabels.querySelectorAll('[data-step-label]').forEach(el => {
+        const s = parseInt(el.getAttribute('data-step-label'), 10);
+        if (s === currentStep) {
+          el.className = 'px-2.5 py-1 rounded-full bg-white/20 text-white font-medium';
+        } else if (s < currentStep) {
+          el.className = 'px-2.5 py-1 rounded-full bg.white/15 text-white/90';
+        } else {
+          el.className = 'px-2.5 py-1 rounded-full bg-white/10 text-white/80';
+        }
+      });
+    }
+
+    nextToStep2?.addEventListener('click', () => { if (!validateStep1()) return; setStep(2); });
+    backToStep1?.addEventListener('click', () => setStep(1));
+    nextToStep3?.addEventListener('click', () => { if (!validateStep2()) return; renderSummary(); setStep(3); });
+    backToStep2?.addEventListener('click', () => setStep(2));
+    setStep(1);
+
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formValues = {}; orderForm.querySelectorAll('input').forEach(inp => { formValues[inp.name] = inp.value; });
+      const p = state.product || {}; const qty = state.qty;
+      const payload = { originId, items: [{ id: p.id, name: p.name, price: p.price, quantity: qty }], customer: formValues, total: totalPriceEl.textContent };
+
+      successMessage.classList.remove('hidden');
+      setTimeout(() => { successContent.classList.remove('opacity-0'); successContent.classList.remove('scale-95'); }, 20);
+      let progress = 0; const timer = setInterval(() => {
+        progress = Math.min(100, progress + 5); progressBar.style.width = progress + '%';
+        if (progress >= 100) { clearInterval(timer); if (domain) { setTimeout(() => { window.location.href = domain + '/checkout?ref=' + encodeURIComponent(originId); }, 600); } }
+      }, 80);
+      console.log('Order Payload (preview):', payload);
+    });
+  </script>
+</body>
+
+</html>
