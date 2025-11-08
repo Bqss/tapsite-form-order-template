@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tapsite.ai • Product with Variants • Form 2</title>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+</head>
+
+<body
+  data-products='[{"id":"SKU-001","name":"Cupcake Base","price":6000,"discount_price":0,"description":"Pilih varian ukuran dan gaya.","image_url":"https://placehold.co/400x300/e2e8f0/0f766e?text=Cupcake","is_addon":false,"quantity":1,"is_required":true,"allow_custom_price":false,"variants":[{"id":"size-regular","name":"Regular","price":6000},{"id":"size-large","name":"Large","price":8000},{"id":"style-classic","name":"Classic","price":6000},{"id":"style-choco","name":"Choco","price":7000}],"weight":200}]'
+  data-fields='{"fields":[{"id":"name","label":"Nama","type":"text","required":true},{"id":"email","label":"Email","type":"email","required":false},{"id":"phone","label":"Nomor Telepon","type":"tel","required":true}]}'
+  data-domain="http://localhost:5556"
+  data-origin-id="pv-form2"
+>
+  <section class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50 py-6 lg:py-10">
+    <div class="max-w-6xl mx-auto px-4">
+      <header class="mb-6 lg:mb-8">
+        <div class="rounded-3xl bg-gradient-to-b from-teal-700 to-emerald-600 text-white p-6 sm:p-8 shadow-xl">
+          <h1 class="text-3xl font-extrabold tracking-tight">Order Form • Product with Variants</h1>
+          <p class="mt-2 opacity-90">Pilih varian produk lalu isi detail pemesan.</p>
+        </div>
+      </header>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Left: Product & Variants -->
+        <div class="space-y-4">
+          <div class="bg-white rounded-3xl shadow-xl ring-1 ring-teal-100 p-4 sm:p-5">
+            <div class="p-4">
+              <h2 class="text-xl font-semibold text-gray-900 mb-4">Pilih Produk</h2>
+              <div id="products">
+                <div data-role="product" data-template="product" class="group bg-gradient-to-br from-white to-teal-50 border border-teal-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all p-4 flex gap-4">
+                  <img data-value="image_url" src="https://placehold.co/300x240/e2e8f0/0f766e?text=Produk" alt="Produk" class="w-28 h-24 rounded-lg object-cover border border-gray-200" />
+                  <div class="flex-1 min-w-0">
+                    <h3 class="text-lg font-bold text-gray-900" data-value="name">Nama Produk</h3>
+                    <p class="text-base text-gray-600" data-value="description">Deskripsi singkat produk.</p>
+                    <p class="mt-2 text-lg text-teal-600 font-semibold" data-value="price">Rp 0</p>
+                    <p class="text-sm text-gray-500 mt-1">Berat: 200g</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pisahkan card untuk memilih variant -->
+          <div class="bg-white rounded-3xl shadow-xl ring-1 ring-teal-100 p-4 sm:p-5">
+            <div class="p-4">
+              <h3 class="text-lg font-semibold text-gray-900 mb-3">Pilih Variant</h3>
+              <div id="variantsContainer" data-role="variants-container" class="flex flex-wrap gap-2"></div>
+
+              <!-- Variant chip template -->
+              <div data-template="variant-chip" class="hidden" data-placeholder="true">
+                <button type="button" data-role="variant-chip" class="px-3 py-1 rounded-full border border-emerald-200 text-sm text-gray-700 hover:bg-emerald-50 hover:border-emerald-400 transition">
+                  <span data-value="name">Variant</span>
+                  <span class="ml-2 text-teal-600 font-semibold" data-value="price">Rp 0</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Summary + Identity form in one card (match quantity_based) -->
+        <div>
+          <form id="orderForm" class="bg-white rounded-3xl shadow-xl ring-1 ring-teal-100 p-6 sm:p-8">
+            <h2 class="text-2xl font-bold text-gray-900">Order Summary</h2>
+            <p class="text-sm text-gray-600 mt-1">Pilihanmu:</p>
+
+            <!-- Ringkasan Pesanan -->
+            <div data-role="parent" class="mt-4">
+              <div class="bg-gradient-to-br from-white to-cyan-50 rounded-2xl p-4 border border-teal-100">
+                <div id="summaryItems" class="space-y-3"></div>
+
+                <!-- Template summary item -->
+                <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item" data-placeholder="true" class="hidden">
+                  <div class="flex items-center justify-between pb-3 border-b border-teal-100">
+                    <div>
+                      <h3 class="font-semibold text-gray-900" data-summary="name">Nama Produk</h3>
+                      <p class="text-xs text-gray-500">Berat: <span data-summary="weight">200</span>g</p>
+                    </div>
+                    <div class="text-right">
+                      <p class="text-sm text-gray-600">Rp <span data-summary="unit_price">0</span> × <span data-summary="qty">1</span></p>
+                      <p class="font-semibold text-gray-900">Rp <span data-summary="line_total">0</span></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between pt-2">
+                  <h3 class="text-lg font-bold text-gray-900">Total</h3>
+                  <p class="text-xl font-extrabold text-teal-700">Rp <span id="totalPrice">0</span></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Informasi Identitas -->
+            <div data-role="parent" class="mt-6">
+              <h3 class="text-lg font-bold text-gray-900 mb-3">Detail Pemesan</h3>
+              <div id="forms" class="grid grid-cols-1 gap-4">
+                <!-- Template Field -->
+                <div data-role="field" data-template="field" class="space-y-2">
+                  <label for="name" class="block text-sm font-medium text-gray-700" data-value="label">Nama <span class="text-red-500">*</span></label>
+                  <input type="text" id="name" name="name" required data-value-id data-value-type data-value-required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all" placeholder="Masukkan nama lengkap" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Trust & Submit -->
+            <div class="mt-6">
+              <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500">
+                <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Pembayaran Aman</div>
+                <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>Data Terenkripsi</div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-center">
+              <button type="submit" id="submitBtn" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
+                Selesaikan Pesanan
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Modal (match quantity_based style) -->
+    <div id="successMessage" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+      <div id="successContent" class="bg-white rounded-2xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Pesanan Berhasil!</h3>
+          <p class="text-gray-600 mb-6">Terima kasih. Kamu akan diarahkan ke halaman pembayaran.</p>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div class="bg-teal-600 h-2 rounded-full" id="progressBar" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Konstanta domain & konfigurasi (menyamakan dengan quantity_based)
+    const domain = document.body.dataset.domain || '';
+    const originId = document.body.dataset.originId || '';
+    const productWeight = 200; // gram per item
+
+    // Elemen kontainer summary & modal
+    const summaryItemsContainer = document.getElementById('summaryItems');
+    const summaryItemTemplate = document.getElementById('summaryItemTemplate');
+    const totalPriceEl = document.getElementById('totalPrice');
+    const orderForm = document.getElementById('orderForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMessage = document.getElementById('successMessage');
+    const successContent = document.getElementById('successContent');
+    const progressBar = document.getElementById('progressBar');
+
+    const orderState = {
+      product: null,
+      selectedVariantPrice: null,
+      qty: 1,
+      fields: [],
+    };
+
+    function formatID(n){ return Number(n||0).toLocaleString('id-ID'); }
+
+    (function initProduct(){
+      try {
+        const raw = document.body.dataset.products || '[]';
+        const products = JSON.parse(raw.replace(/'/g,'"'));
+        const p = products[0];
+        orderState.product = p;
+
+        const productEl = document.querySelector('[data-role="product"]');
+        if (!productEl || !p) return;
+        const img = productEl.querySelector('[data-value="image_url"]');
+        const nameEl = productEl.querySelector('[data-value="name"]');
+        const descEl = productEl.querySelector('[data-value="description"]');
+        const priceEl = productEl.querySelector('[data-value="price"]');
+        const variantsContainer = document.getElementById('variantsContainer');
+        const chipTemplate = document.querySelector('[data-template="variant-chip"]');
+
+        if (img && p.image_url) img.src = p.image_url;
+        if (nameEl) nameEl.textContent = p.name || '';
+        if (descEl) descEl.textContent = p.description || '';
+        if (priceEl) priceEl.textContent = 'Rp ' + formatID(p.price);
+
+        if (variantsContainer && chipTemplate && Array.isArray(p.variants)){
+          variantsContainer.innerHTML = '';
+          p.variants.forEach((v, idx)=>{
+            const chip = chipTemplate.cloneNode(true);
+            chip.classList.remove('hidden');
+            chip.removeAttribute('data-template');
+            const chipBtn = chip.querySelector('[data-role="variant-chip"]');
+            chip.querySelector('[data-value="name"]').textContent = v.name;
+            chip.querySelector('[data-value="price"]').textContent = 'Rp ' + formatID(v.price);
+            chipBtn.addEventListener('click', ()=>{
+              // clear selected styles
+              variantsContainer.querySelectorAll('[data-role="variant-chip"]').forEach(b=>{
+                b.classList.remove('ring-2','ring-teal-500','bg-teal-50','text-teal-700');
+              });
+              chipBtn.classList.add('ring-2','ring-teal-500','bg-teal-50','text-teal-700');
+              orderState.selectedVariantPrice = v.price;
+              if (priceEl) priceEl.textContent = 'Rp ' + formatID(v.price);
+              renderSummary();
+            });
+            variantsContainer.appendChild(chip);
+            if (idx===0){
+              chipBtn.classList.add('ring-2','ring-teal-500','bg-teal-50','text-teal-700');
+              orderState.selectedVariantPrice = v.price;
+              if (priceEl) priceEl.textContent = 'Rp ' + formatID(v.price);
+            }
+          });
+        }
+      } catch(e){ console.warn('initProduct error', e); }
+    })();
+
+    (function initFields(){
+      try{
+        const raw = document.body.dataset.fields || '{}';
+        const parsed = JSON.parse(raw.replace(/'/g,'"'));
+        const fields = Array.isArray(parsed.fields)?parsed.fields:[];
+        orderState.fields = fields;
+        const container = document.getElementById('forms');
+        const template = container.querySelector('[data-role="field"]');
+        container.innerHTML = '';
+        fields.forEach(f=>{
+          const el = template.cloneNode(true);
+          const label = el.querySelector('[data-value="label"]');
+          const input = el.querySelector('input');
+          if(label){ label.textContent = f.label + (f.required?' *':''); }
+          if(input){
+            input.id = f.id; input.name = f.id; input.type = f.type || 'text';
+            input.required = !!f.required; input.placeholder = `Masukkan ${f.label}`;
+          }
+          container.appendChild(el);
+        });
+      }catch(e){ console.warn('initFields error',e); }
+    })();
+
+    function renderSummary(){
+      const p = orderState.product; if(!p) return;
+      const unitPrice = orderState.selectedVariantPrice ?? p.price ?? 0;
+      const qty = orderState.qty;
+      const lineTotal = unitPrice * qty;
+      const el = summaryItemTemplate.cloneNode(true);
+      el.classList.remove('hidden');
+      el.removeAttribute('data-placeholder');
+      const nameEl = el.querySelector('[data-summary="name"]');
+      const wEl = el.querySelector('[data-summary="weight"]');
+      const upEl = el.querySelector('[data-summary="unit_price"]');
+      const qtyEl = el.querySelector('[data-summary="qty"]');
+      const lineEl = el.querySelector('[data-summary="line_total"]');
+      if(nameEl) nameEl.textContent = p.name || '';
+      if(wEl) wEl.textContent = productWeight * qty;
+      if(upEl) upEl.textContent = formatID(unitPrice);
+      if(qtyEl) qtyEl.textContent = qty;
+      if(lineEl) lineEl.textContent = formatID(lineTotal);
+      summaryItemsContainer.innerHTML = el.outerHTML;
+      totalPriceEl.textContent = formatID(lineTotal);
+    }
+
+    renderSummary();
+
+    // Submit Handling (menyamakan pola dengan quantity_based)
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      // Ambil data form
+      const formValues = {};
+      orderForm.querySelectorAll('input').forEach(inp => {
+        formValues[inp.name] = inp.value;
+      });
+
+      const p = orderState.product;
+      const unitPrice = orderState.selectedVariantPrice ?? (p?.price || 0);
+      const qty = orderState.qty;
+      const orderItems = [{ id: p?.id, name: p?.name, price: unitPrice, quantity: qty }];
+      const payload = { originId, items: orderItems, customer: formValues, total: (unitPrice * qty).toLocaleString('id-ID') };
+
+      // Feedback sukses (tanpa request eksternal di template)
+      successMessage.classList.remove('hidden');
+      setTimeout(() => {
+        successContent.classList.remove('opacity-0');
+        successContent.classList.remove('scale-95');
+      }, 20);
+
+      let progress = 0;
+      const timer = setInterval(() => {
+        progress = Math.min(100, progress + 5);
+        progressBar.style.width = progress + '%';
+        if (progress >= 100) {
+          clearInterval(timer);
+          // Simulasi redirect ke halaman pembayaran jika domain tersedia
+          if (domain) {
+            setTimeout(() => {
+              window.location.href = domain + '/checkout?ref=' + encodeURIComponent(originId);
+            }, 600);
+          }
+        }
+      }, 80);
+
+      console.log('Order Payload (preview):', payload);
+    });
+  </script>
+</body>
+</html>
