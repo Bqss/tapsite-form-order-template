@@ -10,7 +10,7 @@
 </head>
 
 <body
-  data-products="[{'id':'KPRI01','name':'Friendly Business Access (UMKM Oriented)','price':197000,'discount_price':0,'description':'Cocok Untuk: Pemilik UMKM, pemula, pengguna paket basic Dripsender\n\nValue Proposisi:\n\n- Konsultasi ringan & edukatif\n- Fokus pada audit WhatsApp Marketing, optimasi LP, dan funnel basic\n- Dapat dilakukan di café dengan suasana santai','image_url':'https://storage.tapsite.ai/media/assets/01966a89-f870-7-9e0f-687626ed3a99dd3a.webp','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false,'imageLoading':false},{'id':'KPRI02','name':'Strategi Bisnis Menengah (Growth Oriented)','price':397000,'description':'Cocok Untuk: Pemilik bisnis yang sudah aktif tapi belum optimal secara digital\n\nValue Proposisi:\n\n- Business funnel diagnosis\n- Strategi konten, autoresponder, closing script\n- Termasuk review LP dan automation sequence','image_url':'https://storage.tapsite.ai/media/assets/01966a8b-519f-7-9516-b2a867fa3a7d79bc.webp','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false,'imageLoading':false},{'id':'KPRI03','name':'VIP Strategic Session (High Ticket)','price':897000,'description':'Cocok Untuk: Pebisnis skala besar, agency, atau pengguna langganan premium\n\nValue Proposisi:\n\n- Analisis mendalam berbasis data\n- Blueprint strategi growth WhatsApp + LP funnel\n- Follow-up report tertulis (opsional), dan bisa 1-on-1 langsung dengan expert','image_url':'https://storage.tapsite.ai/media/assets/01966a8c-e432-7-92b2-0b2f685ad2055a34.webp','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false,'imageLoading':false}]"
+  data-products='[{"id":"SKU-001","name":"IKAN","price":2000,"discount_price":0,"description":"adsfafsdsdadsf","image_url":"","is_addon":false,"quantity":1,"is_required":true,"allow_custom_price":false,"variants":[{"id":"SKU-001-red","name":"Merah","price":3000},{"id":"XL","name":"XL","price":3500}],"weight":200}]'
   data-fields="{'fields':[{'id':'name','label':'Nama','type':'text','required':true},{'id':'email','label':'Email','type':'email','required':false},{'id':'phone','label':'Nomor Telepon','type':'tel','required':true}]}"
   data-couriers="['JNE','JNECargo','SiCepat','SiCepatCargo','SAP','SapCargo','iDexpress','JT','lion','iDexpressCargo','paxel','Ninja']"
   data-domain="http://localhost:5556" data-origin-id="5fc63944f8f44b34aa4c819e">
@@ -34,66 +34,33 @@
               Pilih Produk
             </h2>
             <div class="flex flex-col gap-2" id="products">
-              <div
-                class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 space-y-2 sm:p-6 border border-blue-100"
-                bis_skin_checked="1" data-role="product" data-template="product">
-                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4" bis_skin_checked="1">
-                  <div class="w-full sm:w-1/3 flex-shrink-0" bis_skin_checked="1">
-                    <img data-value="image_url" src="https://placehold.co/300x300/e2e8f0/64748b?text=Produk"
-                      alt="asdfafdsfdsa"
-                      class="w-full h-32 sm:h-48 object-cover rounded-lg shadow-md hover-highlight custom-cursor">
-                  </div>
-                  <div class="w-full sm:w-2/3 min-w-0" bis_skin_checked="1">
-                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2 hover-highlight custom-cursor"
-                      data-value="name">
-                      asdfafdsfdsa</h3>
-                    <p class="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 hover-highlight custom-cursor"
-                      data-value="description">asdfafdsds
-                    </p>
-                    <div class="flex flex-col gap-3 mb-3 sm:mb-4" bis_skin_checked="1">
-                      <div class="flex items-center justify-between" bis_skin_checked="1">
-                        <span class="text-xl sm:text-2xl font-bold text-blue-600 hover-highlight custom-cursor"
-                          data-value="price">Rp
-                          0</span>
-                        <div class="flex items-center flex-shrink-0" bis_skin_checked="1">
-                          <button type="button" id="decreaseQty"
-                            class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors hover-highlight custom-cursor">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                              class="h-4 w-4 sm:h-5 sm:w-5 hover-highlight custom-cursor" viewBox="0 0 20 20"
-                              fill="currentColor">
-                              <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                clip-rule="evenodd"></path>
-                            </svg>
-                          </button>
-                          <input type="number" id="quantity" value="0" min="0"
-                            class="w-12 h-8 sm:w-16 sm:h-10 text-center border-2 border-gray-200 rounded-lg mx-1 sm:mx-2 focus:border-blue-500 focus:outline-none hover-highlight custom-cursor text-sm sm:text-base">
-                          <button type="button" id="increaseQty"
-                            class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors hover-highlight custom-cursor">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                              class="h-4 w-4 sm:h-5 sm:w-5 hover-highlight custom-cursor" viewBox="0 0 20 20"
-                              fill="currentColor">
-                              <path fill-rule="evenodd"
-                                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                                clip-rule="evenodd"></path>
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
+              <!-- Main Product -->
+              <div data-role="product" data-product-id="KPRI01" class="bg-white rounded-xl shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg">
+                <div class="md:flex">
+                  <div class="md:flex-shrink-0 relative">
+                    <div class="h-48 w-full md:w-64  from-indigo-100   items-center justify-center overflow-hidden">
+                      <img data-value="image_url" src="https://placehold.co/300x300/e2e8f0/64748b?text=Produk+Utama" alt="Produk Utama" class="w-full h-full object-cover rounded-xl shadow-lg transform transition duration-300 hover:scale-105">
                     </div>
-                    <div class="flex items-center text-xs sm:text-sm text-gray-500" bis_skin_checked="1">
-                      <svg xmlns="http://www.w3.org/2000/svg"
-                        class="h-4 w-4 sm:h-5 sm:w-5 mr-1 hover-highlight custom-cursor" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z">
-                        </path>
-                        <path
-                          d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z">
-                        </path>
-                      </svg>
-                      <span class="hidden sm:inline">Berat: </span>200g per item
+                  </div>
+                  <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2" data-value="name">Produk Utama</h3>
+                    <p class="text-gray-600 mb-4" data-value="description">Deskripsi produk utama.</p>
+                    <div class="flex items-baseline mb-4">
+                      <span class="text-3xl font-bold text-indigo-600" data-value="price">Rp 500.000</span>
+                    </div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Variants</label>
+                    <div data-role="variants-container" class="flex flex-col gap-2">
+                      <!-- Variants will be injected here -->
                     </div>
                   </div>
                 </div>
+              </div>
+
+              <div data-template="variant-item" class="hidden" data-placeholder="true">
+                <button type="button" data-role="variant-chip" class="px-3 py-1 rounded-full border border-indigo-200 text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:border-indigo-400 transition">
+                  <span data-value="name"></span>
+                  <span class="ml-2 text-indigo-600 font-semibold" data-value="price"></span>
+                </button>
               </div>
             </div>
           </div>
@@ -133,7 +100,7 @@
               bis_skin_checked="1">
               <div class="space-y-4" bis_skin_checked="1">
                 <div id="summaryItems" class="space-y-3" bis_skin_checked="1">
-
+                  <!-- Summary items will be injected here by JavaScript -->
                 </div>
                 <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item"
                   class="flex justify-between items-center pb-3 border-b border-blue-100 hidden" data-placeholder="true"
@@ -146,13 +113,13 @@
                   <div class="text-right" bis_skin_checked="1">
                     <p class="text-sm text-gray-500 hover-highlight custom-cursor">Rp <span data-summary="unit_price"
                         class="hover-highlight custom-cursor">10.000</span> × <span data-summary="qty"
-                        class="hover-highlight custom-cursor">2</span></p>
+                        class="hover-highlight custom-cursor">1</span></p>
                     <p class="font-semibold text-gray-900 hover-highlight custom-cursor">Rp <span
                         data-summary="line_total" class="hover-highlight custom-cursor">0</span></p>
                   </div>
                 </div>
 
-                <!-- Shipping info removed -->
+                <!-- Shipping info removed from summary -->
 
                 <div class="flex justify-between items-center " bis_skin_checked="1">
                   <h3 class="text-lg font-bold text-gray-900 hover-highlight custom-cursor">Total</h3>
@@ -240,7 +207,14 @@
 
       const productPrice = window.initialProductPrice || 0;
       const productWeight = 200;
-      // Shipping-related elements removed
+      const subdistrictInput = document.getElementById('subdistrict');
+      const dropdown = document.getElementById('dropdown');
+      const loadingElement = document.getElementById('loading');
+      const resultsElement = document.getElementById('results');
+      const courierOptions = document.getElementById('courierOptions');
+      const courierList = document.getElementById('courierList');
+      const courierGuard = document.getElementById('courierGuard');
+      const courierLoadingEl = document.getElementById('courierLoading');
       // Form submission (dynamic fields + multi-produk)
       const orderForm = document.getElementById('orderForm');
       const submitBtn = document.getElementById('submitBtn');
@@ -248,61 +222,72 @@
       const successContent = document.getElementById('successContent');
       const progressBar = document.getElementById('progressBar');
       let debounceTimer;
+      let selectedAddress = null;
 
 
       (function initProductRendering() {
         try {
           const raw = document.body.dataset.products || '[]';
-          // Convert single quotes to double quotes to make it valid JSON
           const products = JSON.parse(raw.replace(/'/g, '"'));
 
-          const container = document.getElementById('products');
-          const template = container ? container.querySelector('[data-role="product"]') : null;
-          if (!container || !template || !Array.isArray(products)) return;
+          const mainProduct = products.find(p => !p.is_addon);
 
-          const buildProductHTML = (product) => {
-            const el = template.cloneNode(true);
+          const mainProductContainer = document.querySelector(`[data-role="product"]`);
 
-            // Image
-            const imgEl = el.querySelector('[data-value="image_url"]') || el.querySelector('img');
-            if (imgEl) {
-              if (product.image_url) imgEl.src = product.image_url;
-              if (product.name) imgEl.alt = product.name;
+          if (mainProduct && mainProductContainer) {
+            mainProductContainer.querySelector('[data-value="image_url"]').src = mainProduct.image_url;
+            mainProductContainer.querySelector('[data-value="name"]').textContent = mainProduct.name;
+            mainProductContainer.querySelector('[data-value="description"]').textContent = mainProduct.description;
+            
+            const variantsContainer = mainProductContainer.querySelector('[data-role="variants-container"]');
+            const variantTemplate = document.querySelector('[data-template="variant-item"]');
+            const mainPriceEl = mainProductContainer.querySelector('[data-value="price"]');
+
+            if (variantsContainer && variantTemplate && mainProduct.variants && mainProduct.variants.length > 0) {
+              variantsContainer.innerHTML = '';
+              mainProduct.variants.forEach((variant, index) => {
+                const variantNode = variantTemplate.cloneNode(true);
+                variantNode.classList.remove('hidden');
+                variantNode.removeAttribute('data-template');
+
+                const chipEl = variantNode.querySelector('[data-role="variant-chip"]');
+                const nameEl = variantNode.querySelector('[data-value="name"]');
+                const priceEl = variantNode.querySelector('[data-value="price"]');
+
+                if (nameEl) nameEl.textContent = variant.name;
+                if (priceEl) priceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
+
+                if (chipEl) {
+                  chipEl.addEventListener('click', () => {
+                    // Toggle selected state styling
+                    Array.from(variantsContainer.querySelectorAll('[data-role="variant-chip"]')).forEach(btn => {
+                      btn.classList.remove('ring-2','ring-indigo-500','bg-indigo-50','text-indigo-700');
+                    });
+                    chipEl.classList.add('ring-2','ring-indigo-500','bg-indigo-50','text-indigo-700');
+                    onVariantSelect(mainProduct, variant);
+                  });
+                }
+
+                variantsContainer.appendChild(variantNode);
+
+                if (index === 0) {
+                  if (chipEl) chipEl.classList.add('ring-2','ring-indigo-500','bg-indigo-50','text-indigo-700');
+                  mainProduct.price = variant.price;
+                  // Sinkronisasi harga varian default ke data summary (window.productsData)
+                  try {
+                    const wp = (window.productsData || []).find(p => p.id === mainProduct.id);
+                    if (wp) wp.price = variant.price;
+                  } catch (err) { /* ignore */ }
+                  if (mainPriceEl) mainPriceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
+                }
+              });
+            } else {
+              if (mainPriceEl) mainPriceEl.textContent = `Rp ${Number(mainProduct.price).toLocaleString('id-ID')}`;
             }
-
-            // Name
-            el.querySelectorAll('[data-value="name"]').forEach(node => {
-              node.textContent = product.name || '';
-            });
-
-            // Description
-            const descEl = el.querySelector('[data-value="description"]');
-            if (descEl) descEl.textContent = product.description || '';
-
-            // Price
-            const priceEl = el.querySelector('[data-value="price"]');
-            const priceNum = typeof product.price === 'number' ? product.price : parseInt(product.price, 10) || 0;
-            if (priceEl) priceEl.textContent = 'Rp ' + priceNum.toLocaleString('id-ID');
-
-            // Quantity default: always start from 0 (ignore incoming product.quantity)
-            const qtyEl = el.querySelector('#quantity');
-            if (qtyEl) qtyEl.value = 0;
-
-            // Tag product id on root
-            el.setAttribute('data-product-id', product.id || '');
-
-            return el.outerHTML;
-          };
-
-          container.innerHTML = products.map(buildProductHTML).join('');
-
-          // Simpan harga awal produk pertama untuk dipakai oleh kalkulasi global
-          if (products[0] && products[0].price != null) {
-            window.initialProductPrice = typeof products[0].price === 'number'
-              ? products[0].price
-              : parseInt(products[0].price, 10) || 0;
           }
-          // Persist data produk untuk interaksi dan hitung ringkasan
+
+          // Template PF ini tidak mendukung add-on: tidak ada rendering add-on
+
           // Persist products with quantity forced to 0 on initial load
           window.productsData = products.map(p => ({
             ...p,
@@ -313,6 +298,20 @@
           console.warn('Gagal render produk dari data-products:', e);
         }
       })();
+
+      function onVariantSelect(product, variant) {
+        const mainProduct = window.productsData.find(p => p.id === product.id);
+        if(mainProduct) {
+            mainProduct.price = variant.price;
+        }
+
+        const mainProductNode = document.querySelector('[data-role="product"]');
+        const mainPriceEl = mainProductNode.querySelector('[data-value="price"]');
+        if (mainPriceEl) {
+          mainPriceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
+        }
+        updateSummary();
+      }
 
       // Rendering dinamis list fields berbasis template [data-role="field"]
       (function initFieldRendering() {
@@ -379,47 +378,22 @@
 
       if (productsContainer) {
         productsContainer.addEventListener('click', (e) => {
-          if (e.target.closest('#decreaseQty')) {
-            const idx = getProductIndexFromChild(e.target);
-            if (idx >= 0 && window.productsData) {
-              const current = window.productsData[idx].quantity || 0;
-              window.productsData[idx].quantity = Math.max(0, current - 1);
-              const qtyEl = productsContainer.querySelectorAll('input#quantity')[idx];
-              if (qtyEl) qtyEl.value = window.productsData[idx].quantity;
-              setActiveProduct(e.target);
-              updateSummary();
-            }
-          } else if (e.target.closest('#increaseQty')) {
-            const idx = getProductIndexFromChild(e.target);
-            if (idx >= 0 && window.productsData) {
-              const current = window.productsData[idx].quantity || 0;
-              window.productsData[idx].quantity = current + 1;
-              const qtyEl = productsContainer.querySelectorAll('input#quantity')[idx];
-              if (qtyEl) qtyEl.value = window.productsData[idx].quantity;
-              setActiveProduct(e.target);
-              updateSummary();
-            }
-          } else if (e.target.closest('[data-role="product"]')) {
+          if (e.target.closest('[data-role="product"]')) {
             setActiveProduct(e.target);
             updateSummary();
-          }
-        });
-
-        productsContainer.addEventListener('change', (e) => {
-          if (e.target.matches('input#quantity')) {
-            const idx = getProductIndexFromChild(e.target);
-            if (idx >= 0 && window.productsData) {
-              const val = parseInt(e.target.value, 10);
-              window.productsData[idx].quantity = isNaN(val) || val < 0 ? 0 : val;
-              setActiveProduct(e.target);
-              updateSummary();
-            }
           }
         });
       }
 
       function updateSummary() {
-        const itemsForOrder = (window.productsData || []).filter(p => (p.quantity || 0) > 0);
+        const mainProduct = window.productsData.find(p => !p.is_addon);
+
+        if (mainProduct) {
+          mainProduct.quantity = 1;
+        }
+
+        const itemsForOrder = mainProduct ? [mainProduct] : [];
+
         // Render list items
         if (summaryItemsContainer && summaryItemTemplate) {
           const html = itemsForOrder.map(p => {
@@ -511,8 +485,9 @@
         // Address detail tidak digunakan untuk pengiriman
 
         // Calculate total
-        // Hitung ulang subtotal berdasarkan semua produk dengan quantity > 0
-        const itemsForOrder = (window.productsData || []).filter(p => (p.quantity || 0) > 0);
+        // Template PF ini hanya untuk produk utama dengan varian
+        const mainProductForOrder = (window.productsData || []).find(p => !p.is_addon);
+        const itemsForOrder = mainProductForOrder ? [mainProductForOrder] : [];
         const subtotal = itemsForOrder.reduce((acc, p) => {
           const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
           return acc + priceNum * (p.quantity || 0);
@@ -523,14 +498,13 @@
         window.customerData.weight = productWeight * totalQty;
         const total = subtotal;
 
-        // Prepare product data (multi-produk)
+        // Prepare product data (single product)
         const product = itemsForOrder.length ? itemsForOrder.map((p, i) => ({
           id: p.id || `SKU-${i + 1}`,
           code: p.id || `SKU-${i + 1}`,
           name: p.name || `Produk ${i + 1}`,
           price: typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0),
-          quantity: p.quantity || 0,
-          is_addon: !!p.is_addon
+          quantity: p.quantity || 0
         })) : [];
 
         if (!product.length) {
@@ -636,7 +610,7 @@
         }
       });
 
-        // Dropdown pengiriman dihapus
+      // Dropdown pengiriman dihapus
 
       // Initialize summary setelah render
       updateSummary();
