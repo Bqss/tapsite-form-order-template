@@ -1,49 +1,39 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tapsite.ai • Produk Fisik • Single Product Selection • form2</title>
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-</head>
-
-<body
-  data-products="[{'id':'SP01','name':'Classic Cupcake','price':25000,'description':'Cupcake klasik lembut, favorit semua orang.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','allow_custom_price':false,'weight':220},{'id':'SP02','name':'Choco Lava Cupcake','price':32000,'description':'Isi cokelat meleleh, sensasi nikmat.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','allow_custom_price':false,'weight':240},{'id':'SP03','name':'Strawberry Cream Cupcake','price':30000,'description':'Krim stroberi segar dengan sponge lembut.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','allow_custom_price':false,'weight':210}]"
-  data-fields="{'fields':[{'id':'name','label':'Nama','type':'text','required':true},{'id':'email','label':'Email','type':'email','required':false},{'id':'phone','label':'Nomor Telepon','type':'tel','required':true},{'id':'address','label':'Alamat Lengkap','type':'text','required':true}]}"
-  data-couriers='["JNE","JNECargo","SiCepat","SiCepatCargo","SAP","SapCargo","iDexpress","JT","lion","iDexpressCargo","paxel","Ninja"]'
-   data-domain="http://localhost:5556"
-  data-origin-id="5fc63944f8f44b34aa4c819e"
-  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
-  class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50">
+<section class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50">
 
   <!-- Header -->
-  <header class="px-4 py-10 sm:px-6 lg:px-8">
+  <div class="px-4 py-10 sm:px-6 lg:px-8">
     <div class="max-w-6xl mx-auto">
       <div class="rounded-3xl bg-gradient-to-b from-teal-700 to-emerald-600 text-white p-6 sm:p-8 shadow-xl">
         <h1 class="text-3xl font-extrabold tracking-tight">Form Order • Pilih Satu Produk</h1>
         <p class="mt-2 opacity-90">Pilih produk terbaikmu, isi identitas, dan tentukan pengiriman.</p>
       </div>
     </div>
-  </header>
+  </div>
 
   <!-- Main -->
-  <section class="px-4 pb-12 sm:px-6 lg:px-8">
+  <div class="px-4 pb-12 sm:px-6 lg:px-8">
     <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
       <!-- Product selection -->
       <div class="bg-white rounded-3xl shadow-xl ring-1 ring-teal-100 p-6 sm:p-8">
         <h2 class="text-xl font-bold text-gray-900 mb-4">Pilih satu produk</h2>
         <div id="products" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <!-- Template -->
-          <label data-role="product" data-template="product" class="group bg-gradient-to-br from-white to-teal-50 border border-teal-100 rounded-2xl p-3 transition cursor-pointer hover:shadow-md">
+          <label data-role="product" data-template="product"
+            class="group bg-gradient-to-br from-white to-teal-50 border border-teal-100 rounded-2xl p-3 transition cursor-pointer hover:shadow-md">
             <input type="radio" name="selectedProduct" class="sr-only" />
             <div class="p-3 sm:p-4">
               <div class="flex items-start gap-3 sm:block">
-                <div class="w-16 h-16 sm:w-auto sm:h-auto sm:aspect-square rounded-lg sm:rounded-xl overflow-hidden bg-rose-100">
-                  <img data-value="image_url" src="https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="Produk" class="w-full h-full object-cover sm:group-hover:scale-105 transition-transform duration-300" />
+                <div
+                  class="w-16 h-16 sm:w-auto sm:h-auto sm:aspect-square rounded-lg sm:rounded-xl overflow-hidden bg-rose-100">
+                  <img data-value="image_url"
+                    src="https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds"
+                    alt="Produk"
+                    class="w-full h-full object-cover sm:group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div class="flex-1 sm:mt-3">
                   <h3 class="text-sm sm:text-lg font-bold text-gray-900" data-value="name">Nama Produk</h3>
-                  <p class="text-xs sm:text-sm text-gray-600 line-clamp-2 sm:line-clamp-none" data-value="description">Deskripsi singkat produk.</p>
+                  <p class="text-xs sm:text-sm text-gray-600 line-clamp-2 sm:line-clamp-none" data-value="description">
+                    Deskripsi singkat produk.</p>
                   <div class="mt-2 sm:mt-4 flex items-center justify-between">
                     <span class="text-base sm:text-xl font-extrabold text-teal-700" data-value="price">Rp 0</span>
                     <span class="text-[10px] sm:text-xs text-gray-500">Berat: <span data-value="weight">0</span>g</span>
@@ -64,8 +54,11 @@
             <h3 class="text-lg font-bold text-gray-900 mb-3">Detail Pemesan</h3>
             <div id="forms" class="grid grid-cols-1 gap-4">
               <div data-role="field" data-template="field" class="space-y-2">
-                <label class="block text-sm font-medium text-gray-700" data-value="label">Nama <span class="text-red-500">*</span></label>
-                <input type="text" required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all" placeholder="Masukkan nama lengkap" />
+                <label class="block text-sm font-medium text-gray-700" data-value="label">Nama <span
+                    class="text-red-500">*</span></label>
+                <input type="text" required
+                  class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all"
+                  placeholder="Masukkan nama lengkap" />
               </div>
             </div>
           </div>
@@ -75,9 +68,13 @@
             <h3 class="text-lg font-bold text-gray-900 mb-3">Informasi Pengiriman</h3>
             <div class="space-y-6">
               <div class="relative">
-                <label for="subdistrict" class="block text-sm font-medium text-gray-700 mb-2">Desa/Kelurahan <span class="text-red-500">*</span></label>
-                <input type="text" id="subdistrict" name="subdistrict" required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all" placeholder="Ketik nama desa/kelurahan..." />
-                <div id="dropdown" class="absolute z-10 w-full bg-white border border-gray-200 rounded-lg mt-2 shadow-lg hidden">
+                <label for="subdistrict" class="block text-sm font-medium text-gray-700 mb-2">Desa/Kelurahan <span
+                    class="text-red-500">*</span></label>
+                <input type="text" id="subdistrict" name="subdistrict" required
+                  class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
+                  placeholder="Ketik nama desa/kelurahan..." />
+                <div id="dropdown"
+                  class="absolute z-10 w-full bg-white border border-gray-200 rounded-lg mt-2 shadow-lg hidden">
                   <div id="loading" class="p-3 text-center text-gray-500 hidden">Mencari alamat...</div>
                   <div id="results"></div>
                 </div>
@@ -85,11 +82,13 @@
 
               <div id="courierOptions" class="hidden">
                 <h4 class="text-base font-semibold text-gray-900 mb-2">Pilih Kurir</h4>
-                <div id="courierGuard" class="text-sm text-gray-500">Silakan pilih alamat dahulu untuk melihat opsi kurir.</div>
+                <div id="courierGuard" class="text-sm text-gray-500">Silakan pilih alamat dahulu untuk melihat opsi
+                  kurir.</div>
                 <div id="courierList" class="space-y-2 mt-2">
                   <div id="courierLoading" class="hidden p-2 text-sm text-gray-500">Menghitung ongkir...</div>
                   <div id="courierItemTemplate" class="hidden">
-                    <div class="flex items-center p-3 border-2 border-gray-200 rounded-lg hover:border-teal-300 transition-colors cursor-pointer">
+                    <div
+                      class="flex items-center p-3 border-2 border-gray-200 rounded-lg hover:border-teal-300 transition-colors cursor-pointer">
                       <input type="radio" name="courier" class="mr-3 w-4 h-4 text-teal-600 focus:ring-teal-500" />
                       <label class="flex-1 cursor-pointer">
                         <div class="flex justify-between items-center">
@@ -106,8 +105,11 @@
 
               <!-- Alamat Lengkap (textarea) setelah desa/kelurahan dan list kurir) -->
               <div>
-                <label for="address" class="block text-sm font-medium text-gray-700 mb-2">Alamat Lengkap <span class="text-red-500">*</span></label>
-                <textarea id="address" name="address" required rows="4" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all" placeholder="Tulis alamat lengkap (jalan, nomor rumah, patokan)"></textarea>
+                <label for="address" class="block text-sm font-medium text-gray-700 mb-2">Alamat Lengkap <span
+                    class="text-red-500">*</span></label>
+                <textarea id="address" name="address" required rows="4"
+                  class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
+                  placeholder="Tulis alamat lengkap (jalan, nomor rumah, patokan)"></textarea>
               </div>
 
               <!-- Ringkasan Pesanan (dipindah ke bawah setelah list kurir) -->
@@ -125,7 +127,8 @@
                         <p class="text-xs text-gray-500">Berat: <span data-summary="weight">0</span>g</p>
                       </div>
                       <div class="text-right">
-                        <p class="text-sm text-gray-600">Rp <span data-summary="unit_price">0</span> × <span data-summary="qty">1</span></p>
+                        <p class="text-sm text-gray-600">Rp <span data-summary="unit_price">0</span> × <span
+                            data-summary="qty">1</span></p>
                         <p class="font-semibold text-gray-900">Rp <span data-summary="line_total">0</span></p>
                       </div>
                     </div>
@@ -149,28 +152,46 @@
 
           <!-- Trust & Submit -->
           <div class="mt-6">
-              <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500">
-                <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Pembayaran Aman</div>
-                <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>Data Terenkripsi</div>
+            <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500">
+              <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd" />
+                </svg>Pembayaran Aman</div>
+              <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                    clip-rule="evenodd" />
+                </svg>Data Terenkripsi</div>
             </div>
           </div>
 
           <div class="mt-6 flex justify-center">
-            <button type="submit" id="submitBtn" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
+            <button type="submit" id="submitBtn"
+              class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
               Selesaikan Pesanan
             </button>
           </div>
         </form>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- Success Modal -->
-  <div id="successMessage" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-    <div id="successContent" class="bg-white rounded-2xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0">
+  <div id="successMessage"
+    class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+    <div id="successContent"
+      class="bg-white rounded-2xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0">
       <div class="text-center">
         <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" viewBox="0 0 20 20"
+            fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd" />
+          </svg>
         </div>
         <h3 class="text-xl font-bold text-gray-900 mb-2">Pesanan Berhasil!</h3>
         <p class="text-gray-600 mb-6">Terima kasih. Kamu akan diarahkan ke halaman pembayaran.</p>
@@ -184,7 +205,7 @@
   <script>
     const domain = document.body.dataset.domain || '';
     const originId = document.body.dataset.originId || '';
-    const allowedCouriers = (() => { try { return JSON.parse((document.body.dataset.couriers||'[]').replace(/'/g,'"')); } catch { return ["JNE","JNECargo","SiCepat","SiCepatCargo","SAP","SapCargo","iDexpress","JT","lion","iDexpressCargo","paxel","Ninja"]; } })();
+    const allowedCouriers = (() => { try { return JSON.parse((document.body.dataset.couriers || '[]').replace(/'/g, '"')); } catch { return ["JNE", "JNECargo", "SiCepat", "SiCepatCargo", "SAP", "SapCargo", "iDexpress", "JT", "lion", "iDexpressCargo", "paxel", "Ninja"]; } })();
 
     const productsContainer = document.getElementById('products');
     const summaryItemsContainer = document.getElementById('summaryItems');
@@ -210,10 +231,10 @@
     let debounceTimer = null; let selectedAddress = null;
     window.customerData = {}; window.productsData = [];
 
-    function formatID(n){ return Number(n||0).toLocaleString('id-ID'); }
+    function formatID(n) { return Number(n || 0).toLocaleString('id-ID'); }
 
     // Render Produk Dinamis (radio selection)
-    (function initProductRendering(){
+    (function initProductRendering() {
       try {
         const raw = document.body.dataset.products || '[]';
         const products = JSON.parse(raw.replace(/'/g, '"'));
@@ -230,8 +251,8 @@
           if (imgEl) { if (product.image_url) imgEl.src = product.image_url; imgEl.alt = product.name || 'Produk'; }
           el.querySelectorAll('[data-value="name"]').forEach(n => n.textContent = product.name || '');
           const descEl = el.querySelector('[data-value="description"]'); if (descEl) descEl.textContent = product.description || '';
-          const priceEl = el.querySelector('[data-value="price"]'); const priceNum = Number(product.price||0); if (priceEl) priceEl.textContent = 'Rp ' + priceNum.toLocaleString('id-ID');
-          const wEl = el.querySelector('[data-value="weight"]'); if (wEl) wEl.textContent = Number(product.weight||0);
+          const priceEl = el.querySelector('[data-value="price"]'); const priceNum = Number(product.price || 0); if (priceEl) priceEl.textContent = 'Rp ' + priceNum.toLocaleString('id-ID');
+          const wEl = el.querySelector('[data-value="weight"]'); if (wEl) wEl.textContent = Number(product.weight || 0);
           el.setAttribute('data-product-id', product.id || '');
           // Set radio properties - name must be consistent, value is product id
           if (radio) {
@@ -250,18 +271,18 @@
         });
         productsContainer.appendChild(frag);
         window.productsData = products;
-      } catch(err){ console.warn('Gagal render produk:', err); }
+      } catch (err) { console.warn('Gagal render produk:', err); }
     })();
 
-    function selectProduct(productId){
+    function selectProduct(productId) {
       const p = window.productsData.find(x => x.id === productId);
       if (!p) return;
       // Active state toggle (match PD): highlight selected card
       document.querySelectorAll('[data-role="product"]').forEach(node => {
-        node.classList.remove('border-teal-500','shadow');
+        node.classList.remove('border-teal-500', 'shadow');
       });
       const selectedCard = document.querySelector(`[data-product-id="${productId}"]`);
-      if (selectedCard) selectedCard.classList.add('border-teal-500','shadow');
+      if (selectedCard) selectedCard.classList.add('border-teal-500', 'shadow');
 
       // Ensure the radio inside selected card is checked
       const radio = selectedCard?.querySelector('input[type="radio"]');
@@ -269,23 +290,23 @@
 
       const el = summaryItemTemplate.cloneNode(true); el.classList.remove('hidden');
       el.querySelector('[data-summary="name"]').textContent = p.name || '';
-      el.querySelector('[data-summary="weight"]').textContent = Number(p.weight||0);
-      el.querySelector('[data-summary="unit_price"]').textContent = Number(p.price||0).toLocaleString('id-ID');
+      el.querySelector('[data-summary="weight"]').textContent = Number(p.weight || 0);
+      el.querySelector('[data-summary="unit_price"]').textContent = Number(p.price || 0).toLocaleString('id-ID');
       el.querySelector('[data-summary="qty"]').textContent = 1;
-      el.querySelector('[data-summary="line_total"]').textContent = Number(p.price||0).toLocaleString('id-ID');
+      el.querySelector('[data-summary="line_total"]').textContent = Number(p.price || 0).toLocaleString('id-ID');
       summaryItemsContainer.innerHTML = ''; summaryItemsContainer.appendChild(el);
-      window.customerData.selected_product_id = p.id; window.customerData.subtotal = Number(p.price||0); window.customerData.weight = Number(p.weight||0);
+      window.customerData.selected_product_id = p.id; window.customerData.subtotal = Number(p.price || 0); window.customerData.weight = Number(p.weight || 0);
       const shippingCostEl = document.getElementById('shippingCost');
-      const shippingCost = parseInt((shippingCostEl?.textContent||'').replace(/\./g,''))||0;
-      totalPriceElement.textContent = (Number(p.price||0) + shippingCost).toLocaleString('id-ID');
+      const shippingCost = parseInt((shippingCostEl?.textContent || '').replace(/\./g, '')) || 0;
+      totalPriceElement.textContent = (Number(p.price || 0) + shippingCost).toLocaleString('id-ID');
       if (selectedAddress) calculateShippingCost();
     }
 
     // Field Dinamis
-    (function initFieldRendering(){
+    (function initFieldRendering() {
       try {
         const raw = document.body.dataset.fields || '{}';
-        const parsed = JSON.parse(raw.replace(/'/g,'"'));
+        const parsed = JSON.parse(raw.replace(/'/g, '"'));
         const fields = Array.isArray(parsed.fields) ? parsed.fields : [];
         const container = document.getElementById('forms');
         const template = container ? container.querySelector('[data-role="field"]') : null;
@@ -294,14 +315,14 @@
           const el = template.cloneNode(true);
           const labelEl = el.querySelector('[data-value="label"]') || el.querySelector('label');
           const inputEl = el.querySelector('input');
-          if (labelEl) labelEl.textContent = `${field.label}${field.required?' *':''}`;
-          if (inputEl){ inputEl.id = field.id; inputEl.name = field.id; inputEl.type = field.type || 'text'; inputEl.required = !!field.required; inputEl.placeholder = `Masukkan ${field.label}`; }
+          if (labelEl) labelEl.textContent = `${field.label}${field.required ? ' *' : ''}`;
+          if (inputEl) { inputEl.id = field.id; inputEl.name = field.id; inputEl.type = field.type || 'text'; inputEl.required = !!field.required; inputEl.placeholder = `Masukkan ${field.label}`; }
           return el.outerHTML;
         };
         // Exclude address from identity fields; handled by textarea in Pengiriman section
         const filteredFields = fields.filter(f => f.id !== 'address');
         container.innerHTML = filteredFields.map(buildFieldHTML).join('');
-      } catch(err){ console.warn('Gagal render field:', err); }
+      } catch (err) { console.warn('Gagal render field:', err); }
     })();
 
     // Sync textarea Alamat Lengkap ke ringkasan pengiriman secara realtime
@@ -309,7 +330,7 @@
       const addressInput = document.getElementById('address');
       if (addressInput) {
         addressInput.addEventListener('input', (e) => {
-          const val = (e.target.value||'').trim();
+          const val = (e.target.value || '').trim();
           window.customerData.address = val;
           const shippingAddressEl = document.getElementById('shippingAddress');
           if (shippingAddressEl) shippingAddressEl.textContent = val || '-';
@@ -318,25 +339,25 @@
     });
 
     // Address search
-    subdistrictInput.addEventListener('input', function(){
+    subdistrictInput.addEventListener('input', function () {
       clearTimeout(debounceTimer);
       const q = this.value.trim();
-      if (q.length < 2){ dropdown.classList.add('hidden'); return; }
-      debounceTimer = setTimeout(()=>searchAddress(q), 500);
+      if (q.length < 2) { dropdown.classList.add('hidden'); return; }
+      debounceTimer = setTimeout(() => searchAddress(q), 500);
     });
-    async function searchAddress(query){
+    async function searchAddress(query) {
       loadingElement.classList.remove('hidden'); resultsElement.innerHTML = ''; dropdown.classList.remove('hidden');
-      try{
+      try {
         const resp = await fetch(`${domain}/api/address/search?keyword=${encodeURIComponent(query)}`);
         const data = await resp.json();
-        if (data.success && data.data.length>0){ displayResults(data.data); } else { resultsElement.innerHTML = '<div class=\"p-3 text-center text-gray-500\">Tidak ada hasil</div>'; }
-      } catch(err){ console.error('searchAddress', err); resultsElement.innerHTML = '<div class=\"p-3 text-center text-red-500\">Terjadi kesalahan</div>'; }
+        if (data.success && data.data.length > 0) { displayResults(data.data); } else { resultsElement.innerHTML = '<div class=\"p-3 text-center text-gray-500\">Tidak ada hasil</div>'; }
+      } catch (err) { console.error('searchAddress', err); resultsElement.innerHTML = '<div class=\"p-3 text-center text-red-500\">Terjadi kesalahan</div>'; }
       finally { loadingElement.classList.add('hidden'); }
     }
-    function displayResults(addresses){
-      resultsElement.innerHTML = addresses.map(addr => `<div onclick=\"selectAddress('${addr._id}','${addr.SUBDISTRICT_NAME}','${addr.DISTRICT_NAME}','${addr.CITY_NAME}','${addr.PROVINCE_NAME}','${addr.ZIP_CODE||''}')\" class=\"p-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-0\">${addr.SUBDISTRICT_NAME}, ${addr.DISTRICT_NAME}, ${addr.CITY_NAME}</div>`).join('');
+    function displayResults(addresses) {
+      resultsElement.innerHTML = addresses.map(addr => `<div onclick=\"selectAddress('${addr._id}','${addr.SUBDISTRICT_NAME}','${addr.DISTRICT_NAME}','${addr.CITY_NAME}','${addr.PROVINCE_NAME}','${addr.ZIP_CODE || ''}')\" class=\"p-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-0\">${addr.SUBDISTRICT_NAME}, ${addr.DISTRICT_NAME}, ${addr.CITY_NAME}</div>`).join('');
     }
-    window.selectAddress = function(id, subdistrict, district, city, province, zipCode){
+    window.selectAddress = function (id, subdistrict, district, city, province, zipCode) {
       selectedAddress = { id, subdistrict, district, city, province, zipCode };
       subdistrictInput.value = `${subdistrict}, ${district}, ${city}`; dropdown.classList.add('hidden');
       Object.assign(window.customerData, { subdistrict, district, city, province, zip_code: zipCode, destination_id: id });
@@ -344,51 +365,51 @@
       calculateShippingCost();
     };
 
-    async function calculateShippingCost(){
-      if (!selectedAddress){ const shippingInfo = document.getElementById('shippingInfo'); courierOptions && courierOptions.classList.remove('hidden'); courierGuard && courierGuard.classList.remove('hidden'); courierLoadingEl && courierLoadingEl.classList.add('hidden'); shippingInfo && shippingInfo.classList.add('hidden'); return; }
-      const weight = Number(window.customerData.weight||0); const destinationId = selectedAddress.id;
-      try{
+    async function calculateShippingCost() {
+      if (!selectedAddress) { const shippingInfo = document.getElementById('shippingInfo'); courierOptions && courierOptions.classList.remove('hidden'); courierGuard && courierGuard.classList.remove('hidden'); courierLoadingEl && courierLoadingEl.classList.add('hidden'); shippingInfo && shippingInfo.classList.add('hidden'); return; }
+      const weight = Number(window.customerData.weight || 0); const destinationId = selectedAddress.id;
+      try {
         courierGuard && courierGuard.classList.add('hidden'); courierOptions && courierOptions.classList.remove('hidden'); courierLoadingEl && courierLoadingEl.classList.remove('hidden');
         const response = await fetch(`${domain}/api/address/shipping-estimate?origin_id=${originId}&destination_id=${destinationId}&weight=${weight}`);
-        const data = await response.json(); if (data.success){ displayCourierOptions(data.data); }
-      } catch(err){ console.error('calculateShippingCost', err); } finally { courierLoadingEl && courierLoadingEl.classList.add('hidden'); }
+        const data = await response.json(); if (data.success) { displayCourierOptions(data.data); }
+      } catch (err) { console.error('calculateShippingCost', err); } finally { courierLoadingEl && courierLoadingEl.classList.add('hidden'); }
     }
 
-    function displayCourierOptions(shippingData){
+    function displayCourierOptions(shippingData) {
       const preSelected = (window.customerData && window.customerData.courier_name) || null; courierLoadingEl && courierLoadingEl.classList.add('hidden');
       // Jangan hapus courierError saat mereset daftar kurir
-      Array.from(courierList.children).forEach(ch=>{ if (!['courierItemTemplate','courierLoading','courierError'].includes(ch.id)) ch.remove(); });
+      Array.from(courierList.children).forEach(ch => { if (!['courierItemTemplate', 'courierLoading', 'courierError'].includes(ch.id)) ch.remove(); });
       let hasValid = false;
-      Object.entries(shippingData).forEach(([courier, details])=>{
-        if (!allowedCouriers.includes(courier)) return; if (!(details.price>0)) return; hasValid = true;
+      Object.entries(shippingData).forEach(([courier, details]) => {
+        if (!allowedCouriers.includes(courier)) return; if (!(details.price > 0)) return; hasValid = true;
         let el; const inputId = `courier-${courier}`;
-        if (courierItemTemplate){
-          el = courierItemTemplate.cloneNode(true); el.id=''; el.classList.remove('hidden');
+        if (courierItemTemplate) {
+          el = courierItemTemplate.cloneNode(true); el.id = ''; el.classList.remove('hidden');
           const inputEl = el.querySelector('input[type="radio"]'); const labelEl = el.querySelector('label');
           const nameEl = el.querySelector('[data-field="name"]'); const priceEl = el.querySelector('[data-field="price"]'); const etaEl = el.querySelector('[data-field="eta"]');
-          if (inputEl){ inputEl.id=inputId; inputEl.name='courier'; inputEl.value=courier; if (preSelected===courier) inputEl.checked=true; }
+          if (inputEl) { inputEl.id = inputId; inputEl.name = 'courier'; inputEl.value = courier; if (preSelected === courier) inputEl.checked = true; }
           if (labelEl) labelEl.setAttribute('for', inputId);
           if (nameEl) nameEl.textContent = courier;
-          if (priceEl) priceEl.textContent = `Rp ${Number(details.price||0).toLocaleString('id-ID')}`;
+          if (priceEl) priceEl.textContent = `Rp ${Number(details.price || 0).toLocaleString('id-ID')}`;
           if (etaEl) etaEl.textContent = details.estimatedDate || '-';
-          el.addEventListener('click', function(){ if (inputEl) inputEl.checked=true; selectCourier(courier, Number(details.price||0)); });
+          el.addEventListener('click', function () { if (inputEl) inputEl.checked = true; selectCourier(courier, Number(details.price || 0)); });
         } else {
           const courierDiv = document.createElement('div'); courierDiv.className = 'flex items-center p-3 border-2 border-gray-200 rounded-lg hover:border-rose-300 transition-colors cursor-pointer';
-          courierDiv.innerHTML = `<input type=\"radio\" id=\"${inputId}\" name=\"courier\" value=\"${courier}\" class=\"mr-3 w-4 h-4 text-rose-600 focus:ring-rose-500\"><label for=\"${inputId}\" class=\"flex-1 cursor-pointer\"><div class=\"flex justify-between items-center\"><span class=\"font-medium\">${courier}</span><span class=\"text-rose-600 font-semibold\">Rp ${Number(details.price||0).toLocaleString('id-ID')}</span></div><div class=\"text-sm text-gray-500\">Estimasi: ${details.estimatedDate||'-'}</div></label>`;
-          courierDiv.addEventListener('click', function(){ document.getElementById(inputId).checked = true; selectCourier(courier, Number(details.price||0)); });
-          if (preSelected===courier){ const radio = courierDiv.querySelector('input[type="radio"]'); if (radio) radio.checked=true; }
+          courierDiv.innerHTML = `<input type=\"radio\" id=\"${inputId}\" name=\"courier\" value=\"${courier}\" class=\"mr-3 w-4 h-4 text-rose-600 focus:ring-rose-500\"><label for=\"${inputId}\" class=\"flex-1 cursor-pointer\"><div class=\"flex justify-between items-center\"><span class=\"font-medium\">${courier}</span><span class=\"text-rose-600 font-semibold\">Rp ${Number(details.price || 0).toLocaleString('id-ID')}</span></div><div class=\"text-sm text-gray-500\">Estimasi: ${details.estimatedDate || '-'}</div></label>`;
+          courierDiv.addEventListener('click', function () { document.getElementById(inputId).checked = true; selectCourier(courier, Number(details.price || 0)); });
+          if (preSelected === courier) { const radio = courierDiv.querySelector('input[type="radio"]'); if (radio) radio.checked = true; }
           el = courierDiv;
         }
         courierList.appendChild(el);
       });
-      if (hasValid){ courierOptions.classList.remove('hidden'); if (preSelected && shippingData[preSelected] && shippingData[preSelected].price>0){ selectCourier(preSelected, Number(shippingData[preSelected].price||0)); } }
+      if (hasValid) { courierOptions.classList.remove('hidden'); if (preSelected && shippingData[preSelected] && shippingData[preSelected].price > 0) { selectCourier(preSelected, Number(shippingData[preSelected].price || 0)); } }
     }
 
-    function selectCourier(courier, price){
-      window.customerData.courier_name = courier; window.customerData.shipping_cost = Number(price||0);
+    function selectCourier(courier, price) {
+      window.customerData.courier_name = courier; window.customerData.shipping_cost = Number(price || 0);
       const shippingInfo = document.getElementById('shippingInfo'); const shippingAddress = document.getElementById('shippingAddress'); const selectedCourierEl = document.getElementById('selectedCourier'); const shippingCostEl = document.getElementById('shippingCost');
-      shippingInfo.classList.remove('hidden'); shippingAddress.textContent = window.customerData.address || 'Alamat lengkap'; selectedCourierEl.textContent = courier; shippingCostEl.textContent = Number(price||0).toLocaleString('id-ID');
-      const subtotal = Number(window.customerData.subtotal||0); totalPriceElement.textContent = (subtotal + Number(price||0)).toLocaleString('id-ID');
+      shippingInfo.classList.remove('hidden'); shippingAddress.textContent = window.customerData.address || 'Alamat lengkap'; selectedCourierEl.textContent = courier; shippingCostEl.textContent = Number(price || 0).toLocaleString('id-ID');
+      const subtotal = Number(window.customerData.subtotal || 0); totalPriceElement.textContent = (subtotal + Number(price || 0)).toLocaleString('id-ID');
       const courierErrorEl = document.getElementById('courierError'); if (courierErrorEl) courierErrorEl.classList.add('hidden');
     }
 
@@ -397,38 +418,38 @@
       e.preventDefault();
       // Validate selected product - use document.querySelector because radio buttons are outside form
       const selectedRadio = document.querySelector('input[name="selectedProduct"]:checked');
-      if (!selectedRadio){ alert('Mohon pilih satu produk terlebih dahulu'); return; }
+      if (!selectedRadio) { alert('Mohon pilih satu produk terlebih dahulu'); return; }
       const product = window.productsData.find(p => p.id === selectedRadio.value);
-      if (!product){ alert('Produk tidak ditemukan'); return; }
+      if (!product) { alert('Produk tidak ditemukan'); return; }
       // Validate fields
-      let fields = []; try { const parsed = JSON.parse((document.body.dataset.fields||'{}').replace(/'/g,'"')); fields = Array.isArray(parsed.fields)?parsed.fields:[]; } catch {}
+      let fields = []; try { const parsed = JSON.parse((document.body.dataset.fields || '{}').replace(/'/g, '"')); fields = Array.isArray(parsed.fields) ? parsed.fields : []; } catch { }
       const formValues = {}; const missingRequired = [];
-      fields.forEach(f=>{ const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`); const val = el ? (el.value||'').trim() : ''; formValues[f.id] = val; if (f.required && !val) missingRequired.push(f.label||f.id); });
-      if (missingRequired.length){ alert('Mohon lengkapi field wajib: ' + missingRequired.join(', ')); return; }
-      if (!selectedAddress){ alert('Mohon pilih desa/kelurahan'); return; }
-      if (!window.customerData.courier_name){ document.getElementById('courierError').classList.remove('hidden'); return; }
+      fields.forEach(f => { const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`); const val = el ? (el.value || '').trim() : ''; formValues[f.id] = val; if (f.required && !val) missingRequired.push(f.label || f.id); });
+      if (missingRequired.length) { alert('Mohon lengkapi field wajib: ' + missingRequired.join(', ')); return; }
+      if (!selectedAddress) { alert('Mohon pilih desa/kelurahan'); return; }
+      if (!window.customerData.courier_name) { document.getElementById('courierError').classList.remove('hidden'); return; }
 
       Object.assign(window.customerData, formValues);
       const addrVal = formValues.address || document.getElementById('address')?.value?.trim() || '';
       window.customerData.address = addrVal;
       window.customerData.full_address = `${addrVal}, ${selectedAddress.subdistrict}, ${selectedAddress.district}, ${selectedAddress.city}, ${selectedAddress.province}`;
 
-      const items = [{ id:product.id, code:product.id, name:product.name, price:Number(product.price||0), quantity:1, is_addon:false }];
-      const subtotal = Number(product.price||0);
-      const totalWeight = Number(product.weight||0);
-      const shippingCost = Number(window.customerData.shipping_cost||0);
+      const items = [{ id: product.id, code: product.id, name: product.name, price: Number(product.price || 0), quantity: 1, is_addon: false }];
+      const subtotal = Number(product.price || 0);
+      const totalWeight = Number(product.weight || 0);
+      const shippingCost = Number(window.customerData.shipping_cost || 0);
       const total = subtotal + shippingCost;
       window.customerData.subtotal = subtotal; window.customerData.weight = totalWeight;
 
       const urlParams = new URLSearchParams(window.location.search);
-      const utm = { utm_source: urlParams.get('utm_source')||'', utm_medium: urlParams.get('utm_medium')||'', utm_campaign: urlParams.get('utm_campaign')||'', utm_content: urlParams.get('utm_content')||'' };
+      const utm = { utm_source: urlParams.get('utm_source') || '', utm_medium: urlParams.get('utm_medium') || '', utm_campaign: urlParams.get('utm_campaign') || '', utm_content: urlParams.get('utm_content') || '' };
       const submissionData = { customer_data: { ...window.customerData, utm_meta: utm }, subtotal, total, product: items };
 
-      submitBtn.disabled = true; submitBtn.textContent = 'Memproses...'; submitBtn.classList.add('opacity-75','cursor-not-allowed');
-      try{
-        const response = await fetch(`${domain}/form/${document.body.dataset.formId}`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(submissionData) });
+      submitBtn.disabled = true; submitBtn.textContent = 'Memproses...'; submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+      try {
+        const response = await fetch(`${domain}/form/${document.body.dataset.formId}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(submissionData) });
         const result = await response.json();
-        
+
         // Track pixel events
         const submitEvent = document.body.dataset.submitEvent || 'Lead';
         if (typeof fbq !== 'undefined') {
@@ -440,11 +461,10 @@
         if (typeof twq !== 'undefined') {
           twq('event', submitEvent, { value: total, currency: 'IDR' });
         }
-        
-        if (response.ok && result.id){ successMessage.classList.remove('hidden'); setTimeout(()=>{ successContent.classList.remove('scale-95','opacity-0'); successContent.classList.add('scale-100','opacity-100'); let width=0; const interval=setInterval(()=>{ width+=10; progressBar.style.width=width+'%'; if (width>=100){ clearInterval(interval); window.location.href = `${domain}/invoice/${result.id}`; } },100); },100); }
+
+        if (response.ok && result.id) { successMessage.classList.remove('hidden'); setTimeout(() => { successContent.classList.remove('scale-95', 'opacity-0'); successContent.classList.add('scale-100', 'opacity-100'); let width = 0; const interval = setInterval(() => { width += 10; progressBar.style.width = width + '%'; if (width >= 100) { clearInterval(interval); window.location.href = `${domain}/invoice/${result.id}`; } }, 100); }, 100); }
         else { alert('Gagal membuat pesanan. Silakan coba lagi.'); }
-      } catch(err){ console.error('Error submitting order:', err); alert('Terjadi kesalahan. Silakan coba lagi.'); } finally { submitBtn.disabled=false; submitBtn.textContent='Selesaikan Pesanan'; submitBtn.classList.remove('opacity-75','cursor-not-allowed'); }
+      } catch (err) { console.error('Error submitting order:', err); alert('Terjadi kesalahan. Silakan coba lagi.'); } finally { submitBtn.disabled = false; submitBtn.textContent = 'Selesaikan Pesanan'; submitBtn.classList.remove('opacity-75', 'cursor-not-allowed'); }
     });
   </script>
-</body>
-</html>
+</section>

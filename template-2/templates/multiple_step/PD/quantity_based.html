@@ -1,24 +1,9 @@
-<!DOCTYPE html>
-<html lang="id">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Form Order — tapsite.ai</title>
-  <!-- Hanya gunakan TailwindCSS sesuai rules -->
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-</head>
-
-<body
-  data-products="[{'id':'CP01','name':'Carrot Cupcake','price':20000,'description':'Cupcake wortel lembut dengan krim keju yang ringan.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false},{'id':'CP02','name':'Peppermint Chocolate Cake','price':30000,'description':'Cokelat mint segar, cocok untuk pecinta cokelat.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false},{'id':'CP03','name':'Mango Cheesecake Cupcake','price':35000,'description':'Cheesecake mangga creamy dengan sentuhan segar.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false},{'id':'CP04','name':'Mocha Cupcake','price':40000,'description':'Kopi mocha aromatic, manis seimbang.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false}]"
-  data-fields="{'fields':[{'id':'name','label':'Nama','type':'text','required':true},{'id':'email','label':'Email','type':'email','required':false},{'id':'phone','label':'Nomor Telepon','type':'tel','required':true},{'id':'message','label':'Catatan','type':'text','required':false}]}"
-  data-domain="http://localhost:5556"
-  data-origin-id="tapsite-cupcake"
-  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
+<section
   class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50">
 
   <!-- Header + Stepper -->
-  <header class="px-4 py-10 sm:px-6 lg:px-8">
+  <div class="px-4 py-10 sm:px-6 lg:px-8">
     <div class="max-w-6xl mx-auto">
       <div class="rounded-3xl bg-gradient-to-b from-teal-700 to-emerald-600 text-white p-6 sm:p-8 shadow-xl">
         <h1 class="text-3xl font-extrabold tracking-tight">Order Form • Produk Digital (Quantity Based) • Multi-step</h1>
@@ -45,10 +30,10 @@
         </div>
       </div>
     </div>
-  </header>
+  </div>
 
   <!-- Main content: three steps -->
-  <section class="px-4 pb-12 sm:px-6 lg:px-8">
+  <div class="px-4 pb-12 sm:px-6 lg:px-8">
     <div class="max-w-6xl mx-auto">
       <form id="orderForm" class="space-y-6">
         <!-- Step 1: Product selection -->
@@ -169,7 +154,7 @@
         </div>
       </form>
     </div>
-  </section>
+  </div>
 
   <!-- Success Modal -->
   <div id="successMessage" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
@@ -476,6 +461,4 @@
       } catch(err){ console.error('Error submitting order:', err); alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.'); submitBtn.disabled=false; submitBtn.textContent='Selesaikan Pesanan'; submitBtn.classList.remove('opacity-75','cursor-not-allowed'); }
     });
   </script>
-</body>
-
-</html>
+</sectionƒ>

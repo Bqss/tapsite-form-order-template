@@ -1,59 +1,61 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Form Order — tapsite.ai</title>
-  <!-- Hanya gunakan TailwindCSS sesuai rules -->
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-</head>
-
-<body
-  data-products="[{'id':'CP01','name':'Carrot Cupcake','price':20000,'description':'Cupcake wortel lembut dengan krim keju yang ringan.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false},{'id':'CP02','name':'Peppermint Chocolate Cake','price':30000,'description':'Cokelat mint segar, cocok untuk pecinta cokelat.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false},{'id':'CP03','name':'Mango Cheesecake Cupcake','price':35000,'description':'Cheesecake mangga creamy dengan sentuhan segar.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false},{'id':'CP04','name':'Mocha Cupcake','price':40000,'description':'Kopi mocha aromatic, manis seimbang.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false}]"
-  data-fields="{'fields':[{'id':'name','label':'Nama','type':'text','required':true},{'id':'email','label':'Email','type':'email','required':false},{'id':'phone','label':'Nomor Telepon','type':'tel','required':true},{'id':'message','label':'Catatan','type':'text','required':false}]}"
-  data-domain="http://localhost:5556"
-  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
-  data-origin-id="tapsite-cupcake" class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50">
+<section class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50">
 
   <!-- Header -->
-  <header class="px-4 py-10 sm:px-6 lg:px-8">
+  <div class="px-4 py-10 sm:px-6 lg:px-8">
     <div class="max-w-6xl mx-auto">
       <div class="rounded-3xl bg-gradient-to-b from-teal-700 to-emerald-600 text-white p-6 sm:p-8 shadow-xl">
         <h1 class="text-3xl font-extrabold tracking-tight">Cupcake Order Form</h1>
         <p class="mt-2 opacity-90">Pilih cupcake favoritmu dan lengkapi data pemesanan.</p>
       </div>
     </div>
-  </header>
+  </div>
 
   <!-- Main two-column layout sesuai gambar: kiri produk, kanan form+summary -->
-  <section class="px-4 pb-12 sm:px-6 lg:px-8">
+  <div class="px-4 pb-12 sm:px-6 lg:px-8">
     <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
       <!-- Left: Product list -->
       <div class="bg-white rounded-3xl shadow-xl ring-1 ring-teal-100 p-6 sm:p-8">
         <h2 class="text-xl font-bold text-gray-900 mb-4">Select and order the choice of your cupcake.</h2>
         <div id="products" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <!-- Template Card Produk -->
-          <div data-role="product" data-template="product" class="group bg-gradient-to-br from-white to-teal-50 border border-teal-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+          <div data-role="product" data-template="product"
+            class="group bg-gradient-to-br from-white to-teal-50 border border-teal-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
             <div class="p-3 sm:p-4">
               <!-- Mobile: row, Desktop: column -->
               <div class="flex items-start gap-3 sm:block">
                 <!-- Thumbnail more compact on mobile -->
-                <div class="w-16 h-16 sm:w-auto sm:h-auto sm:aspect-square rounded-lg sm:rounded-xl overflow-hidden bg-teal-100">
-                  <img data-value="image_url" src="https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="Cupcake" class="w-full h-full object-cover sm:group-hover:scale-105 transition-transform duration-300" />
+                <div
+                  class="w-16 h-16 sm:w-auto sm:h-auto sm:aspect-square rounded-lg sm:rounded-xl overflow-hidden bg-teal-100">
+                  <img data-value="image_url"
+                    src="https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds"
+                    alt="Cupcake"
+                    class="w-full h-full object-cover sm:group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div class="flex-1 sm:mt-3">
                   <h3 class="text-sm sm:text-lg font-bold text-gray-900" data-value="name">Nama Produk</h3>
-                  <p class="text-xs sm:text-sm text-gray-600 line-clamp-2 sm:line-clamp-none" data-value="description">Deskripsi singkat produk.</p>
+                  <p class="text-xs sm:text-sm text-gray-600 line-clamp-2 sm:line-clamp-none" data-value="description">
+                    Deskripsi singkat produk.</p>
                   <div class="mt-2 sm:mt-4 flex items-center justify-between">
                     <span class="text-base sm:text-xl font-extrabold text-teal-700" data-value="price">Rp 0</span>
                     <div class="flex items-center gap-1 sm:gap-2">
-                      <button type="button" id="decreaseQty" class="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+                      <button type="button" id="decreaseQty"
+                        class="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 20 20"
+                          fill="currentColor">
+                          <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                            clip-rule="evenodd" />
+                        </svg>
                       </button>
-                      <input type="number" id="quantity" value="0" min="0" class="w-12 h-8 sm:w-14 sm:h-9 text-center border-2 border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none text-sm" />
-                      <button type="button" id="increaseQty" class="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+                      <input type="number" id="quantity" value="0" min="0"
+                        class="w-12 h-8 sm:w-14 sm:h-9 text-center border-2 border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none text-sm" />
+                      <button type="button" id="increaseQty"
+                        class="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 20 20"
+                          fill="currentColor">
+                          <path fill-rule="evenodd"
+                            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                            clip-rule="evenodd" />
+                        </svg>
                       </button>
                     </div>
                   </div>
@@ -77,14 +79,16 @@
               <div id="summaryItems" class="space-y-3"></div>
 
               <!-- Template summary item -->
-              <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item" data-placeholder="true" class="hidden">
+              <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item"
+                data-placeholder="true" class="hidden">
                 <div class="flex items-center justify-between pb-3 border-b border-teal-100">
                   <div>
                     <h3 class="font-semibold text-gray-900" data-summary="name">Nama Produk</h3>
                     <p class="text-xs text-gray-500">Berat: <span data-summary="weight">200</span>g</p>
                   </div>
                   <div class="text-right">
-                    <p class="text-sm text-gray-600">Rp <span data-summary="unit_price">0</span> × <span data-summary="qty">0</span></p>
+                    <p class="text-sm text-gray-600">Rp <span data-summary="unit_price">0</span> × <span
+                        data-summary="qty">0</span></p>
                     <p class="font-semibold text-gray-900">Rp <span data-summary="line_total">0</span></p>
                   </div>
                 </div>
@@ -103,8 +107,11 @@
             <div id="forms" class="grid grid-cols-1 gap-4">
               <!-- Template Field -->
               <div data-role="field" data-template="field" class="space-y-2">
-                <label for="name" class="block text-sm font-medium text-gray-700" data-value="label">Nama <span class="text-red-500">*</span></label>
-                <input type="text" id="name" name="name" required data-value-id data-value-type data-value-required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all" placeholder="Masukkan nama lengkap" />
+                <label for="name" class="block text-sm font-medium text-gray-700" data-value="label">Nama <span
+                    class="text-red-500">*</span></label>
+                <input type="text" id="name" name="name" required data-value-id data-value-type data-value-required
+                  class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
+                  placeholder="Masukkan nama lengkap" />
               </div>
             </div>
           </div>
@@ -112,27 +119,45 @@
           <!-- Trust & Submit -->
           <div class="mt-6">
             <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500">
-              <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Pembayaran Aman</div>
-              <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>Data Terenkripsi</div>
+              <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd" />
+                </svg>Pembayaran Aman</div>
+              <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                    clip-rule="evenodd" />
+                </svg>Data Terenkripsi</div>
             </div>
           </div>
 
           <div class="mt-6 flex justify-center">
-            <button type="submit" id="submitBtn" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
+            <button type="submit" id="submitBtn"
+              class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
               Selesaikan Pesanan
             </button>
           </div>
         </form>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- Success Modal -->
-  <div id="successMessage" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-    <div id="successContent" class="bg-white rounded-2xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0">
+  <div id="successMessage"
+    class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+    <div id="successContent"
+      class="bg-white rounded-2xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0">
       <div class="text-center">
         <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" viewBox="0 0 20 20"
+            fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd" />
+          </svg>
         </div>
         <h3 class="text-xl font-bold text-gray-900 mb-2">Pesanan Berhasil!</h3>
         <p class="text-gray-600 mb-6">Terima kasih. Kamu akan diarahkan ke halaman pembayaran.</p>
@@ -315,14 +340,14 @@
       // Ambil data form
       const formData = new FormData(orderForm);
       const data = Object.fromEntries(formData.entries());
-      
+
       // Get UTM parameters
       const urlParams = new URLSearchParams(window.location.search);
       const utmSource = urlParams.get('utm_source') || '';
       const utmMedium = urlParams.get('utm_medium') || '';
       const utmCampaign = urlParams.get('utm_campaign') || '';
       const utmContent = urlParams.get('utm_content') || '';
-      
+
       // Prepare customer data
       const customerData = {
         ...data,
@@ -335,7 +360,7 @@
           utm_content: utmContent
         }
       };
-      
+
       // Prepare product data
       const productData = window.productsData.filter(p => (parseInt(p.quantity || 0, 10) > 0)).map(p => ({
         id: p.id,
@@ -345,11 +370,11 @@
         quantity: parseInt(p.quantity, 10),
         is_addon: false
       }));
-      
+
       // Calculate subtotal and total
       const subtotal = productData.reduce((sum, p) => sum + (p.price * p.quantity), 0);
       const total = subtotal;
-      
+
       const payload = {
         customer_data: customerData,
         subtotal: subtotal,
@@ -363,9 +388,9 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-        
+
         const result = await response.json();
-        
+
         // Track pixel events
         const submitEvent = document.body.dataset.submitEvent || 'Lead';
         if (typeof fbq !== 'undefined') {
@@ -374,34 +399,34 @@
             currency: 'IDR'
           });
         }
-        
+
         if (typeof ttq !== 'undefined') {
           ttq.track(submitEvent, {
             value: total,
             currency: 'IDR'
           });
         }
-        
+
         if (typeof twq !== 'undefined') {
           twq('event', submitEvent, {
             value: total,
             currency: 'IDR'
           });
         }
-        
-        if(response.ok && result.id) {
+
+        if (response.ok && result.id) {
           // Show success message
           successMessage.classList.remove('hidden');
           setTimeout(() => {
             successContent.classList.remove('scale-95', 'opacity-0');
             successContent.classList.add('scale-100', 'opacity-100');
-            
+
             // Animate progress bar
             let width = 0;
             const interval = setInterval(() => {
               width += 10;
               progressBar.style.width = width + '%';
-              
+
               if (width >= 100) {
                 clearInterval(interval);
                 // Redirect to invoice page
@@ -421,6 +446,4 @@
       }
     });
   </script>
-</body>
-
-</html>
+</section>

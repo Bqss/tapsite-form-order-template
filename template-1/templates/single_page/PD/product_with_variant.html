@@ -1,623 +1,604 @@
-<!DOCTYPE html>
-<html lang="en">
+<section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
+  <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto" bis_skin_checked="1">
+    <!-- Header -->
+    <div class="text-center mb-8" bis_skin_checked="1">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2 hover-highlight custom-cursor">Form order A</h1>
+      <p class="text-gray-600 hover-highlight custom-cursor">Beli produk anda disini</p>
+    </div>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <!-- Form Container -->
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden" bis_skin_checked="1">
 
-</head>
-
-<body
-  data-products='[{"id":"SKU-001","name":"IKAN","price":2000,"discount_price":0,"description":"adsfafsdsdadsf","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":1,"is_required":true,"allow_custom_price":false,"variants":[{"id":"SKU-001-red","name":"Merah","price":3000},{"id":"XL","name":"XL","price":3500}],"weight":200}]'
-  data-fields="{'fields':[{'id':'name','label':'Nama','type':'text','required':true},{'id':'email','label':'Email','type':'email','required':false},{'id':'phone','label':'Nomor Telepon','type':'tel','required':true}]}"
-  data-couriers="['JNE','JNECargo','SiCepat','SiCepatCargo','SAP','SapCargo','iDexpress','JT','lion','iDexpressCargo','paxel','Ninja']"
-  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
-  data-domain="http://localhost:5556" data-origin-id="5fc63944f8f44b34aa4c819e">
-  <section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
-    <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto" bis_skin_checked="1">
-      <!-- Header -->
-      <div class="text-center mb-8" bis_skin_checked="1">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2 hover-highlight custom-cursor">Form order A</h1>
-        <p class="text-gray-600 hover-highlight custom-cursor">Beli produk anda disini</p>
-      </div>
-
-      <!-- Form Container -->
-      <div class="bg-white rounded-2xl shadow-xl overflow-hidden" bis_skin_checked="1">
-
-        <form id="orderForm" class="p-6 sm:p-8 lg:p-10 hover-highlight custom-cursor">
-          <!-- Product Selection -->
-          <div data-role="parent" class="mb-8 sm:mb-10 hover-highlight custom-cursor" bis_skin_checked="1">
-            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
-              <span
-                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">1</span>
-              Pilih Produk
-            </h2>
-            <div class="flex flex-col gap-2" id="products">
-              <!-- Main Product -->
-              <div data-role="product" data-product-id="KPRI01" class="bg-white rounded-xl shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg">
-                <div class="md:flex">
-                  <div class="md:flex-shrink-0 relative">
-                    <div class="h-48 w-full md:w-64  from-indigo-100   items-center justify-center overflow-hidden">
-                      <img data-value="image_url" src="https://placehold.co/300x300/e2e8f0/64748b?text=Produk+Utama" alt="Produk Utama" class="w-full h-full object-cover rounded-xl shadow-lg transform transition duration-300 hover:scale-105">
-                    </div>
+      <form id="orderForm" class="p-6 sm:p-8 lg:p-10 hover-highlight custom-cursor">
+        <!-- Product Selection -->
+        <div data-role="parent" class="mb-8 sm:mb-10 hover-highlight custom-cursor" bis_skin_checked="1">
+          <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
+            <span
+              class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">1</span>
+            Pilih Produk
+          </h2>
+          <div class="flex flex-col gap-2" id="products">
+            <!-- Main Product -->
+            <div data-role="product" data-product-id="KPRI01"
+              class="bg-white rounded-xl shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg">
+              <div class="md:flex">
+                <div class="md:flex-shrink-0 relative">
+                  <div class="h-48 w-full md:w-64  from-indigo-100   items-center justify-center overflow-hidden">
+                    <img data-value="image_url" src="https://placehold.co/300x300/e2e8f0/64748b?text=Produk+Utama"
+                      alt="Produk Utama"
+                      class="w-full h-full object-cover rounded-xl shadow-lg transform transition duration-300 hover:scale-105">
                   </div>
-                  <div class="p-6">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2" data-value="name">Produk Utama</h3>
-                    <p class="text-gray-600 mb-4" data-value="description">Deskripsi produk utama.</p>
-                    <div class="flex items-baseline mb-4">
-                      <span class="text-3xl font-bold text-indigo-600" data-value="price">Rp 500.000</span>
-                    </div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Variants</label>
-                    <div data-role="variants-container" class="flex flex-col gap-2">
-                      <!-- Variants will be injected here -->
-                    </div>
+                </div>
+                <div class="p-6">
+                  <h3 class="text-2xl font-bold text-gray-900 mb-2" data-value="name">Produk Utama</h3>
+                  <p class="text-gray-600 mb-4" data-value="description">Deskripsi produk utama.</p>
+                  <div class="flex items-baseline mb-4">
+                    <span class="text-3xl font-bold text-indigo-600" data-value="price">Rp 500.000</span>
+                  </div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Variants</label>
+                  <div data-role="variants-container" class="flex flex-col gap-2">
+                    <!-- Variants will be injected here -->
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div data-template="variant-item" class="hidden" data-placeholder="true">
-                <button type="button" data-role="variant-chip" class="px-3 py-1 rounded-full border border-indigo-200 text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:border-indigo-400 transition">
-                  <span data-value="name"></span>
-                  <span class="ml-2 text-indigo-600 font-semibold" data-value="price"></span>
-                </button>
-              </div>
+            <div data-template="variant-item" class="hidden" data-placeholder="true">
+              <button type="button" data-role="variant-chip"
+                class="px-3 py-1 rounded-full border border-indigo-200 text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:border-indigo-400 transition">
+                <span data-value="name"></span>
+                <span class="ml-2 text-indigo-600 font-semibold" data-value="price"></span>
+              </button>
             </div>
           </div>
+        </div>
 
-          <!-- Identity Information -->
-          <div data-role="parent" class="mb-8 sm:mb-10 hover-highlight custom-cursor" bis_skin_checked="1">
-            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
-              <span
-                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">2</span>
-              Informasi Identitas
-            </h2>
+        <!-- Identity Information -->
+        <div data-role="parent" class="mb-8 sm:mb-10 hover-highlight custom-cursor" bis_skin_checked="1">
+          <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
+            <span
+              class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">2</span>
+            Informasi Identitas
+          </h2>
 
-            <div class="space-y-6" bis_skin_checked="1" id="forms">
-              <div bis_skin_checked="1" data-role="field" data-template="field">
-                <label for="name"
-                  class="block text-base sm:text-sm font-medium text-gray-700 mb-2 hover-highlight custom-cursor"
-                  data-value="label">Nama
-                  <span class="text-red-500 hover-highlight custom-cursor">*</span></label>
-                <input type="text" id="name" name="name" required="" data-value-id data-value-type data-value-required
-                  class="w-full px-4 py-4 sm:py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-base hover-highlight custom-cursor"
-                  placeholder="Masukkan nama lengkap Anda">
-              </div>
+          <div class="space-y-6" bis_skin_checked="1" id="forms">
+            <div bis_skin_checked="1" data-role="field" data-template="field">
+              <label for="name"
+                class="block text-base sm:text-sm font-medium text-gray-700 mb-2 hover-highlight custom-cursor"
+                data-value="label">Nama
+                <span class="text-red-500 hover-highlight custom-cursor">*</span></label>
+              <input type="text" id="name" name="name" required="" data-value-id data-value-type data-value-required
+                class="w-full px-4 py-4 sm:py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-base hover-highlight custom-cursor"
+                placeholder="Masukkan nama lengkap Anda">
             </div>
           </div>
+        </div>
 
-          <!-- Shipping Information removed -->
+        <!-- Shipping Information removed -->
 
-          <!-- Order Summary -->
-          <div data-role="parent" class="mb-8 sm:mb-10 hover-highlight custom-cursor" bis_skin_checked="1">
-            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
-              <span
-                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">3</span>
-              Ringkasan Pesanan
-            </h2>
+        <!-- Order Summary -->
+        <div data-role="parent" class="mb-8 sm:mb-10 hover-highlight custom-cursor" bis_skin_checked="1">
+          <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
+            <span
+              class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">3</span>
+            Ringkasan Pesanan
+          </h2>
 
-            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100"
-              bis_skin_checked="1">
-              <div class="space-y-4" bis_skin_checked="1">
-                <div id="summaryItems" class="space-y-3" bis_skin_checked="1">
-                  <!-- Summary items will be injected here by JavaScript -->
+          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100"
+            bis_skin_checked="1">
+            <div class="space-y-4" bis_skin_checked="1">
+              <div id="summaryItems" class="space-y-3" bis_skin_checked="1">
+                <!-- Summary items will be injected here by JavaScript -->
+              </div>
+              <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item"
+                class="flex justify-between items-center pb-3 border-b border-blue-100 hidden" data-placeholder="true"
+                bis_skin_checked="1">
+                <div bis_skin_checked="1">
+                  <h3 class="font-semibold text-gray-900 hover-highlight custom-cursor" data-summary="name">Test</h3>
+                  <p class="text-sm text-gray-500 hover-highlight custom-cursor">Berat: <span data-summary="weight"
+                      class="hover-highlight custom-cursor">1000</span>g</p>
                 </div>
-                <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item"
-                  class="flex justify-between items-center pb-3 border-b border-blue-100 hidden" data-placeholder="true"
-                  bis_skin_checked="1">
-                  <div bis_skin_checked="1">
-                    <h3 class="font-semibold text-gray-900 hover-highlight custom-cursor" data-summary="name">Test</h3>
-                    <p class="text-sm text-gray-500 hover-highlight custom-cursor">Berat: <span data-summary="weight"
-                        class="hover-highlight custom-cursor">1000</span>g</p>
-                  </div>
-                  <div class="text-right" bis_skin_checked="1">
-                    <p class="text-sm text-gray-500 hover-highlight custom-cursor">Rp <span data-summary="unit_price"
-                        class="hover-highlight custom-cursor">10.000</span> × <span data-summary="qty"
-                        class="hover-highlight custom-cursor">1</span></p>
-                    <p class="font-semibold text-gray-900 hover-highlight custom-cursor">Rp <span
-                        data-summary="line_total" class="hover-highlight custom-cursor">0</span></p>
-                  </div>
-                </div>
-
-                <!-- Shipping info removed from summary -->
-
-                <div class="flex justify-between items-center " bis_skin_checked="1">
-                  <h3 class="text-lg font-bold text-gray-900 hover-highlight custom-cursor">Total</h3>
-                  <p class="text-xl font-bold text-blue-600 hover-highlight custom-cursor">Rp <span id="totalPrice"
-                      class="hover-highlight custom-cursor">20.000</span></p>
+                <div class="text-right" bis_skin_checked="1">
+                  <p class="text-sm text-gray-500 hover-highlight custom-cursor">Rp <span data-summary="unit_price"
+                      class="hover-highlight custom-cursor">10.000</span> × <span data-summary="qty"
+                      class="hover-highlight custom-cursor">1</span></p>
+                  <p class="font-semibold text-gray-900 hover-highlight custom-cursor">Rp <span
+                      data-summary="line_total" class="hover-highlight custom-cursor">0</span></p>
                 </div>
               </div>
+
+              <!-- Shipping info removed from summary -->
+
+              <div class="flex justify-between items-center " bis_skin_checked="1">
+                <h3 class="text-lg font-bold text-gray-900 hover-highlight custom-cursor">Total</h3>
+                <p class="text-xl font-bold text-blue-600 hover-highlight custom-cursor">Rp <span id="totalPrice"
+                    class="hover-highlight custom-cursor">20.000</span></p>
+              </div>
             </div>
           </div>
+        </div>
 
-          <!-- Trust Elements -->
-          <div class="mb-6" bis_skin_checked="1">
-            <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500" bis_skin_checked="1">
-              <div class="flex items-center" bis_skin_checked="1">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-green-500 mr-1 hover-highlight custom-cursor" viewBox="0 0 20 20"
-                  fill="currentColor">
-                  <path fill-rule="evenodd"
-                    d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clip-rule="evenodd"></path>
-                </svg>
-                Pembayaran Aman
-              </div>
-              <div class="flex items-center" bis_skin_checked="1">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-green-500 mr-1 hover-highlight custom-cursor" viewBox="0 0 20 20"
-                  fill="currentColor">
-                  <path fill-rule="evenodd"
-                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                    clip-rule="evenodd"></path>
-                </svg>
-                Data Terenkripsi
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="flex justify-center" bis_skin_checked="1">
-            <button type="submit" id="submitBtn"
-              class="w-full sm:w-auto px-8 py-5 sm:py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 min-h-14 sm:min-h-12 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hover-highlight custom-cursor">
-              Selesaikan Pesanan
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Success Message -->
-      <div id="successMessage" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-        bis_skin_checked="1">
-        <div class="bg-white rounded-xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0"
-          id="successContent" bis_skin_checked="1">
-          <div class="text-center" bis_skin_checked="1">
-            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
-              bis_skin_checked="1">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500 hover-highlight custom-cursor"
+        <!-- Trust Elements -->
+        <div class="mb-6" bis_skin_checked="1">
+          <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500" bis_skin_checked="1">
+            <div class="flex items-center" bis_skin_checked="1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-1 hover-highlight custom-cursor"
                 viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                   clip-rule="evenodd"></path>
               </svg>
+              Pembayaran Aman
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2 hover-highlight custom-cursor">Pesanan Berhasil!</h3>
-            <p class="text-gray-600 mb-6 hover-highlight custom-cursor">Terima kasih telah melakukan pemesanan. Anda
-              akan diarahkan ke halaman pembayaran.</p>
-            <div class="w-full bg-gray-200 rounded-full h-2" bis_skin_checked="1">
-              <div class="bg-blue-600 h-2 rounded-full" id="progressBar" style="width: 0%" bis_skin_checked="1"></div>
+            <div class="flex items-center" bis_skin_checked="1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-1 hover-highlight custom-cursor"
+                viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              Data Terenkripsi
             </div>
+
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-center" bis_skin_checked="1">
+          <button type="submit" id="submitBtn"
+            class="w-full sm:w-auto px-8 py-5 sm:py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 min-h-14 sm:min-h-12 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hover-highlight custom-cursor">
+            Selesaikan Pesanan
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      bis_skin_checked="1">
+      <div class="bg-white rounded-xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0"
+        id="successContent" bis_skin_checked="1">
+        <div class="text-center" bis_skin_checked="1">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
+            bis_skin_checked="1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500 hover-highlight custom-cursor"
+              viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2 hover-highlight custom-cursor">Pesanan Berhasil!</h3>
+          <p class="text-gray-600 mb-6 hover-highlight custom-cursor">Terima kasih telah melakukan pemesanan. Anda
+            akan diarahkan ke halaman pembayaran.</p>
+          <div class="w-full bg-gray-200 rounded-full h-2" bis_skin_checked="1">
+            <div class="bg-blue-600 h-2 rounded-full" id="progressBar" style="width: 0%" bis_skin_checked="1"></div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script>
-      // Rendering dinamis list produk berbasis template [data-role="product"]
-      const domain = document.body.dataset.domain || '';
-      const originId = document.body.dataset.originId || '';
-      const submitEvent = document.body.dataset.submitEvent || '';
+  <script>
+    // Rendering dinamis list produk berbasis template [data-role="product"]
+    const domain = document.body.dataset.domain || '';
+    const originId = document.body.dataset.originId || '';
+    const submitEvent = document.body.dataset.submitEvent || '';
 
-      const productsContainer = document.getElementById('products');
-      // Elemen ringkasan multi-item
-      const summaryItemsContainer = document.getElementById('summaryItems');
-      const summaryItemTemplate = document.getElementById('summaryItemTemplate');
-      const totalPriceElement = document.getElementById('totalPrice');
+    const productsContainer = document.getElementById('products');
+    // Elemen ringkasan multi-item
+    const summaryItemsContainer = document.getElementById('summaryItems');
+    const summaryItemTemplate = document.getElementById('summaryItemTemplate');
+    const totalPriceElement = document.getElementById('totalPrice');
 
-      const productPrice = window.initialProductPrice || 0;
-      const productWeight = 200;
-      const subdistrictInput = document.getElementById('subdistrict');
-      const dropdown = document.getElementById('dropdown');
-      const loadingElement = document.getElementById('loading');
-      const resultsElement = document.getElementById('results');
-      const courierOptions = document.getElementById('courierOptions');
-      const courierList = document.getElementById('courierList');
-      const courierGuard = document.getElementById('courierGuard');
-      const courierLoadingEl = document.getElementById('courierLoading');
-      // Form submission (dynamic fields + multi-produk)
-      const orderForm = document.getElementById('orderForm');
-      const submitBtn = document.getElementById('submitBtn');
-      const successMessage = document.getElementById('successMessage');
-      const successContent = document.getElementById('successContent');
-      const progressBar = document.getElementById('progressBar');
-      let debounceTimer;
-      let selectedAddress = null;
+    const productPrice = window.initialProductPrice || 0;
+    const productWeight = 200;
+    const subdistrictInput = document.getElementById('subdistrict');
+    const dropdown = document.getElementById('dropdown');
+    const loadingElement = document.getElementById('loading');
+    const resultsElement = document.getElementById('results');
+    const courierOptions = document.getElementById('courierOptions');
+    const courierList = document.getElementById('courierList');
+    const courierGuard = document.getElementById('courierGuard');
+    const courierLoadingEl = document.getElementById('courierLoading');
+    // Form submission (dynamic fields + multi-produk)
+    const orderForm = document.getElementById('orderForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMessage = document.getElementById('successMessage');
+    const successContent = document.getElementById('successContent');
+    const progressBar = document.getElementById('progressBar');
+    let debounceTimer;
+    let selectedAddress = null;
 
 
-      (function initProductRendering() {
-        try {
-          const raw = document.body.dataset.products || '[]';
-          const products = JSON.parse(raw.replace(/'/g, '"'));
+    (function initProductRendering() {
+      try {
+        const raw = document.body.dataset.products || '[]';
+        const products = JSON.parse(raw.replace(/'/g, '"'));
 
-          const mainProduct = products.find(p => !p.is_addon);
+        const mainProduct = products.find(p => !p.is_addon);
 
-          const mainProductContainer = document.querySelector(`[data-role="product"]`);
+        const mainProductContainer = document.querySelector(`[data-role="product"]`);
 
-          if (mainProduct && mainProductContainer) {
-            mainProductContainer.querySelector('[data-value="image_url"]').src = mainProduct.image_url;
-            mainProductContainer.querySelector('[data-value="name"]').textContent = mainProduct.name;
-            mainProductContainer.querySelector('[data-value="description"]').textContent = mainProduct.description;
-            
-            const variantsContainer = mainProductContainer.querySelector('[data-role="variants-container"]');
-            const variantTemplate = document.querySelector('[data-template="variant-item"]');
-            const mainPriceEl = mainProductContainer.querySelector('[data-value="price"]');
+        if (mainProduct && mainProductContainer) {
+          mainProductContainer.querySelector('[data-value="image_url"]').src = mainProduct.image_url;
+          mainProductContainer.querySelector('[data-value="name"]').textContent = mainProduct.name;
+          mainProductContainer.querySelector('[data-value="description"]').textContent = mainProduct.description;
 
-            if (variantsContainer && variantTemplate && mainProduct.variants && mainProduct.variants.length > 0) {
-              variantsContainer.innerHTML = '';
-              mainProduct.variants.forEach((variant, index) => {
-                const variantNode = variantTemplate.cloneNode(true);
-                variantNode.classList.remove('hidden');
-                variantNode.removeAttribute('data-template');
+          const variantsContainer = mainProductContainer.querySelector('[data-role="variants-container"]');
+          const variantTemplate = document.querySelector('[data-template="variant-item"]');
+          const mainPriceEl = mainProductContainer.querySelector('[data-value="price"]');
 
-                const chipEl = variantNode.querySelector('[data-role="variant-chip"]');
-                const nameEl = variantNode.querySelector('[data-value="name"]');
-                const priceEl = variantNode.querySelector('[data-value="price"]');
+          if (variantsContainer && variantTemplate && mainProduct.variants && mainProduct.variants.length > 0) {
+            variantsContainer.innerHTML = '';
+            mainProduct.variants.forEach((variant, index) => {
+              const variantNode = variantTemplate.cloneNode(true);
+              variantNode.classList.remove('hidden');
+              variantNode.removeAttribute('data-template');
 
-                if (nameEl) nameEl.textContent = variant.name;
-                if (priceEl) priceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
+              const chipEl = variantNode.querySelector('[data-role="variant-chip"]');
+              const nameEl = variantNode.querySelector('[data-value="name"]');
+              const priceEl = variantNode.querySelector('[data-value="price"]');
 
-                if (chipEl) {
-                  chipEl.addEventListener('click', () => {
-                    // Toggle selected state styling
-                    Array.from(variantsContainer.querySelectorAll('[data-role="variant-chip"]')).forEach(btn => {
-                      btn.classList.remove('ring-2','ring-indigo-500','bg-indigo-50','text-indigo-700');
-                    });
-                    chipEl.classList.add('ring-2','ring-indigo-500','bg-indigo-50','text-indigo-700');
-                    onVariantSelect(mainProduct, variant);
+              if (nameEl) nameEl.textContent = variant.name;
+              if (priceEl) priceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
+
+              if (chipEl) {
+                chipEl.addEventListener('click', () => {
+                  // Toggle selected state styling
+                  Array.from(variantsContainer.querySelectorAll('[data-role="variant-chip"]')).forEach(btn => {
+                    btn.classList.remove('ring-2', 'ring-indigo-500', 'bg-indigo-50', 'text-indigo-700');
                   });
-                }
-
-                variantsContainer.appendChild(variantNode);
-
-                if (index === 0) {
-                  if (chipEl) chipEl.classList.add('ring-2','ring-indigo-500','bg-indigo-50','text-indigo-700');
-                  mainProduct.price = variant.price;
-                  // Sinkronisasi harga varian default ke data summary (window.productsData)
-                  try {
-                    const wp = (window.productsData || []).find(p => p.id === mainProduct.id);
-                    if (wp) wp.price = variant.price;
-                  } catch (err) { /* ignore */ }
-                  if (mainPriceEl) mainPriceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
-                }
-              });
-            } else {
-              if (mainPriceEl) mainPriceEl.textContent = `Rp ${Number(mainProduct.price).toLocaleString('id-ID')}`;
-            }
-          }
-
-          // Template PF ini tidak mendukung add-on: tidak ada rendering add-on
-
-          // Persist products with quantity forced to 0 on initial load
-          window.productsData = products.map(p => ({
-            ...p,
-            quantity: 0
-          }));
-          window.activeProductIndex = 0;
-        } catch (e) {
-          console.warn('Gagal render produk dari data-products:', e);
-        }
-      })();
-
-      function onVariantSelect(product, variant) {
-        const mainProduct = window.productsData.find(p => p.id === product.id);
-        if(mainProduct) {
-            mainProduct.price = variant.price;
-        }
-
-        const mainProductNode = document.querySelector('[data-role="product"]');
-        const mainPriceEl = mainProductNode.querySelector('[data-value="price"]');
-        if (mainPriceEl) {
-          mainPriceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
-        }
-        updateSummary();
-      }
-
-      // Rendering dinamis list fields berbasis template [data-role="field"]
-      (function initFieldRendering() {
-        try {
-          const raw = document.body.dataset.fields || '{}';
-          const parsed = JSON.parse(raw.replace(/'/g, '"'));
-          const fields = Array.isArray(parsed.fields) ? parsed.fields : [];
-
-          const container = document.getElementById('forms');
-          const template = container ? container.querySelector('[data-role="field"]') : null;
-          if (!container || !template || !fields.length) return;
-
-          const buildFieldHTML = (field) => {
-            const el = template.cloneNode(true);
-
-            const labelEl = el.querySelector('[data-value="label"]') || el.querySelector('label');
-            const inputEl = el.querySelector('input');
-
-            // Set label text + asterisk if required
-            if (labelEl) {
-              const labelText = field.label || '';
-              labelEl.innerHTML = `${labelText}${field.required ? ' <span class="text-red-500 hover-highlight custom-cursor">*</span>' : ''}`;
-              if (field.id) labelEl.setAttribute('for', field.id);
-            }
-
-            // Configure input attributes
-            if (inputEl) {
-              if (field.type) inputEl.setAttribute('type', field.type);
-              if (field.id) {
-                inputEl.setAttribute('id', field.id);
-                inputEl.setAttribute('name', field.id);
+                  chipEl.classList.add('ring-2', 'ring-indigo-500', 'bg-indigo-50', 'text-indigo-700');
+                  onVariantSelect(mainProduct, variant);
+                });
               }
-              inputEl.required = !!field.required;
-              // Placeholder heuristik
-              let placeholder = inputEl.getAttribute('placeholder') || '';
-              if (field.type === 'email') placeholder = 'email@example.com';
-              else if (field.type === 'tel') placeholder = '08xxxxxxxxxx';
-              else if (field.type === 'text') placeholder = `Masukkan ${field.label || ''}`.trim();
-              inputEl.setAttribute('placeholder', placeholder);
-            }
 
-            return el.outerHTML;
-          };
+              variantsContainer.appendChild(variantNode);
 
-          container.innerHTML = fields.map(buildFieldHTML).join('');
-        } catch (e) {
-          console.warn('Gagal render fields dari data-fields:', e);
-        }
-      })();
-
-      // Product quantity management dengan event delegation (mendukung multi-produk)
-      // Delegasi klik tombol +/-, perubahan input quantity, dan pemilihan kartu produk
-      function getProductIndexFromChild(child) {
-        if (!productsContainer) return -1;
-        const cards = Array.from(productsContainer.querySelectorAll('[data-role="product"]'));
-        const card = child.closest('[data-role="product"]');
-        return cards.indexOf(card);
-      }
-
-      function setActiveProduct(byChild) {
-        const idx = getProductIndexFromChild(byChild);
-        if (idx >= 0) window.activeProductIndex = idx;
-      }
-
-      if (productsContainer) {
-        productsContainer.addEventListener('click', (e) => {
-          if (e.target.closest('[data-role="product"]')) {
-            setActiveProduct(e.target);
-            updateSummary();
-          }
-        });
-      }
-
-      function updateSummary() {
-        const mainProduct = window.productsData.find(p => !p.is_addon);
-
-        if (mainProduct) {
-          mainProduct.quantity = 1;
-        }
-
-        const itemsForOrder = mainProduct ? [mainProduct] : [];
-
-        // Render list items
-        if (summaryItemsContainer && summaryItemTemplate) {
-          const html = itemsForOrder.map(p => {
-            const qty = p.quantity || 0;
-            const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
-            const lineTotal = priceNum * qty;
-            const lineWeight = productWeight * qty;
-            const el = summaryItemTemplate.cloneNode(true);
-            el.classList.remove('hidden');
-            const nameEl = el.querySelector('[data-summary="name"]');
-            const weightEl = el.querySelector('[data-summary="weight"]');
-            const unitPriceEl = el.querySelector('[data-summary="unit_price"]');
-            const qtyEl = el.querySelector('[data-summary="qty"]');
-            const lineTotalEl = el.querySelector('[data-summary="line_total"]');
-            if (nameEl) nameEl.textContent = p.name || '';
-            if (weightEl) weightEl.textContent = lineWeight;
-            if (unitPriceEl) unitPriceEl.textContent = priceNum.toLocaleString('id-ID');
-            if (qtyEl) qtyEl.textContent = qty;
-            if (lineTotalEl) lineTotalEl.textContent = lineTotal.toLocaleString('id-ID');
-            return el.outerHTML;
-          }).join('');
-          summaryItemsContainer.innerHTML = html || '';
-        }
-
-        // Hitung subtotal dan total berat agregat
-        const subtotal = itemsForOrder.reduce((acc, p) => {
-          const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
-          return acc + priceNum * (p.quantity || 0);
-        }, 0);
-        const totalWeight = itemsForOrder.reduce((acc, p) => acc + (p.quantity || 0) * productWeight, 0);
-
-        // Update total keseluruhan (tanpa ongkir)
-        const total = subtotal;
-        if (totalPriceElement) totalPriceElement.textContent = total.toLocaleString('id-ID');
-
-        // Update customer data
-        if (window.customerData) {
-          window.customerData.subtotal = subtotal;
-          window.customerData.weight = totalWeight;
-          // Hilangkan perhitungan ongkir
-        }
-      }
-
-      // Initialize customer data berdasarkan produk aktif
-      (function initCustomerData() {
-        const idx = typeof window.activeProductIndex === 'number' ? window.activeProductIndex : 0;
-        const activeProduct = (window.productsData && window.productsData[idx]) || null;
-        const quantity = activeProduct ? (activeProduct.quantity || 0) : 0;
-        const currentPrice = activeProduct ? (typeof activeProduct.price === 'number' ? activeProduct.price : (parseInt(activeProduct.price, 10) || 0)) : productPrice;
-        window.customerData = {
-          quantity,
-          subtotal: currentPrice * quantity,
-          weight: productWeight * quantity
-        };
-      })();
-
-      // Semua fungsi dan event terkait pengiriman dihapus
-
-      orderForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-
-        // Validate form dari data-fields
-        let fields = [];
-        try {
-          const rawFields = document.body.dataset.fields || '{}';
-          const parsedFields = JSON.parse(rawFields.replace(/'/g, '"'));
-          fields = Array.isArray(parsedFields.fields) ? parsedFields.fields : [];
-        } catch (err) { /* ignore */ }
-
-        const formValues = {};
-        const missingRequired = [];
-        fields.forEach(f => {
-          const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`);
-          const val = el ? (el.value || '').trim() : '';
-          formValues[f.id] = val;
-          if (f.required && !val) missingRequired.push(f.label || f.id);
-        });
-
-        // Pastikan minimal field wajib: name, phone, address jika ada di konfigurasi
-        if (missingRequired.length) {
-          alert('Mohon lengkapi field wajib: ' + missingRequired.join(', '));
-          return;
-        }
-
-        // Validasi pengiriman dihapus
-
-        // Update customer data dari formValues
-        Object.assign(window.customerData, formValues);
-        // Address detail tidak digunakan untuk pengiriman
-
-        // Calculate total
-        // Template PF ini hanya untuk produk utama dengan varian
-        const mainProductForOrder = (window.productsData || []).find(p => !p.is_addon);
-        const itemsForOrder = mainProductForOrder ? [mainProductForOrder] : [];
-        const subtotal = itemsForOrder.reduce((acc, p) => {
-          const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
-          return acc + priceNum * (p.quantity || 0);
-        }, 0);
-        window.customerData.subtotal = subtotal;
-        // Update weight total
-        const totalQty = itemsForOrder.reduce((acc, p) => acc + (p.quantity || 0), 0);
-        window.customerData.weight = productWeight * totalQty;
-        const total = subtotal;
-
-        // Prepare product data (single product)
-        const product = itemsForOrder.length ? itemsForOrder.map((p, i) => ({
-          id: p.id || `SKU-${i + 1}`,
-          code: p.id || `SKU-${i + 1}`,
-          name: p.name || `Produk ${i + 1}`,
-          price: typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0),
-          quantity: p.quantity || 0
-        })) : [];
-
-        if (!product.length) {
-          alert('Pilih minimal 1 item sebelum menyelesaikan pesanan.');
-          // Re-enable submit button
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Selesaikan Pesanan';
-          submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
-          return;
-        }
-
-        // Get UTM parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const utmSource = urlParams.get('utm_source') || '';
-        const utmMedium = urlParams.get('utm_medium') || '';
-        const utmCampaign = urlParams.get('utm_campaign') || '';
-        const utmContent = urlParams.get('utm_content') || '';
-
-        // Prepare submission data
-        const submissionData = {
-          customer_data: {
-            ...window.customerData,
-            utm_meta: {
-              utm_source: utmSource,
-              utm_medium: utmMedium,
-              utm_campaign: utmCampaign,
-              utm_content: utmContent
-            }
-          },
-          subtotal: subtotal,
-          total: total,
-          product: product
-        };
-
-        // Disable submit button
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Memproses...';
-        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
-
-        try {
-          const response = await fetch(`${document.body.dataset.domain}/form/${document.body.dataset.formId}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(submissionData)
-          });
-
-          if (typeof fbq !== 'undefined') {
-            fbq('track', submitEvent, {
-              value: total,
-              currency: 'IDR'
+              if (index === 0) {
+                if (chipEl) chipEl.classList.add('ring-2', 'ring-indigo-500', 'bg-indigo-50', 'text-indigo-700');
+                mainProduct.price = variant.price;
+                // Sinkronisasi harga varian default ke data summary (window.productsData)
+                try {
+                  const wp = (window.productsData || []).find(p => p.id === mainProduct.id);
+                  if (wp) wp.price = variant.price;
+                } catch (err) { /* ignore */ }
+                if (mainPriceEl) mainPriceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
+              }
             });
-          }
-
-          if (typeof ttq !== 'undefined') {
-            ttq.track(submitEvent, {
-              value: total,
-              currency: 'IDR'
-            });
-          }
-
-          if (typeof twq !== 'undefined') {
-            twq('event', submitEvent, {
-              value: total,
-              currency: 'IDR'
-            });
-          }
-
-          const result = await response.json();
-
-          if (result.id) {
-            // Show success message
-            successMessage.classList.remove('hidden');
-            setTimeout(() => {
-              successContent.classList.remove('scale-95', 'opacity-0');
-              successContent.classList.add('scale-100', 'opacity-100');
-
-              // Animate progress bar
-              let width = 0;
-              const interval = setInterval(() => {
-                width += 10;
-                progressBar.style.width = width + '%';
-
-                if (width >= 100) {
-                  clearInterval(interval);
-                  // Redirect to invoice page
-                  window.location.href = `${domain}/invoice/${result.id}`;
-                }
-              }, 100);
-            }, 100);
           } else {
-            throw new Error('Failed to submit order');
+            if (mainPriceEl) mainPriceEl.textContent = `Rp ${Number(mainProduct.price).toLocaleString('id-ID')}`;
           }
-        } catch (error) {
-          console.error('Error submitting order:', error);
-          alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
+        }
 
-          // Re-enable submit button
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Selesaikan Pesanan';
-          submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        // Template PF ini tidak mendukung add-on: tidak ada rendering add-on
+
+        // Persist products with quantity forced to 0 on initial load
+        window.productsData = products.map(p => ({
+          ...p,
+          quantity: 0
+        }));
+        window.activeProductIndex = 0;
+      } catch (e) {
+        console.warn('Gagal render produk dari data-products:', e);
+      }
+    })();
+
+    function onVariantSelect(product, variant) {
+      const mainProduct = window.productsData.find(p => p.id === product.id);
+      if (mainProduct) {
+        mainProduct.price = variant.price;
+      }
+
+      const mainProductNode = document.querySelector('[data-role="product"]');
+      const mainPriceEl = mainProductNode.querySelector('[data-value="price"]');
+      if (mainPriceEl) {
+        mainPriceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
+      }
+      updateSummary();
+    }
+
+    // Rendering dinamis list fields berbasis template [data-role="field"]
+    (function initFieldRendering() {
+      try {
+        const raw = document.body.dataset.fields || '{}';
+        const parsed = JSON.parse(raw.replace(/'/g, '"'));
+        const fields = Array.isArray(parsed.fields) ? parsed.fields : [];
+
+        const container = document.getElementById('forms');
+        const template = container ? container.querySelector('[data-role="field"]') : null;
+        if (!container || !template || !fields.length) return;
+
+        const buildFieldHTML = (field) => {
+          const el = template.cloneNode(true);
+
+          const labelEl = el.querySelector('[data-value="label"]') || el.querySelector('label');
+          const inputEl = el.querySelector('input');
+
+          // Set label text + asterisk if required
+          if (labelEl) {
+            const labelText = field.label || '';
+            labelEl.innerHTML = `${labelText}${field.required ? ' <span class="text-red-500 hover-highlight custom-cursor">*</span>' : ''}`;
+            if (field.id) labelEl.setAttribute('for', field.id);
+          }
+
+          // Configure input attributes
+          if (inputEl) {
+            if (field.type) inputEl.setAttribute('type', field.type);
+            if (field.id) {
+              inputEl.setAttribute('id', field.id);
+              inputEl.setAttribute('name', field.id);
+            }
+            inputEl.required = !!field.required;
+            // Placeholder heuristik
+            let placeholder = inputEl.getAttribute('placeholder') || '';
+            if (field.type === 'email') placeholder = 'email@example.com';
+            else if (field.type === 'tel') placeholder = '08xxxxxxxxxx';
+            else if (field.type === 'text') placeholder = `Masukkan ${field.label || ''}`.trim();
+            inputEl.setAttribute('placeholder', placeholder);
+          }
+
+          return el.outerHTML;
+        };
+
+        container.innerHTML = fields.map(buildFieldHTML).join('');
+      } catch (e) {
+        console.warn('Gagal render fields dari data-fields:', e);
+      }
+    })();
+
+    // Product quantity management dengan event delegation (mendukung multi-produk)
+    // Delegasi klik tombol +/-, perubahan input quantity, dan pemilihan kartu produk
+    function getProductIndexFromChild(child) {
+      if (!productsContainer) return -1;
+      const cards = Array.from(productsContainer.querySelectorAll('[data-role="product"]'));
+      const card = child.closest('[data-role="product"]');
+      return cards.indexOf(card);
+    }
+
+    function setActiveProduct(byChild) {
+      const idx = getProductIndexFromChild(byChild);
+      if (idx >= 0) window.activeProductIndex = idx;
+    }
+
+    if (productsContainer) {
+      productsContainer.addEventListener('click', (e) => {
+        if (e.target.closest('[data-role="product"]')) {
+          setActiveProduct(e.target);
+          updateSummary();
         }
       });
+    }
 
-      // Dropdown pengiriman dihapus
+    function updateSummary() {
+      const mainProduct = window.productsData.find(p => !p.is_addon);
 
-      // Initialize summary setelah render
-      updateSummary();
-    </script>
-  </section>
+      if (mainProduct) {
+        mainProduct.quantity = 1;
+      }
 
-</body>
+      const itemsForOrder = mainProduct ? [mainProduct] : [];
 
-</html>
+      // Render list items
+      if (summaryItemsContainer && summaryItemTemplate) {
+        const html = itemsForOrder.map(p => {
+          const qty = p.quantity || 0;
+          const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
+          const lineTotal = priceNum * qty;
+          const lineWeight = productWeight * qty;
+          const el = summaryItemTemplate.cloneNode(true);
+          el.classList.remove('hidden');
+          const nameEl = el.querySelector('[data-summary="name"]');
+          const weightEl = el.querySelector('[data-summary="weight"]');
+          const unitPriceEl = el.querySelector('[data-summary="unit_price"]');
+          const qtyEl = el.querySelector('[data-summary="qty"]');
+          const lineTotalEl = el.querySelector('[data-summary="line_total"]');
+          if (nameEl) nameEl.textContent = p.name || '';
+          if (weightEl) weightEl.textContent = lineWeight;
+          if (unitPriceEl) unitPriceEl.textContent = priceNum.toLocaleString('id-ID');
+          if (qtyEl) qtyEl.textContent = qty;
+          if (lineTotalEl) lineTotalEl.textContent = lineTotal.toLocaleString('id-ID');
+          return el.outerHTML;
+        }).join('');
+        summaryItemsContainer.innerHTML = html || '';
+      }
+
+      // Hitung subtotal dan total berat agregat
+      const subtotal = itemsForOrder.reduce((acc, p) => {
+        const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
+        return acc + priceNum * (p.quantity || 0);
+      }, 0);
+      const totalWeight = itemsForOrder.reduce((acc, p) => acc + (p.quantity || 0) * productWeight, 0);
+
+      // Update total keseluruhan (tanpa ongkir)
+      const total = subtotal;
+      if (totalPriceElement) totalPriceElement.textContent = total.toLocaleString('id-ID');
+
+      // Update customer data
+      if (window.customerData) {
+        window.customerData.subtotal = subtotal;
+        window.customerData.weight = totalWeight;
+        // Hilangkan perhitungan ongkir
+      }
+    }
+
+    // Initialize customer data berdasarkan produk aktif
+    (function initCustomerData() {
+      const idx = typeof window.activeProductIndex === 'number' ? window.activeProductIndex : 0;
+      const activeProduct = (window.productsData && window.productsData[idx]) || null;
+      const quantity = activeProduct ? (activeProduct.quantity || 0) : 0;
+      const currentPrice = activeProduct ? (typeof activeProduct.price === 'number' ? activeProduct.price : (parseInt(activeProduct.price, 10) || 0)) : productPrice;
+      window.customerData = {
+        quantity,
+        subtotal: currentPrice * quantity,
+        weight: productWeight * quantity
+      };
+    })();
+
+    // Semua fungsi dan event terkait pengiriman dihapus
+
+    orderForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      // Validate form dari data-fields
+      let fields = [];
+      try {
+        const rawFields = document.body.dataset.fields || '{}';
+        const parsedFields = JSON.parse(rawFields.replace(/'/g, '"'));
+        fields = Array.isArray(parsedFields.fields) ? parsedFields.fields : [];
+      } catch (err) { /* ignore */ }
+
+      const formValues = {};
+      const missingRequired = [];
+      fields.forEach(f => {
+        const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`);
+        const val = el ? (el.value || '').trim() : '';
+        formValues[f.id] = val;
+        if (f.required && !val) missingRequired.push(f.label || f.id);
+      });
+
+      // Pastikan minimal field wajib: name, phone, address jika ada di konfigurasi
+      if (missingRequired.length) {
+        alert('Mohon lengkapi field wajib: ' + missingRequired.join(', '));
+        return;
+      }
+
+      // Validasi pengiriman dihapus
+
+      // Update customer data dari formValues
+      Object.assign(window.customerData, formValues);
+      // Address detail tidak digunakan untuk pengiriman
+
+      // Calculate total
+      // Template PF ini hanya untuk produk utama dengan varian
+      const mainProductForOrder = (window.productsData || []).find(p => !p.is_addon);
+      const itemsForOrder = mainProductForOrder ? [mainProductForOrder] : [];
+      const subtotal = itemsForOrder.reduce((acc, p) => {
+        const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
+        return acc + priceNum * (p.quantity || 0);
+      }, 0);
+      window.customerData.subtotal = subtotal;
+      // Update weight total
+      const totalQty = itemsForOrder.reduce((acc, p) => acc + (p.quantity || 0), 0);
+      window.customerData.weight = productWeight * totalQty;
+      const total = subtotal;
+
+      // Prepare product data (single product)
+      const product = itemsForOrder.length ? itemsForOrder.map((p, i) => ({
+        id: p.id || `SKU-${i + 1}`,
+        code: p.id || `SKU-${i + 1}`,
+        name: p.name || `Produk ${i + 1}`,
+        price: typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0),
+        quantity: p.quantity || 0
+      })) : [];
+
+      if (!product.length) {
+        alert('Pilih minimal 1 item sebelum menyelesaikan pesanan.');
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Selesaikan Pesanan';
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        return;
+      }
+
+      // Get UTM parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmSource = urlParams.get('utm_source') || '';
+      const utmMedium = urlParams.get('utm_medium') || '';
+      const utmCampaign = urlParams.get('utm_campaign') || '';
+      const utmContent = urlParams.get('utm_content') || '';
+
+      // Prepare submission data
+      const submissionData = {
+        customer_data: {
+          ...window.customerData,
+          utm_meta: {
+            utm_source: utmSource,
+            utm_medium: utmMedium,
+            utm_campaign: utmCampaign,
+            utm_content: utmContent
+          }
+        },
+        subtotal: subtotal,
+        total: total,
+        product: product
+      };
+
+      // Disable submit button
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Memproses...';
+      submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+
+      try {
+        const response = await fetch(`${document.body.dataset.domain}/form/${document.body.dataset.formId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(submissionData)
+        });
+
+        if (typeof fbq !== 'undefined') {
+          fbq('track', submitEvent, {
+            value: total,
+            currency: 'IDR'
+          });
+        }
+
+        if (typeof ttq !== 'undefined') {
+          ttq.track(submitEvent, {
+            value: total,
+            currency: 'IDR'
+          });
+        }
+
+        if (typeof twq !== 'undefined') {
+          twq('event', submitEvent, {
+            value: total,
+            currency: 'IDR'
+          });
+        }
+
+        const result = await response.json();
+
+        if (result.id) {
+          // Show success message
+          successMessage.classList.remove('hidden');
+          setTimeout(() => {
+            successContent.classList.remove('scale-95', 'opacity-0');
+            successContent.classList.add('scale-100', 'opacity-100');
+
+            // Animate progress bar
+            let width = 0;
+            const interval = setInterval(() => {
+              width += 10;
+              progressBar.style.width = width + '%';
+
+              if (width >= 100) {
+                clearInterval(interval);
+                // Redirect to invoice page
+                window.location.href = `${domain}/invoice/${result.id}`;
+              }
+            }, 100);
+          }, 100);
+        } else {
+          throw new Error('Failed to submit order');
+        }
+      } catch (error) {
+        console.error('Error submitting order:', error);
+        alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
+
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Selesaikan Pesanan';
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+      }
+    });
+
+    // Dropdown pengiriman dihapus
+
+    // Initialize summary setelah render
+    updateSummary();
+  </script>
+</section>

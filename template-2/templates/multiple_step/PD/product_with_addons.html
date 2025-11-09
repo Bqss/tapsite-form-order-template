@@ -1,43 +1,33 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Form Order — tapsite.ai</title>
-  <!-- Hanya gunakan TailwindCSS sesuai rules -->
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-</head>
-
-<body
-  data-products='[{"id":"BASE-001","name":"Cupcake Base","price":6000,"description":"Produk utama.","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":1,"weight":200},{"id":"ADD-CHIP","name":"Chocolate Chips","price":1500,"description":"Tambahan choco chips","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":true,"quantity":1},{"id":"ADD-NUT","name":"Peanut","price":2000,"description":"Tambahan kacang","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":true,"quantity":1}]'
-  data-fields='{"fields":[{"id":"name","label":"Nama","type":"text","required":true},{"id":"email","label":"Email","type":"email","required":false},{"id":"phone","label":"Nomor Telepon","type":"tel","required":true}]}'
-  data-domain="http://localhost:5556"
-  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
-  data-origin-id="spa-form2-ms"
-  class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50">
+<section class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50">
 
   <!-- Header + Stepper -->
-  <header class="px-4 py-10 sm:px-6 lg:px-8">
+  <div class="px-4 py-10 sm:px-6 lg:px-8">
     <div class="max-w-6xl mx-auto">
       <div class="rounded-3xl bg-gradient-to-b from-teal-700 to-emerald-600 text-white p-6 sm:p-8 shadow-xl">
         <h1 class="text-3xl font-extrabold tracking-tight">Order Form • Produk Digital (With Addons) • Multi-step</h1>
         <p class="mt-2 opacity-90">Konfirmasi produk, lengkapi data pemesan, dan cek ringkasan.</p>
         <div class="mt-6">
           <div class="w-full bg-white/20 rounded-full h-2">
-            <div id="stepProgressBar" class="bg-white h-2 rounded-full transition-all duration-500" style="width:33%"></div>
+            <div id="stepProgressBar" class="bg-white h-2 rounded-full transition-all duration-500" style="width:33%">
+            </div>
           </div>
           <div class="mt-3 grid grid-cols-3 gap-1.5 sm:gap-2 text-xs sm:text-sm">
-            <div data-step-index="1" class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white text-teal-800 ring-2 ring-white/70 shadow-md scale-[1.02] font-semibold">
-              <span class="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white text-teal-700 font-bold text-xs sm:text-sm">1</span>
+            <div data-step-index="1"
+              class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white text-teal-800 ring-2 ring-white/70 shadow-md scale-[1.02] font-semibold">
+              <span
+                class="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white text-teal-700 font-bold text-xs sm:text-sm">1</span>
               <span class="text-[10px] sm:text-xs">Produk</span>
             </div>
-            <div data-step-index="2" class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
-              <span class="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold text-xs sm:text-sm">2</span>
+            <div data-step-index="2"
+              class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
+              <span
+                class="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold text-xs sm:text-sm">2</span>
               <span class="text-[10px] sm:text-xs">Pemesan</span>
             </div>
-            <div data-step-index="3" class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
-              <span class="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold text-xs sm:text-sm">3</span>
+            <div data-step-index="3"
+              class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
+              <span
+                class="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold text-xs sm:text-sm">3</span>
               <span class="text-[10px] sm:text-xs hidden sm:inline">Ringkasan</span>
               <span class="text-[10px] sm:hidden">Done</span>
             </div>
@@ -45,10 +35,10 @@
         </div>
       </div>
     </div>
-  </header>
+  </div>
 
   <!-- Steps -->
-  <section class="px-4 pb-12 sm:px-6 lg:px-8">
+  <div class="px-4 pb-12 sm:px-6 lg:px-8">
     <div class="max-w-6xl mx-auto">
       <form id="orderForm" class="space-y-6">
         <!-- Step 1: Base Product + Addons -->
@@ -58,7 +48,9 @@
               <h2 class="text-xl font-bold text-gray-900">Konfirmasi Produk</h2>
               <p class="text-sm text-gray-600 mt-1">Produk utama dan addon opsional.</p>
             </div>
-            <div id="step1Alert" class="hidden text-sm px-3 py-2 bg-red-50 text-red-700 border border-red-200 rounded-lg">Produk utama tidak tersedia.</div>
+            <div id="step1Alert"
+              class="hidden text-sm px-3 py-2 bg-red-50 text-red-700 border border-red-200 rounded-lg">Produk utama
+              tidak tersedia.</div>
           </div>
 
           <!-- Base Product -->
@@ -66,13 +58,18 @@
             <div class="p-4">
               <h3 class="text-lg font-semibold text-gray-900 mb-3">Produk</h3>
               <div id="products" class="space-y-3">
-                <div data-role="product" data-template="product" class="group bg-white/80 backdrop-blur-sm border border-teal-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:ring-1 hover:ring-teal-300 transition-all duration-300">
+                <div data-role="product" data-template="product"
+                  class="group bg-white/80 backdrop-blur-sm border border-teal-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:ring-1 hover:ring-teal-300 transition-all duration-300">
                   <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                    <img data-value="image_url" src="https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="Produk" class="w-full sm:w-24 h-48 sm:h-24 rounded-xl object-cover border border-gray-200" />
+                    <img data-value="image_url"
+                      src="https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds"
+                      alt="Produk" class="w-full sm:w-24 h-48 sm:h-24 rounded-xl object-cover border border-gray-200" />
                     <div class="flex-1 min-w-0 w-full">
                       <div class="flex items-start justify-between gap-2">
                         <h3 class="text-lg sm:text-xl font-bold text-gray-900" data-value="name">Nama Produk</h3>
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-teal-50 text-teal-700 border border-teal-100">Produk utama</span>
+                        <span
+                          class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-teal-50 text-teal-700 border border-teal-100">Produk
+                          utama</span>
                       </div>
                       <p class="text-base text-gray-600" data-value="description">Deskripsi singkat produk.</p>
                       <div class="mt-2 flex items-center gap-3">
@@ -92,12 +89,15 @@
               <h3 class="text-lg font-semibold text-gray-900 mb-3">Addon (Opsional)</h3>
               <div id="addonsList" class="flex flex-col gap-3">
                 <div id="addonItemTemplate" data-template="addon-item" class="hidden">
-                  <label class="group flex items-start gap-3 p-4 bg-white/80 backdrop-blur-sm border border-teal-100 rounded-2xl hover:shadow-md hover:-translate-y-0.5 hover:ring-1 hover:ring-teal-300 transition-all duration-300 cursor-pointer">
+                  <label
+                    class="group flex items-start gap-3 p-4 bg-white/80 backdrop-blur-sm border border-teal-100 rounded-2xl hover:shadow-md hover:-translate-y-0.5 hover:ring-1 hover:ring-teal-300 transition-all duration-300 cursor-pointer">
                     <input type="checkbox" class="mt-1.5 w-4 h-4 text-teal-600 focus:ring-teal-500" />
                     <div class="flex-1">
                       <div class="flex justify-between items-start gap-2">
                         <span class="text-base font-medium text-gray-900" data-field="name">Addon</span>
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-sm font-semibold bg-teal-50 text-teal-700 border border-teal-100" data-field="price">Rp 0</span>
+                        <span
+                          class="inline-flex items-center px-2 py-0.5 rounded-full text-sm font-semibold bg-teal-50 text-teal-700 border border-teal-100"
+                          data-field="price">Rp 0</span>
                       </div>
                       <p class="text-sm text-gray-600 mt-1" data-field="description"></p>
                     </div>
@@ -108,7 +108,9 @@
           </div>
 
           <div class="mt-6 flex items-center justify-end gap-3">
-            <button type="button" id="nextToStep2" class="px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500">Lanjut ke Data Pemesan</button>
+            <button type="button" id="nextToStep2"
+              class="px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500">Lanjut
+              ke Data Pemesan</button>
           </div>
         </div>
 
@@ -119,20 +121,28 @@
               <h2 class="text-xl font-bold text-gray-900">Detail Pemesan</h2>
               <p class="text-sm text-gray-600 mt-1">Lengkapi informasi di bawah ini.</p>
             </div>
-            <div id="step2Alert" class="hidden text-sm px-3 py-2 bg-red-50 text-red-700 border border-red-200 rounded-lg">Lengkapi semua field yang wajib.</div>
+            <div id="step2Alert"
+              class="hidden text-sm px-3 py-2 bg-red-50 text-red-700 border border-red-200 rounded-lg">Lengkapi semua
+              field yang wajib.</div>
           </div>
 
           <div id="forms" class="mt-4 grid grid-cols-1 gap-4">
             <!-- Template Field -->
             <div data-role="field" data-template="field" class="space-y-2">
-              <label for="name" class="block text-sm font-medium text-gray-700" data-value="label">Nama <span class="text-red-500">*</span></label>
-              <input type="text" id="name" name="name" required data-value-id data-value-type data-value-required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all" placeholder="Masukkan nama lengkap" />
+              <label for="name" class="block text-sm font-medium text-gray-700" data-value="label">Nama <span
+                  class="text-red-500">*</span></label>
+              <input type="text" id="name" name="name" required data-value-id data-value-type data-value-required
+                class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
+                placeholder="Masukkan nama lengkap" />
             </div>
           </div>
 
           <div class="mt-6 flex items-center justify-between gap-3">
-            <button type="button" id="backToStep1" class="px-6 py-3 bg-gray-100 text-gray-800 font-semibold rounded-lg hover:bg-gray-200 transition-colors">Kembali</button>
-            <button type="button" id="nextToStep3" class="px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500">Lanjut ke Ringkasan</button>
+            <button type="button" id="backToStep1"
+              class="px-6 py-3 bg-gray-100 text-gray-800 font-semibold rounded-lg hover:bg-gray-200 transition-colors">Kembali</button>
+            <button type="button" id="nextToStep3"
+              class="px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500">Lanjut
+              ke Ringkasan</button>
           </div>
         </div>
 
@@ -144,7 +154,8 @@
           <div class="mt-4 bg-gradient-to-br from-white to-cyan-50 rounded-2xl p-4 border border-teal-100">
             <div id="summaryItems" class="space-y-3"></div>
             <!-- Template summary item -->
-            <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item" data-placeholder="true" class="hidden">
+            <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item" data-placeholder="true"
+              class="hidden">
               <div class="flex items-center justify-between pb-3 border-b border-teal-100">
                 <div>
                   <h3 class="font-semibold text-gray-900" data-summary="name">Nama Produk</h3>
@@ -163,20 +174,30 @@
           </div>
 
           <div class="mt-6 flex items-center justify-between gap-3">
-            <button type="button" id="backToStep2" class="px-6 py-3 bg-gray-100 text-gray-800 font-semibold rounded-lg hover:bg-gray-200 transition-colors">Kembali</button>
-            <button type="submit" id="submitBtn" class="px-8 py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">Selesaikan Pesanan</button>
+            <button type="button" id="backToStep2"
+              class="px-6 py-3 bg-gray-100 text-gray-800 font-semibold rounded-lg hover:bg-gray-200 transition-colors">Kembali</button>
+            <button type="submit" id="submitBtn"
+              class="px-8 py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">Selesaikan
+              Pesanan</button>
           </div>
         </div>
       </form>
     </div>
-  </section>
+  </div>
 
   <!-- Success Modal -->
-  <div id="successMessage" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-    <div id="successContent" class="bg-white rounded-2xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0">
+  <div id="successMessage"
+    class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+    <div id="successContent"
+      class="bg-white rounded-2xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0">
       <div class="text-center">
         <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" viewBox="0 0 20 20"
+            fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd" />
+          </svg>
         </div>
         <h3 class="text-xl font-bold text-gray-900 mb-2">Pesanan Berhasil!</h3>
         <p class="text-gray-600 mb-6">Terima kasih. Kamu akan diarahkan ke halaman pembayaran.</p>
@@ -341,16 +362,16 @@
       step1 && step1.classList.toggle('hidden', currentStep !== 1);
       step2 && step2.classList.toggle('hidden', currentStep !== 2);
       step3 && step3.classList.toggle('hidden', currentStep !== 3);
-      
+
       // Update progress bar
       const pct = currentStep === 1 ? 33 : currentStep === 2 ? 66 : 100;
       if (stepProgressBar) stepProgressBar.style.width = pct + '%';
-      
+
       // Update step indicators
       document.querySelectorAll('[data-step-index]').forEach(el => {
         const s = parseInt(el.getAttribute('data-step-index'), 10);
         const numberSpan = el.querySelector('span:first-child');
-        
+
         if (s === currentStep) {
           el.className = 'flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white text-teal-800 ring-2 ring-white/70 shadow-md scale-[1.02] font-semibold';
           if (numberSpan) numberSpan.className = 'flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white text-teal-700 font-bold text-xs sm:text-sm';
@@ -376,32 +397,31 @@
       if (!state.base) { alert('Produk tidak tersedia'); setStep(1); return; }
 
       // Validasi field pemesan
-      let fields = []; try { const parsed = JSON.parse((document.body.dataset.fields||'{}').replace(/'/g,'"')); fields = Array.isArray(parsed.fields)?parsed.fields:[]; } catch {}
+      let fields = []; try { const parsed = JSON.parse((document.body.dataset.fields || '{}').replace(/'/g, '"')); fields = Array.isArray(parsed.fields) ? parsed.fields : []; } catch { }
       const formValues = {}; const missingRequired = [];
-      fields.forEach(f=>{ const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`); const val = el ? (el.value||'').trim() : ''; formValues[f.id] = val; if (f.required && !val) missingRequired.push(f.label||f.id); });
-      if (missingRequired.length){ alert('Mohon lengkapi field wajib: ' + missingRequired.join(', ')); setStep(2); return; }
+      fields.forEach(f => { const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`); const val = el ? (el.value || '').trim() : ''; formValues[f.id] = val; if (f.required && !val) missingRequired.push(f.label || f.id); });
+      if (missingRequired.length) { alert('Mohon lengkapi field wajib: ' + missingRequired.join(', ')); setStep(2); return; }
 
       const selectedAddons = state.addons.filter(a => a.selected);
       const itemsForSubmit = [
-        { id: state.base.id, code: state.base.id, name: state.base.name, price: Number(state.base.price||0), quantity: 1, is_addon: false },
-        ...selectedAddons.map(a => ({ id: a.id, code: a.id, name: a.name, price: Number(a.price||0), quantity: 1, is_addon: true }))
+        { id: state.base.id, code: state.base.id, name: state.base.name, price: Number(state.base.price || 0), quantity: 1, is_addon: false },
+        ...selectedAddons.map(a => ({ id: a.id, code: a.id, name: a.name, price: Number(a.price || 0), quantity: 1, is_addon: true }))
       ];
       const subtotal = Number(state.base.price || 0) + selectedAddons.reduce((s, a) => s + Number(a.price || 0), 0);
       const total = subtotal;
 
       const urlParams = new URLSearchParams(window.location.search);
-      const utm = { utm_source: urlParams.get('utm_source')||'', utm_medium: urlParams.get('utm_medium')||'', utm_campaign: urlParams.get('utm_campaign')||'', utm_content: urlParams.get('utm_content')||'' };
+      const utm = { utm_source: urlParams.get('utm_source') || '', utm_medium: urlParams.get('utm_medium') || '', utm_campaign: urlParams.get('utm_campaign') || '', utm_content: urlParams.get('utm_content') || '' };
       const submissionData = { customer_data: { ...formValues, utm_meta: utm }, subtotal, total, product: itemsForSubmit };
 
       const submitBtn = document.getElementById('submitBtn');
-      submitBtn.disabled = true; submitBtn.textContent = 'Memproses...'; submitBtn.classList.add('opacity-75','cursor-not-allowed');
-      try{
-        const response = await fetch(`${domain}/form/${document.body.dataset.formId}`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(submissionData) });
+      submitBtn.disabled = true; submitBtn.textContent = 'Memproses...'; submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+      try {
+        const response = await fetch(`${domain}/form/${document.body.dataset.formId}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(submissionData) });
         const result = await response.json();
-        if (result.id){ successMessage.classList.remove('hidden'); setTimeout(()=>{ successContent.classList.remove('scale-95','opacity-0'); successContent.classList.add('scale-100','opacity-100'); let width=0; const interval=setInterval(()=>{ width+=10; progressBar.style.width=width+'%'; if (width>=100){ clearInterval(interval); window.location.href = `${domain}/invoice/${result.id}`; } },100); },100); }
+        if (result.id) { successMessage.classList.remove('hidden'); setTimeout(() => { successContent.classList.remove('scale-95', 'opacity-0'); successContent.classList.add('scale-100', 'opacity-100'); let width = 0; const interval = setInterval(() => { width += 10; progressBar.style.width = width + '%'; if (width >= 100) { clearInterval(interval); window.location.href = `${domain}/invoice/${result.id}`; } }, 100); }, 100); }
         else { throw new Error('Failed to submit order'); }
-      } catch(err){ console.error('Error submitting order:', err); alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.'); submitBtn.disabled=false; submitBtn.textContent='Selesaikan Pesanan'; submitBtn.classList.remove('opacity-75','cursor-not-allowed'); }
+      } catch (err) { console.error('Error submitting order:', err); alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.'); submitBtn.disabled = false; submitBtn.textContent = 'Selesaikan Pesanan'; submitBtn.classList.remove('opacity-75', 'cursor-not-allowed'); }
     });
   </script>
-</body>
-</html>
+</section>

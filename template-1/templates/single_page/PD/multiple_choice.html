@@ -1,194 +1,174 @@
-<!DOCTYPE html>
-<html lang="en">
+<section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
+  <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto" bis_skin_checked="1">
+    <!-- Header -->
+    <div class="text-center mb-8" bis_skin_checked="1">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2 hover-highlight custom-cursor">Form order A</h1>
+      <p class="text-gray-600 hover-highlight custom-cursor">Beli produk anda disini</p>
+    </div>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <!-- Form Container -->
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden" bis_skin_checked="1">
 
-</head>
-
-<body
-  data-products='[{"id":"KPRI01","name":"Friendly Business Access (UMKM Oriented)","price":197000,"discount_price":0,"description":"Cocok Untuk: Pemilik UMKM, pemula, pengguna paket basic Dripsender\n\nValue Proposisi:\n\n- Konsultasi ringan & edukatif\n- Fokus pada audit WhatsApp Marketing, optimasi LP, dan funnel basic\n- Dapat dilakukan di café dengan suasana santai","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":0,"is_required":false,"allow_custom_price":false,"imageLoading":false},{"id":"KPRI02","name":"Strategi Bisnis Menengah (Growth Oriented)","price":397000,"description":"Cocok Untuk: Pemilik bisnis yang sudah aktif tapi belum optimal secara digital\n\nValue Proposisi:\n\n- Business funnel diagnosis\n- Strategi konten, autoresponder, closing script\n- Termasuk review LP dan automation sequence","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":0,"is_required":false,"allow_custom_price":false,"imageLoading":false},{"id":"KPRI03","name":"VIP Strategic Session (High Ticket)","price":897000,"description":"Cocok Untuk: Pebisnis skala besar, agency, atau pengguna langganan premium\n\nValue Proposisi:\n\n- Analisis mendalam berbasis data\n- Blueprint strategi growth WhatsApp + LP funnel\n- Follow-up report tertulis (opsional), dan bisa 1-on-1 langsung dengan expert","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":0,"is_required":false,"allow_custom_price":false,"imageLoading":false}]'
-  data-fields='{"fields":[{"id":"name","label":"Nama","type":"text","required":true},{"id":"email","label":"Email","type":"email","required":false},{"id":"phone","label":"Nomor Telepon","type":"tel","required":true}]}'
-  data-domain="http://localhost:5556" data-origin-id="5fc63944f8f44b34aa4c819e"
-  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
-  >
-  <section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
-    <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto" bis_skin_checked="1">
-      <!-- Header -->
-      <div class="text-center mb-8" bis_skin_checked="1">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2 hover-highlight custom-cursor">Form order A</h1>
-        <p class="text-gray-600 hover-highlight custom-cursor">Beli produk anda disini</p>
-      </div>
-
-      <!-- Form Container -->
-      <div class="bg-white rounded-2xl shadow-xl overflow-hidden" bis_skin_checked="1">
-
-        <form id="orderForm" class="p-6 sm:p-8 lg:p-10 hover-highlight custom-cursor">
-          <!-- Product Selection -->
-          <div data-role="parent" class="mb-8 sm:mb-10 hover-highlight custom-cursor" bis_skin_checked="1">
-            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
-              <span
-                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">1</span>
-              Pilih Produk
-            </h2>
-            <div class="flex flex-col gap-4" id="products">
-              <div
-                class="bg-white rounded-xl p-4 border-2 border-transparent transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg hover:border-blue-500"
-                bis_skin_checked="1" data-placeholder="true" data-role="product" data-template="product">
-                <div class="flex flex-row gap-4 items-center" bis_skin_checked="1">
-                    <div class="flex-shrink-0">
-                        <img data-value="image_url" src="https://placehold.co/300x300/e2e8f0/64748b?text=Produk"
-                            alt="asdfafdsfdsa"
-                            class="w-24 h-24 object-cover rounded-lg shadow-md border border-gray-200">
-                    </div>
-                    <div class="w-full min-w-0">
-                        <div class="flex justify-between items-start mb-1">
-                            <h3 class="text-lg font-bold text-gray-900" data-value="name">
-                                asdfafdsfdsa</h3>
-                            <div
-                                class="w-6 h-6 bg-white rounded-full border-2 border-gray-300 flex items-center justify-center transition-all duration-300 flex-shrink-0 ml-4">
-                                <div class="w-3 h-3 bg-blue-500 rounded-full transform scale-0 transition-all duration-300"></div>
-                            </div>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-1 truncate" data-value="description">asdfafdsds</p>
-                        <div class="flex items-center justify-between mt-3">
-                            <span class="text-lg font-bold text-blue-600" data-value="price">Rp 0</span>
-                            <span class="text-sm text-gray-500">200g</span>
-                        </div>
-                    </div>
-                    <input type="radio" name="product_selection" class="hidden">
+      <form id="orderForm" class="p-6 sm:p-8 lg:p-10 hover-highlight custom-cursor">
+        <!-- Product Selection -->
+        <div data-role="parent" class="mb-8 sm:mb-10 hover-highlight custom-cursor" bis_skin_checked="1">
+          <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
+            <span
+              class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">1</span>
+            Pilih Produk
+          </h2>
+          <div class="flex flex-col gap-4" id="products">
+            <div
+              class="bg-white rounded-xl p-4 border-2 border-transparent transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg hover:border-blue-500"
+              bis_skin_checked="1" data-placeholder="true" data-role="product" data-template="product">
+              <div class="flex flex-row gap-4 items-center" bis_skin_checked="1">
+                <div class="flex-shrink-0">
+                  <img data-value="image_url" src="https://placehold.co/300x300/e2e8f0/64748b?text=Produk"
+                    alt="asdfafdsfdsa" class="w-24 h-24 object-cover rounded-lg shadow-md border border-gray-200">
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Identity Information -->
-          <div data-role="parent" class="mb-8 sm:mb-10 hover-highlight custom-cursor" bis_skin_checked="1">
-            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
-              <span
-                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">2</span>
-              Informasi Identitas
-            </h2>
-
-            <div class="space-y-6" bis_skin_checked="1" id="forms">
-              <div bis_skin_checked="1" data-role="field" data-placeholder="true" data-template="field">
-                <label for="name"
-                  class="block text-base sm:text-sm font-medium text-gray-700 mb-2 hover-highlight custom-cursor"
-                  data-value="label">Nama
-                  <span class="text-red-500 hover-highlight custom-cursor">*</span></label>
-                <input type="text" id="name" name="name" required="" data-value-id data-value-type data-value-required
-                  class="w-full px-4 py-4 sm:py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-base hover-highlight custom-cursor"
-                  placeholder="Masukkan nama lengkap Anda">
-              </div>
-            </div>
-          </div>
-
-          <!-- Shipping Information removed -->
-
-          <!-- Order Summary -->
-          <div data-role="parent" class="mb-8 sm:mb-10 hover-highlight custom-cursor" bis_skin_checked="1">
-            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
-              <span
-                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">3</span>
-              Ringkasan Pesanan
-            </h2>
-
-            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100"
-              bis_skin_checked="1">
-              <div class="space-y-4" bis_skin_checked="1">
-                <div id="summaryItems" class="space-y-3" bis_skin_checked="1">
-
-                </div>
-                <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item"
-                  class="flex justify-between items-center pb-3 border-b border-blue-100 hidden" data-placeholder="true"
-                  bis_skin_checked="1">
-                  <div bis_skin_checked="1">
-                    <h3 class="font-semibold text-gray-900 hover-highlight custom-cursor" data-summary="name">Test</h3>
-                    <p class="text-sm text-gray-500 hover-highlight custom-cursor">Berat: <span data-summary="weight"
-                        class="hover-highlight custom-cursor">1000</span>g</p>
+                <div class="w-full min-w-0">
+                  <div class="flex justify-between items-start mb-1">
+                    <h3 class="text-lg font-bold text-gray-900" data-value="name">
+                      asdfafdsfdsa</h3>
+                    <div
+                      class="w-6 h-6 bg-white rounded-full border-2 border-gray-300 flex items-center justify-center transition-all duration-300 flex-shrink-0 ml-4">
+                      <div class="w-3 h-3 bg-blue-500 rounded-full transform scale-0 transition-all duration-300">
+                      </div>
+                    </div>
                   </div>
-                  <div class="text-right" bis_skin_checked="1">
-                    <p class="font-semibold text-gray-900 hover-highlight custom-cursor">Rp <span
-                        data-summary="line_total" class="hover-highlight custom-cursor">0</span></p>
+                  <p class="text-sm text-gray-500 mt-1 truncate" data-value="description">asdfafdsds</p>
+                  <div class="flex items-center justify-between mt-3">
+                    <span class="text-lg font-bold text-blue-600" data-value="price">Rp 0</span>
+                    <span class="text-sm text-gray-500">200g</span>
                   </div>
                 </div>
+                <input type="radio" name="product_selection" class="hidden">
+              </div>
+            </div>
+          </div>
+        </div>
 
-                <!-- Shipping summary removed -->
+        <!-- Identity Information -->
+        <div data-role="parent" class="mb-8 sm:mb-10 hover-highlight custom-cursor" bis_skin_checked="1">
+          <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
+            <span
+              class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">2</span>
+            Informasi Identitas
+          </h2>
 
-                <div class="flex justify-between items-center " bis_skin_checked="1">
-                  <h3 class="text-lg font-bold text-gray-900 hover-highlight custom-cursor">Total</h3>
-                  <p class="text-xl font-bold text-blue-600 hover-highlight custom-cursor">Rp <span id="totalPrice"
-                      class="hover-highlight custom-cursor">20.000</span></p>
+          <div class="space-y-6" bis_skin_checked="1" id="forms">
+            <div bis_skin_checked="1" data-role="field" data-placeholder="true" data-template="field">
+              <label for="name"
+                class="block text-base sm:text-sm font-medium text-gray-700 mb-2 hover-highlight custom-cursor"
+                data-value="label">Nama
+                <span class="text-red-500 hover-highlight custom-cursor">*</span></label>
+              <input type="text" id="name" name="name" required="" data-value-id data-value-type data-value-required
+                class="w-full px-4 py-4 sm:py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-base hover-highlight custom-cursor"
+                placeholder="Masukkan nama lengkap Anda">
+            </div>
+          </div>
+        </div>
+
+        <!-- Shipping Information removed -->
+
+        <!-- Order Summary -->
+        <div data-role="parent" class="mb-8 sm:mb-10 hover-highlight custom-cursor" bis_skin_checked="1">
+          <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
+            <span
+              class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">3</span>
+            Ringkasan Pesanan
+          </h2>
+
+          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100"
+            bis_skin_checked="1">
+            <div class="space-y-4" bis_skin_checked="1">
+              <div id="summaryItems" class="space-y-3" bis_skin_checked="1">
+
+              </div>
+              <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item"
+                class="flex justify-between items-center pb-3 border-b border-blue-100 hidden" data-placeholder="true"
+                bis_skin_checked="1">
+                <div bis_skin_checked="1">
+                  <h3 class="font-semibold text-gray-900 hover-highlight custom-cursor" data-summary="name">Test</h3>
+                  <p class="text-sm text-gray-500 hover-highlight custom-cursor">Berat: <span data-summary="weight"
+                      class="hover-highlight custom-cursor">1000</span>g</p>
+                </div>
+                <div class="text-right" bis_skin_checked="1">
+                  <p class="font-semibold text-gray-900 hover-highlight custom-cursor">Rp <span
+                      data-summary="line_total" class="hover-highlight custom-cursor">0</span></p>
                 </div>
               </div>
+
+              <!-- Shipping summary removed -->
+
+              <div class="flex justify-between items-center " bis_skin_checked="1">
+                <h3 class="text-lg font-bold text-gray-900 hover-highlight custom-cursor">Total</h3>
+                <p class="text-xl font-bold text-blue-600 hover-highlight custom-cursor">Rp <span id="totalPrice"
+                    class="hover-highlight custom-cursor">20.000</span></p>
+              </div>
             </div>
           </div>
+        </div>
 
-          <!-- Trust Elements -->
-          <div class="mb-6" bis_skin_checked="1">
-            <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500" bis_skin_checked="1">
-              <div class="flex items-center" bis_skin_checked="1">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-green-500 mr-1 hover-highlight custom-cursor" viewBox="0 0 20 20"
-                  fill="currentColor">
-                  <path fill-rule="evenodd"
-                    d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clip-rule="evenodd"></path>
-                </svg>
-                Pembayaran Aman
-              </div>
-              <div class="flex items-center" bis_skin_checked="1">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-green-500 mr-1 hover-highlight custom-cursor" viewBox="0 0 20 20"
-                  fill="currentColor">
-                  <path fill-rule="evenodd"
-                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                    clip-rule="evenodd"></path>
-                </svg>
-                Data Terenkripsi
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="flex justify-center" bis_skin_checked="1">
-            <button type="submit" id="submitBtn"
-              class="w-full sm:w-auto px-8 py-5 sm:py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 min-h-14 sm:min-h-12 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hover-highlight custom-cursor">
-              Selesaikan Pesanan
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Success Message -->
-      <div id="successMessage" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-        bis_skin_checked="1">
-        <div class="bg-white rounded-xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0"
-          id="successContent" bis_skin_checked="1">
-          <div class="text-center" bis_skin_checked="1">
-            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
-              bis_skin_checked="1">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" viewBox="0 0 20 20"
-                fill="currentColor">
+        <!-- Trust Elements -->
+        <div class="mb-6" bis_skin_checked="1">
+          <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500" bis_skin_checked="1">
+            <div class="flex items-center" bis_skin_checked="1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-1 hover-highlight custom-cursor"
+                viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                   clip-rule="evenodd"></path>
               </svg>
+              Pembayaran Aman
             </div>
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">Pesanan Berhasil!</h2>
-            <p class="text-gray-600 mb-6">Terima kasih! Pesanan Anda telah kami terima dan akan segera diproses.</p>
-            <a href="#" id="backToHome"
-              class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors">Kembali ke
-              Halaman Utama</a>
+            <div class="flex items-center" bis_skin_checked="1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-1 hover-highlight custom-cursor"
+                viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              Data Terenkripsi
+            </div>
+
           </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-center" bis_skin_checked="1">
+          <button type="submit" id="submitBtn"
+            class="w-full sm:w-auto px-8 py-5 sm:py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 min-h-14 sm:min-h-12 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hover-highlight custom-cursor">
+            Selesaikan Pesanan
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      bis_skin_checked="1">
+      <div class="bg-white rounded-xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0"
+        id="successContent" bis_skin_checked="1">
+        <div class="text-center" bis_skin_checked="1">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
+            bis_skin_checked="1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" viewBox="0 0 20 20"
+              fill="currentColor">
+              <path fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">Pesanan Berhasil!</h2>
+          <p class="text-gray-600 mb-6">Terima kasih! Pesanan Anda telah kami terima dan akan segera diproses.</p>
+          <a href="#" id="backToHome"
+            class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors">Kembali ke
+            Halaman Utama</a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const state = {
@@ -228,7 +208,7 @@
           productEl.querySelector('[data-value="description"]').textContent = product.description;
           productEl.querySelector('[data-value="price"]').textContent = `Rp ${formatCurrency(product.price)}`;
           productEl.querySelector('[data-value="image_url"]').src = product.image_url;
-          
+
           const radio = productEl.querySelector('input[type="radio"]');
           radio.value = product.id;
 
@@ -288,14 +268,14 @@
         const selectedProduct = state.products.find(p => p.quantity > 0);
 
         if (selectedProduct) {
-            const itemEl = summaryItemTemplate.cloneNode(true);
-            itemEl.classList.remove('hidden');
-            itemEl.querySelector('[data-summary="name"]').textContent = selectedProduct.name;
-            itemEl.querySelector('[data-summary="weight"]').textContent = 200; // Assuming static weight
-            itemEl.querySelector('[data-summary="line_total"]').textContent = formatCurrency(selectedProduct.price);
-            summaryItemsContainer.appendChild(itemEl);
-            subtotal = selectedProduct.price;
-            state.totalWeight = 200;
+          const itemEl = summaryItemTemplate.cloneNode(true);
+          itemEl.classList.remove('hidden');
+          itemEl.querySelector('[data-summary="name"]').textContent = selectedProduct.name;
+          itemEl.querySelector('[data-summary="weight"]').textContent = 200; // Assuming static weight
+          itemEl.querySelector('[data-summary="line_total"]').textContent = formatCurrency(selectedProduct.price);
+          summaryItemsContainer.appendChild(itemEl);
+          subtotal = selectedProduct.price;
+          state.totalWeight = 200;
         }
 
         // Shipping removed; total equals subtotal
@@ -312,14 +292,14 @@
 
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
-        
+
         // Get UTM parameters
         const urlParams = new URLSearchParams(window.location.search);
         const utmSource = urlParams.get('utm_source') || '';
         const utmMedium = urlParams.get('utm_medium') || '';
         const utmCampaign = urlParams.get('utm_campaign') || '';
         const utmContent = urlParams.get('utm_content') || '';
-        
+
         // Prepare customer data
         const customerData = {
           ...data,
@@ -332,7 +312,7 @@
             utm_content: utmContent
           }
         };
-        
+
         // Prepare product data
         const selectedProduct = state.products.find(p => p.quantity > 0);
         const productData = selectedProduct ? [{
@@ -343,11 +323,11 @@
           quantity: 1,
           is_addon: false
         }] : [];
-        
+
         // Calculate subtotal and total
         const subtotal = selectedProduct ? selectedProduct.price : 0;
         const total = subtotal;
-        
+
         const payload = {
           customer_data: customerData,
           subtotal: subtotal,
@@ -356,69 +336,69 @@
         };
 
         try {
-            const response = await fetch(`${document.body.dataset.domain}/form/${document.body.dataset.formId}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+          const response = await fetch(`${document.body.dataset.domain}/form/${document.body.dataset.formId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          const result = await response.json();
+
+          // Track pixel events
+          const submitEvent = document.body.dataset.submitEvent || 'Lead';
+          if (typeof fbq !== 'undefined') {
+            fbq('track', submitEvent, {
+              value: total,
+              currency: 'IDR'
             });
-            
-            const result = await response.json();
-            
-            // Track pixel events
-            const submitEvent = document.body.dataset.submitEvent || 'Lead';
-            if (typeof fbq !== 'undefined') {
-                fbq('track', submitEvent, {
-                    value: total,
-                    currency: 'IDR'
-                });
-            }
-            
-            if (typeof ttq !== 'undefined') {
-                ttq.track(submitEvent, {
-                    value: total,
-                    currency: 'IDR'
-                });
-            }
-            
-            if (typeof twq !== 'undefined') {
-                twq('event', submitEvent, {
-                    value: total,
-                    currency: 'IDR'
-                });
-            }
-            
-            if(response.ok && result.id) {
-                // Show success message
-                document.getElementById('successMessage').classList.remove('hidden');
-                const successContent = document.getElementById('successContent');
-                const progressBar = document.getElementById('progressBar');
-                
-                setTimeout(() => {
-                    successContent.classList.remove('scale-95', 'opacity-0');
-                    successContent.classList.add('scale-100', 'opacity-100');
-                    
-                    // Animate progress bar
-                    let width = 0;
-                    const interval = setInterval(() => {
-                        width += 10;
-                        progressBar.style.width = width + '%';
-                        
-                        if (width >= 100) {
-                            clearInterval(interval);
-                            // Redirect to invoice page
-                            window.location.href = `${document.body.dataset.domain}/invoice/${result.id}`;
-                        }
-                    }, 100);
-                }, 100);
-            } else {
-                alert('Gagal membuat pesanan. Silakan coba lagi.');
-            }
+          }
+
+          if (typeof ttq !== 'undefined') {
+            ttq.track(submitEvent, {
+              value: total,
+              currency: 'IDR'
+            });
+          }
+
+          if (typeof twq !== 'undefined') {
+            twq('event', submitEvent, {
+              value: total,
+              currency: 'IDR'
+            });
+          }
+
+          if (response.ok && result.id) {
+            // Show success message
+            document.getElementById('successMessage').classList.remove('hidden');
+            const successContent = document.getElementById('successContent');
+            const progressBar = document.getElementById('progressBar');
+
+            setTimeout(() => {
+              successContent.classList.remove('scale-95', 'opacity-0');
+              successContent.classList.add('scale-100', 'opacity-100');
+
+              // Animate progress bar
+              let width = 0;
+              const interval = setInterval(() => {
+                width += 10;
+                progressBar.style.width = width + '%';
+
+                if (width >= 100) {
+                  clearInterval(interval);
+                  // Redirect to invoice page
+                  window.location.href = `${document.body.dataset.domain}/invoice/${result.id}`;
+                }
+              }, 100);
+            }, 100);
+          } else {
+            alert('Gagal membuat pesanan. Silakan coba lagi.');
+          }
         } catch (error) {
-            console.error('Error submitting order:', error);
-            alert('Terjadi kesalahan. Silakan coba lagi.');
+          console.error('Error submitting order:', error);
+          alert('Terjadi kesalahan. Silakan coba lagi.');
         } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Selesaikan Pesanan';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Selesaikan Pesanan';
         }
       });
 
@@ -428,6 +408,4 @@
       updateSummary();
     });
   </script>
-</body>
-
-</html>
+</section>

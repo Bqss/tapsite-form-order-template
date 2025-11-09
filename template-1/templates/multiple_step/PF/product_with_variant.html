@@ -1,628 +1,676 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Form Multi-Step (Variants) - tapsite.ai</title>
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-</head>
-<body
-  data-products='[{"id":"SKU-001","name":"IKAN","price":2000,"discount_price":0,"description":"adsfafsdsdadsf","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":1,"is_required":true,"allow_custom_price":false,"variants":[{"id":"SKU-001-red","name":"Merah","price":3000},{"id":"XL","name":"XL","price":3500}],"weight":200}]'
-  data-fields="{'fields':[{'id':'name','label':'Nama','type':'text','required':true},{'id':'email','label':'Email','type':'email','required':false},{'id':'phone','label':'Nomor Telepon','type':'tel','required':true}]}"
-  data-couriers="['JNE','JNECargo','SiCepat','SiCepatCargo','SAP','SapCargo','iDexpress','JT','lion','iDexpressCargo','paxel','Ninja']"
-  data-domain="http://localhost:5556" 
-  data-origin-id="5fc63944f8f44b34aa4c819e"
-  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
->
-  <section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
-    <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto">
-      <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">Form order A</h1>
-        <p class="text-gray-600">Beli produk anda disini</p>
-      </div>
+<section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
+  <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto">
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Form order A</h1>
+      <p class="text-gray-600">Beli produk anda disini</p>
+    </div>
 
-      <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-        <form id="orderForm" class="p-6 sm:p-8 lg:p-10">
-          <!-- Stepper -->
-          <div id="ms-stepper" class="flex items-center justify-between mb-6">
-            <div class="flex-1 flex items-center">
-              <div class="step-node" data-step-index="0">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-blue-100 text-blue-600">1</div>
-                <div class="text-xs mt-1 text-gray-700">Produk</div>
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <form id="orderForm" class="p-6 sm:p-8 lg:p-10">
+        <!-- Stepper -->
+        <div id="ms-stepper" class="flex items-center justify-between mb-6">
+          <div class="flex-1 flex items-center">
+            <div class="step-node" data-step-index="0">
+              <div
+                class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-blue-100 text-blue-600">
+                1</div>
+              <div class="text-xs mt-1 text-gray-700">Produk</div>
+            </div>
+            <div class="flex-1 h-0.5 mx-2 bg-gray-200"></div>
+            <div class="step-node" data-step-index="1">
+              <div
+                class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-gray-100 text-gray-500">
+                2</div>
+              <div class="text-xs mt-1 text-gray-700">Identitas</div>
+            </div>
+            <div class="flex-1 h-0.5 mx-2 bg-gray-200"></div>
+            <div class="step-node" data-step-index="2">
+              <div
+                class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-gray-100 text-gray-500">
+                3</div>
+              <div class="text-xs mt-1 text-gray-700">Pengiriman</div>
+            </div>
+            <div class="flex-1 h-0.5 mx-2 bg-gray-200"></div>
+            <div class="step-node" data-step-index="3">
+              <div
+                class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-gray-100 text-gray-500">
+                4</div>
+              <div class="text-xs mt-1 text-gray-700">Ringkasan</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 1: Produk (+ Variants) -->
+        <div id="step-product" class="ms-step">
+          <div class="mb-8 sm:mb-10">
+            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <span
+                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2">1</span>
+              Pilih Produk
+            </h2>
+            <div class="flex flex-col gap-2" id="products">
+              <!-- Main Product -->
+              <div data-role="product" data-product-id="KPRI01"
+                class="bg-white rounded-xl shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg">
+                <div class="md:flex">
+                  <div class="md:flex-shrink-0 relative">
+                    <div class="h-48 w-full md:w-64 items-center justify-center overflow-hidden">
+                      <img data-value="image_url" src="https://placehold.co/300x300/e2e8f0/64748b?text=Produk+Utama"
+                        alt="Produk Utama"
+                        class="w-full h-full object-cover rounded-xl shadow-lg transform transition duration-300 hover:scale-105">
+                    </div>
+                  </div>
+                  <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2" data-value="name">Produk Utama</h3>
+                    <p class="text-gray-600 mb-4" data-value="description">Deskripsi produk utama.</p>
+                    <div class="flex items-baseline mb-4">
+                      <span class="text-3xl font-bold text-indigo-600" data-value="price">Rp 500.000</span>
+                    </div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Variants</label>
+                    <div data-role="variants-container" class="flex flex-col gap-2">
+                      <!-- Variants will be injected here -->
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="flex-1 h-0.5 mx-2 bg-gray-200"></div>
-              <div class="step-node" data-step-index="1">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-gray-100 text-gray-500">2</div>
-                <div class="text-xs mt-1 text-gray-700">Identitas</div>
-              </div>
-              <div class="flex-1 h-0.5 mx-2 bg-gray-200"></div>
-              <div class="step-node" data-step-index="2">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-gray-100 text-gray-500">3</div>
-                <div class="text-xs mt-1 text-gray-700">Pengiriman</div>
-              </div>
-              <div class="flex-1 h-0.5 mx-2 bg-gray-200"></div>
-              <div class="step-node" data-step-index="3">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-gray-100 text-gray-500">4</div>
-                <div class="text-xs mt-1 text-gray-700">Ringkasan</div>
+
+              <div data-template="variant-item" class="hidden" data-placeholder="true">
+                <button type="button" data-role="variant-chip"
+                  class="px-3 py-1 rounded-full border border-indigo-200 text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:border-indigo-400 transition">
+                  <span data-value="name"></span>
+                  <span class="ml-2 text-indigo-600 font-semibold" data-value="price"></span>
+                </button>
               </div>
             </div>
           </div>
+          <div class="flex justify-end gap-3">
+            <button type="button" class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700"
+              data-nav="next">Lanjut</button>
+          </div>
+        </div>
 
-          <!-- Step 1: Produk (+ Variants) -->
-          <div id="step-product" class="ms-step">
-            <div class="mb-8 sm:mb-10">
-              <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2">1</span>
-                Pilih Produk
-              </h2>
-              <div class="flex flex-col gap-2" id="products">
-                <!-- Main Product -->
-                <div data-role="product" data-product-id="KPRI01" class="bg-white rounded-xl shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg">
-                  <div class="md:flex">
-                    <div class="md:flex-shrink-0 relative">
-                      <div class="h-48 w-full md:w-64 items-center justify-center overflow-hidden">
-                        <img data-value="image_url" src="https://placehold.co/300x300/e2e8f0/64748b?text=Produk+Utama" alt="Produk Utama" class="w-full h-full object-cover rounded-xl shadow-lg transform transition duration-300 hover:scale-105">
+        <!-- Step 2: Identitas -->
+        <div id="step-identity" class="ms-step hidden">
+          <div class="mb-8 sm:mb-10">
+            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <span
+                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2">2</span>
+              Informasi Identitas
+            </h2>
+            <div class="space-y-6" id="forms">
+              <div data-role="field" data-template="field">
+                <label for="name" class="block text-base sm:text-sm font-medium text-gray-700 mb-2"
+                  data-value="label">Nama <span class="text-red-500">*</span></label>
+                <input type="text" id="name" name="name" required data-value-id data-value-type data-value-required
+                  class="w-full px-4 py-4 sm:py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  placeholder="Masukkan nama lengkap Anda" />
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-between gap-3">
+            <button type="button" class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700"
+              data-nav="prev">Kembali</button>
+            <button type="button" class="px-4 py-2 rounded-lg bg-blue-600 text-white" data-nav="next">Lanjut</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Pengiriman -->
+        <div id="step-shipping" class="ms-step hidden">
+          <div class="mb-8 sm:mb-10">
+            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <span
+                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2">3</span>
+              Informasi Pengiriman
+            </h2>
+            <div class="space-y-6">
+              <div class="relative">
+                <label for="subdistrict"
+                  class="block text-base sm:text-sm font-medium text-gray-700 mb-2">Desa/Kelurahan <span
+                    class="text-red-500">*</span></label>
+                <input type="text" id="subdistrict" name="subdistrict" required
+                  class="w-full px-4 py-4 sm:py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  placeholder="Ketik nama desa/kelurahan..." />
+                <div id="dropdown"
+                  class="absolute bottom-full left-0 right-0 bg-white border-2 border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto hidden w-full mb-2">
+                  <div id="loading" class="p-3 text-center hidden" data-placeholder="true">Mencari...</div>
+                  <div id="results"></div>
+                </div>
+                <div class="mt-5">
+                  <label for="address" class="block text-base sm:text-sm font-medium text-gray-700 mb-2">Alamat Lengkap
+                    <span class="text-red-500">*</span></label>
+                  <textarea id="address" name="address" rows="3" required
+                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    placeholder="Nama jalan, nomor rumah, RT/RW, patokan"></textarea>
+                </div>
+              </div>
+
+              <div id="courierOptions">
+                <label class="block text-base sm:text-sm font-medium text-gray-700 mb-2">Pilih Kurir <span
+                    class="text-red-500">*</span></label>
+                <div id="courierGuard"
+                  class="mb-3 p-3 border-2 border-dashed border-gray-300 rounded-lg text-center text-sm text-gray-600"
+                  data-placeholder="true">Pilih alamat terlebih dahulu untuk melihat pilihan kurir dan menghitung
+                  ongkir.</div>
+                <div id="courierList" class="space-y-3 grid grid-cols-2 gap-2">
+                  <div id="courierLoading"
+                    class="col-span-2 p-3 border-2 border-gray-200 rounded-lg text-gray-600 text-sm flex items-center gap-2 hidden"
+                    data-placeholder="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 animate-spin text-gray-500"
+                      viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 3a7 7 0 100 14v-2a5 5 0 110-10V3z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Sedang menghitung ongkir dan mengambil daftar kurir...</span>
+                  </div>
+                  <div id="courierItemTemplate" data-role="courier-item" data-template="courier-item"
+                    data-placeholder="true"
+                    class="flex items-center p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 transition-colors cursor-pointer hidden">
+                    <input type="radio" name="courier" class="mr-3 w-4 h-4 text-blue-600 focus:ring-blue-500" />
+                    <label class="flex-1 cursor-pointer">
+                      <div class="flex justify-between items-center">
+                        <span class="font-medium" data-field="name">Nama Kurir</span>
+                        <span class="text-blue-600 font-semibold" data-field="price">Rp 0</span>
                       </div>
-                    </div>
-                    <div class="p-6">
-                      <h3 class="text-2xl font-bold text-gray-900 mb-2" data-value="name">Produk Utama</h3>
-                      <p class="text-gray-600 mb-4" data-value="description">Deskripsi produk utama.</p>
-                      <div class="flex items-baseline mb-4">
-                        <span class="text-3xl font-bold text-indigo-600" data-value="price">Rp 500.000</span>
-                      </div>
-                      <label class="block text-sm font-medium text-gray-700 mb-2">Variants</label>
-                      <div data-role="variants-container" class="flex flex-col gap-2">
-                        <!-- Variants will be injected here -->
-                      </div>
-                    </div>
+                      <div class="text-sm text-gray-500">Estimasi: <span data-field="eta">2-3 Hari</span></div>
+                    </label>
                   </div>
                 </div>
-
-                <div data-template="variant-item" class="hidden" data-placeholder="true">
-                  <button type="button" data-role="variant-chip" class="px-3 py-1 rounded-full border border-indigo-200 text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:border-indigo-400 transition">
-                    <span data-value="name"></span>
-                    <span class="ml-2 text-indigo-600 font-semibold" data-value="price"></span>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="flex justify-end gap-3">
-              <button type="button" class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700" data-nav="next">Lanjut</button>
-            </div>
-          </div>
-
-          <!-- Step 2: Identitas -->
-          <div id="step-identity" class="ms-step hidden">
-            <div class="mb-8 sm:mb-10">
-              <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2">2</span>
-                Informasi Identitas
-              </h2>
-              <div class="space-y-6" id="forms">
-                <div data-role="field" data-template="field">
-                  <label for="name" class="block text-base sm:text-sm font-medium text-gray-700 mb-2" data-value="label">Nama <span class="text-red-500">*</span></label>
-                  <input type="text" id="name" name="name" required data-value-id data-value-type data-value-required class="w-full px-4 py-4 sm:py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Masukkan nama lengkap Anda" />
-                </div>
-              </div>
-            </div>
-            <div class="flex justify-between gap-3">
-              <button type="button" class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700" data-nav="prev">Kembali</button>
-              <button type="button" class="px-4 py-2 rounded-lg bg-blue-600 text-white" data-nav="next">Lanjut</button>
-            </div>
-          </div>
-
-          <!-- Step 3: Pengiriman -->
-          <div id="step-shipping" class="ms-step hidden">
-            <div class="mb-8 sm:mb-10">
-              <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2">3</span>
-                Informasi Pengiriman
-              </h2>
-              <div class="space-y-6">
-                <div class="relative">
-                  <label for="subdistrict" class="block text-base sm:text-sm font-medium text-gray-700 mb-2">Desa/Kelurahan <span class="text-red-500">*</span></label>
-                  <input type="text" id="subdistrict" name="subdistrict" required class="w-full px-4 py-4 sm:py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Ketik nama desa/kelurahan..." />
-                  <div id="dropdown" class="absolute bottom-full left-0 right-0 bg-white border-2 border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto hidden w-full mb-2">
-                    <div id="loading" class="p-3 text-center hidden" data-placeholder="true">Mencari...</div>
-                    <div id="results"></div>
-                  </div>
-                  <div class="mt-5">
-                    <label for="address" class="block text-base sm:text-sm font-medium text-gray-700 mb-2">Alamat Lengkap <span class="text-red-500">*</span></label>
-                    <textarea id="address" name="address" rows="3" required class="w-full px-4 py-4 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="Nama jalan, nomor rumah, RT/RW, patokan"></textarea>
-                  </div>
-                </div>
-
-                <div id="courierOptions">
-                  <label class="block text-base sm:text-sm font-medium text-gray-700 mb-2">Pilih Kurir <span class="text-red-500">*</span></label>
-                  <div id="courierGuard" class="mb-3 p-3 border-2 border-dashed border-gray-300 rounded-lg text-center text-sm text-gray-600" data-placeholder="true">Pilih alamat terlebih dahulu untuk melihat pilihan kurir dan menghitung ongkir.</div>
-                  <div id="courierList" class="space-y-3 grid grid-cols-2 gap-2">
-                    <div id="courierLoading" class="col-span-2 p-3 border-2 border-gray-200 rounded-lg text-gray-600 text-sm flex items-center gap-2 hidden" data-placeholder="true">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 animate-spin text-gray-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a7 7 0 100 14v-2a5 5 0 110-10V3z" clip-rule="evenodd"></path></svg>
-                      <span>Sedang menghitung ongkir dan mengambil daftar kurir...</span>
-                    </div>
-                    <div id="courierItemTemplate" data-role="courier-item" data-template="courier-item" data-placeholder="true" class="flex items-center p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 transition-colors cursor-pointer hidden">
-                      <input type="radio" name="courier" class="mr-3 w-4 h-4 text-blue-600 focus:ring-blue-500" />
-                      <label class="flex-1 cursor-pointer">
-                        <div class="flex justify-between items-center">
-                          <span class="font-medium" data-field="name">Nama Kurir</span>
-                          <span class="text-blue-600 font-semibold" data-field="price">Rp 0</span>
-                        </div>
-                        <div class="text-sm text-gray-500">Estimasi: <span data-field="eta">2-3 Hari</span></div>
-                      </label>
-                    </div>
-                  </div>
-                  <div id="courierError" class="mt-2 text-red-500 text-sm hidden">Silakan pilih kurir pengiriman</div>
-                </div>
-              </div>
-            </div>
-            <div class="flex justify-between gap-3">
-              <button type="button" class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700" data-nav="prev">Kembali</button>
-              <button type="button" class="px-4 py-2 rounded-lg bg-blue-600 text-white" data-nav="next">Lanjut</button>
-            </div>
-          </div>
-
-          <!-- Step 4: Ringkasan -->
-          <div id="step-summary" class="ms-step hidden">
-            <div class="mb-8 sm:mb-10">
-              <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2">4</span>
-                Ringkasan Pesanan
-              </h2>
-              <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
-                <div class="space-y-4">
-                  <div id="summaryItems" class="space-y-3"></div>
-                  <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item" class="flex justify-between items-center pb-3 border-b border-blue-100 hidden" data-placeholder="true">
-                    <div>
-                      <h3 class="font-semibold text-gray-900" data-summary="name">Test</h3>
-                      <p class="text-sm text-gray-500">Berat: <span data-summary="weight">1000</span>g</p>
-                    </div>
-                    <div class="text-right">
-                      <p class="text-sm text-gray-500">Rp <span data-summary="unit_price">10.000</span> × <span data-summary="qty">1</span></p>
-                      <p class="font-semibold text-gray-900">Rp <span data-summary="line_total">0</span></p>
-                    </div>
-                  </div>
-
-                  <div id="shippingInfo" class="hidden" data-placeholder="true">
-                    <div class="pb-3 border-b border-blue-100">
-                      <h4 class="font-medium text-gray-900 mb-2">Informasi Pengiriman</h4>
-                      <p class="text-sm text-gray-600" id="shippingAddress"></p>
-                      <p class="text-sm text-gray-600 mt-1">Kurir: <span id="selectedCourier">jne</span></p>
-                      <p class="text-sm text-gray-600">Ongkos Kirim: Rp <span id="shippingCost">0</span></p>
-                    </div>
-                  </div>
-
-                  <div class="flex justify-between items-center">
-                    <h3 class="text-lg font-bold text-gray-900">Total</h3>
-                    <p class="text-xl font-bold text-blue-600">Rp <span id="totalPrice">0</span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="flex justify-between gap-3">
-              <button type="button" class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700" data-nav="prev">Kembali</button>
-              <button type="submit" id="submitBtn" class="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold shadow-lg">Selesaikan Pesanan</button>
-            </div>
-          </div>
-
-          <div class="mt-10 text-sm text-gray-500">
-            <div class="flex flex-wrap items-center justify-center gap-4">
-              <div class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                Pembayaran Aman
-              </div>
-              <div class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
-                Data Terenkripsi
+                <div id="courierError" class="mt-2 text-red-500 text-sm hidden">Silakan pilih kurir pengiriman</div>
               </div>
             </div>
           </div>
-        </form>
-      </div>
+          <div class="flex justify-between gap-3">
+            <button type="button" class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700"
+              data-nav="prev">Kembali</button>
+            <button type="button" class="px-4 py-2 rounded-lg bg-blue-600 text-white" data-nav="next">Lanjut</button>
+          </div>
+        </div>
 
-      <div id="successMessage" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0" id="successContent">
-          <div class="text-center">
-            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+        <!-- Step 4: Ringkasan -->
+        <div id="step-summary" class="ms-step hidden">
+          <div class="mb-8 sm:mb-10">
+            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <span
+                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2">4</span>
+              Ringkasan Pesanan
+            </h2>
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
+              <div class="space-y-4">
+                <div id="summaryItems" class="space-y-3"></div>
+                <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item"
+                  class="flex justify-between items-center pb-3 border-b border-blue-100 hidden"
+                  data-placeholder="true">
+                  <div>
+                    <h3 class="font-semibold text-gray-900" data-summary="name">Test</h3>
+                    <p class="text-sm text-gray-500">Berat: <span data-summary="weight">1000</span>g</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-sm text-gray-500">Rp <span data-summary="unit_price">10.000</span> × <span
+                        data-summary="qty">1</span></p>
+                    <p class="font-semibold text-gray-900">Rp <span data-summary="line_total">0</span></p>
+                  </div>
+                </div>
+
+                <div id="shippingInfo" class="hidden" data-placeholder="true">
+                  <div class="pb-3 border-b border-blue-100">
+                    <h4 class="font-medium text-gray-900 mb-2">Informasi Pengiriman</h4>
+                    <p class="text-sm text-gray-600" id="shippingAddress"></p>
+                    <p class="text-sm text-gray-600 mt-1">Kurir: <span id="selectedCourier">jne</span></p>
+                    <p class="text-sm text-gray-600">Ongkos Kirim: Rp <span id="shippingCost">0</span></p>
+                  </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                  <h3 class="text-lg font-bold text-gray-900">Total</h3>
+                  <p class="text-xl font-bold text-blue-600">Rp <span id="totalPrice">0</span></p>
+                </div>
+              </div>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Pesanan Berhasil!</h3>
-            <p class="text-gray-600 mb-6">Terima kasih telah melakukan pemesanan. Anda akan diarahkan ke halaman pembayaran.</p>
-            <div class="w-full bg-gray-200 rounded-full h-2">
-              <div class="bg-blue-600 h-2 rounded-full" id="progressBar" style="width: 0%"></div>
+          </div>
+          <div class="flex justify-between gap-3">
+            <button type="button" class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700"
+              data-nav="prev">Kembali</button>
+            <button type="submit" id="submitBtn"
+              class="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold shadow-lg">Selesaikan
+              Pesanan</button>
+          </div>
+        </div>
+
+        <div class="mt-10 text-sm text-gray-500">
+          <div class="flex flex-wrap items-center justify-center gap-4">
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-1" viewBox="0 0 20 20"
+                fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              Pembayaran Aman
             </div>
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-1" viewBox="0 0 20 20"
+                fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              Data Terenkripsi
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div id="successMessage" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0"
+        id="successContent">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" viewBox="0 0 20 20"
+              fill="currentColor">
+              <path fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Pesanan Berhasil!</h3>
+          <p class="text-gray-600 mb-6">Terima kasih telah melakukan pemesanan. Anda akan diarahkan ke halaman
+            pembayaran.</p>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div class="bg-blue-600 h-2 rounded-full" id="progressBar" style="width: 0%"></div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script>
-      const domain = document.body.dataset.domain || '';
-      const originId = document.body.dataset.originId || '';
-      const submitEvent = document.body.dataset.submitEvent || '';
+  <script>
+    const domain = document.body.dataset.domain || '';
+    const originId = document.body.dataset.originId || '';
+    const submitEvent = document.body.dataset.submitEvent || '';
 
-      const summaryItemsContainer = document.getElementById('summaryItems');
-      const totalPriceElement = document.getElementById('totalPrice');
-      const orderForm = document.getElementById('orderForm');
-      const progressBar = document.getElementById('progressBar');
+    const summaryItemsContainer = document.getElementById('summaryItems');
+    const totalPriceElement = document.getElementById('totalPrice');
+    const orderForm = document.getElementById('orderForm');
+    const progressBar = document.getElementById('progressBar');
 
-      // ====== PRESERVE ORIGINAL LOGIC (render products, variants, fields, shipping, submission) ======
-      const productsContainer = document.getElementById('products');
-      const summaryItemTemplate = document.getElementById('summaryItemTemplate');
-      const productPrice = window.initialProductPrice || 0;
-      const productWeight = 200;
-      const subdistrictInput = document.getElementById('subdistrict');
-      const dropdown = document.getElementById('dropdown');
-      const loadingElement = document.getElementById('loading');
-      const resultsElement = document.getElementById('results');
-      const courierOptions = document.getElementById('courierOptions');
-      const courierList = document.getElementById('courierList');
-      const courierGuard = document.getElementById('courierGuard');
-      const courierLoadingEl = document.getElementById('courierLoading');
-      const submitBtn = document.getElementById('submitBtn');
-      const successMessage = document.getElementById('successMessage');
-      const successContent = document.getElementById('successContent');
-      let debounceTimer;
-      let selectedAddress = null;
+    // ====== PRESERVE ORIGINAL LOGIC (render products, variants, fields, shipping, submission) ======
+    const productsContainer = document.getElementById('products');
+    const summaryItemTemplate = document.getElementById('summaryItemTemplate');
+    const productPrice = window.initialProductPrice || 0;
+    const productWeight = 200;
+    const subdistrictInput = document.getElementById('subdistrict');
+    const dropdown = document.getElementById('dropdown');
+    const loadingElement = document.getElementById('loading');
+    const resultsElement = document.getElementById('results');
+    const courierOptions = document.getElementById('courierOptions');
+    const courierList = document.getElementById('courierList');
+    const courierGuard = document.getElementById('courierGuard');
+    const courierLoadingEl = document.getElementById('courierLoading');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMessage = document.getElementById('successMessage');
+    const successContent = document.getElementById('successContent');
+    let debounceTimer;
+    let selectedAddress = null;
 
-      (function initProductRendering() {
-        try {
-          const raw = document.body.dataset.products || '[]';
-          const products = JSON.parse(raw.replace(/'/g, '"'));
+    (function initProductRendering() {
+      try {
+        const raw = document.body.dataset.products || '[]';
+        const products = JSON.parse(raw.replace(/'/g, '"'));
 
-          const mainProduct = products.find(p => !p.is_addon);
-          const mainProductContainer = document.querySelector(`[data-role="product"]`);
+        const mainProduct = products.find(p => !p.is_addon);
+        const mainProductContainer = document.querySelector(`[data-role="product"]`);
 
-          if (mainProduct && mainProductContainer) {
-            const imgEl = mainProductContainer.querySelector('[data-value="image_url"]');
-            if (imgEl) imgEl.src = mainProduct.image_url;
-            mainProductContainer.querySelector('[data-value="name"]').textContent = mainProduct.name;
-            mainProductContainer.querySelector('[data-value="description"]').textContent = mainProduct.description;
+        if (mainProduct && mainProductContainer) {
+          const imgEl = mainProductContainer.querySelector('[data-value="image_url"]');
+          if (imgEl) imgEl.src = mainProduct.image_url;
+          mainProductContainer.querySelector('[data-value="name"]').textContent = mainProduct.name;
+          mainProductContainer.querySelector('[data-value="description"]').textContent = mainProduct.description;
 
-            const variantsContainer = mainProductContainer.querySelector('[data-role="variants-container"]');
-            const variantTemplate = document.querySelector('[data-template="variant-item"]');
-            const mainPriceEl = mainProductContainer.querySelector('[data-value="price"]');
+          const variantsContainer = mainProductContainer.querySelector('[data-role="variants-container"]');
+          const variantTemplate = document.querySelector('[data-template="variant-item"]');
+          const mainPriceEl = mainProductContainer.querySelector('[data-value="price"]');
 
-            if (variantsContainer && mainProduct.variants && mainProduct.variants.length > 0) {
-              variantsContainer.innerHTML = '';
-              mainProduct.variants.forEach((variant, index) => {
-                let chipEl;
-                if (variantTemplate) {
-                  const variantNode = variantTemplate.cloneNode(true);
-                  variantNode.classList.remove('hidden');
-                  variantNode.removeAttribute('data-template');
-                  chipEl = variantNode.querySelector('[data-role="variant-chip"]');
-                  const nameEl = variantNode.querySelector('[data-value="name"]');
-                  const priceEl = variantNode.querySelector('[data-value="price"]');
-                  if (nameEl) nameEl.textContent = variant.name;
-                  if (priceEl) priceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
-                  variantsContainer.appendChild(variantNode);
-                } else {
-                  // Fallback chip if template not found
-                  chipEl = document.createElement('button');
-                  chipEl.type = 'button';
-                  chipEl.className = 'w-full inline-flex items-center justify-between px-3 py-2 rounded-lg border border-gray-200 hover:border-indigo-400 bg-white hover:bg-indigo-50 transition ring-0';
-                  chipEl.innerHTML = `<span class="font-medium">${variant.name}</span><span class="text-indigo-600 font-semibold">Rp ${Number(variant.price).toLocaleString('id-ID')}</span>`;
-                  chipEl.setAttribute('data-role','variant-chip');
-                  variantsContainer.appendChild(chipEl);
-                }
-
-                if (chipEl) {
-                  chipEl.addEventListener('click', () => {
-                    Array.from(variantsContainer.querySelectorAll('[data-role="variant-chip"]')).forEach(btn => {
-                      btn.classList.remove('ring-2','ring-indigo-500','bg-indigo-50','text-indigo-700');
-                    });
-                    chipEl.classList.add('ring-2','ring-indigo-500','bg-indigo-50','text-indigo-700');
-                    onVariantSelect(mainProduct, variant);
-                  });
-                }
-
-                if (index === 0) {
-                  if (chipEl) chipEl.classList.add('ring-2','ring-indigo-500','bg-indigo-50','text-indigo-700');
-                  mainProduct.price = variant.price;
-                  try {
-                    const wp = (window.productsData || []).find(p => p.id === mainProduct.id);
-                    if (wp) wp.price = variant.price;
-                  } catch (err) { /* ignore */ }
-                  if (mainPriceEl) mainPriceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
-                }
-              });
-            } else {
-              if (mainPriceEl) mainPriceEl.textContent = `Rp ${Number(mainProduct.price).toLocaleString('id-ID')}`;
-            }
-          }
-
-          // Persist products with quantity forced to 0 on initial load
-          window.productsData = products.map(p => ({
-            ...p,
-            quantity: 0
-          }));
-          window.activeProductIndex = 0;
-        } catch (e) {
-          console.warn('Gagal render produk dari data-products:', e);
-        }
-      })();
-
-      function onVariantSelect(product, variant) {
-        const mainProduct = window.productsData.find(p => p.id === product.id);
-        if (mainProduct) {
-          mainProduct.price = variant.price;
-        }
-        const mainProductNode = document.querySelector('[data-role="product"]');
-        const mainPriceEl = mainProductNode.querySelector('[data-value="price"]');
-        if (mainPriceEl) {
-          mainPriceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
-        }
-        updateSummary();
-      }
-
-      (function initFieldRendering() {
-        try {
-          const raw = document.body.dataset.fields || '{}';
-          const parsed = JSON.parse(raw.replace(/'/g, '"'));
-          const fields = Array.isArray(parsed.fields) ? parsed.fields : [];
-
-          const container = document.getElementById('forms');
-          const template = container ? container.querySelector('[data-role="field"]') : null;
-          if (!container || !template || !fields.length) return;
-
-          const buildFieldHTML = (field) => {
-            const el = template.cloneNode(true);
-            const labelEl = el.querySelector('[data-value="label"]') || el.querySelector('label');
-            const inputEl = el.querySelector('input');
-
-            if (labelEl) {
-              const labelText = field.label || '';
-              labelEl.innerHTML = `${labelText}${field.required ? ' <span class="text-red-500">*</span>' : ''}`;
-              if (field.id) labelEl.setAttribute('for', field.id);
-            }
-
-            if (inputEl) {
-              if (field.type) inputEl.setAttribute('type', field.type);
-              if (field.id) {
-                inputEl.setAttribute('id', field.id);
-                inputEl.setAttribute('name', field.id);
+          if (variantsContainer && mainProduct.variants && mainProduct.variants.length > 0) {
+            variantsContainer.innerHTML = '';
+            mainProduct.variants.forEach((variant, index) => {
+              let chipEl;
+              if (variantTemplate) {
+                const variantNode = variantTemplate.cloneNode(true);
+                variantNode.classList.remove('hidden');
+                variantNode.removeAttribute('data-template');
+                chipEl = variantNode.querySelector('[data-role="variant-chip"]');
+                const nameEl = variantNode.querySelector('[data-value="name"]');
+                const priceEl = variantNode.querySelector('[data-value="price"]');
+                if (nameEl) nameEl.textContent = variant.name;
+                if (priceEl) priceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
+                variantsContainer.appendChild(variantNode);
+              } else {
+                // Fallback chip if template not found
+                chipEl = document.createElement('button');
+                chipEl.type = 'button';
+                chipEl.className = 'w-full inline-flex items-center justify-between px-3 py-2 rounded-lg border border-gray-200 hover:border-indigo-400 bg-white hover:bg-indigo-50 transition ring-0';
+                chipEl.innerHTML = `<span class="font-medium">${variant.name}</span><span class="text-indigo-600 font-semibold">Rp ${Number(variant.price).toLocaleString('id-ID')}</span>`;
+                chipEl.setAttribute('data-role', 'variant-chip');
+                variantsContainer.appendChild(chipEl);
               }
-              inputEl.required = !!field.required;
-              let placeholder = inputEl.getAttribute('placeholder') || '';
-              if (field.type === 'email') placeholder = 'email@example.com';
-              else if (field.type === 'tel') placeholder = '08xxxxxxxxxx';
-              else if (field.type === 'text') placeholder = `Masukkan ${field.label || ''}`.trim();
-              inputEl.setAttribute('placeholder', placeholder);
-            }
 
-            return el.outerHTML;
-          };
+              if (chipEl) {
+                chipEl.addEventListener('click', () => {
+                  Array.from(variantsContainer.querySelectorAll('[data-role="variant-chip"]')).forEach(btn => {
+                    btn.classList.remove('ring-2', 'ring-indigo-500', 'bg-indigo-50', 'text-indigo-700');
+                  });
+                  chipEl.classList.add('ring-2', 'ring-indigo-500', 'bg-indigo-50', 'text-indigo-700');
+                  onVariantSelect(mainProduct, variant);
+                });
+              }
 
-          container.innerHTML = fields.map(buildFieldHTML).join('');
-        } catch (e) {
-          console.warn('Gagal render fields dari data-fields:', e);
-        }
-      })();
-
-      function getProductIndexFromChild(child) {
-        if (!productsContainer) return -1;
-        const cards = Array.from(productsContainer.querySelectorAll('[data-role="product"]'));
-        const card = child.closest('[data-role="product"]');
-        return cards.indexOf(card);
-      }
-
-      function setActiveProduct(byChild) {
-        const idx = getProductIndexFromChild(byChild);
-        if (idx >= 0) window.activeProductIndex = idx;
-      }
-
-      if (productsContainer) {
-        productsContainer.addEventListener('click', (e) => {
-          if (e.target.closest('[data-role="product"]')) {
-            setActiveProduct(e.target);
-            updateSummary();
-          }
-        });
-      }
-
-      function updateSummary() {
-        const mainProduct = window.productsData.find(p => !p.is_addon);
-        if (mainProduct) {
-          mainProduct.quantity = 1;
-        }
-        const itemsForOrder = mainProduct ? [mainProduct] : [];
-
-        if (summaryItemsContainer && summaryItemTemplate) {
-          const html = itemsForOrder.map(p => {
-            const qty = p.quantity || 0;
-            const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
-            const lineTotal = priceNum * qty;
-            const lineWeight = productWeight * qty;
-            const el = summaryItemTemplate.cloneNode(true);
-            el.classList.remove('hidden');
-            const nameEl = el.querySelector('[data-summary="name"]');
-            const weightEl = el.querySelector('[data-summary="weight"]');
-            const unitPriceEl = el.querySelector('[data-summary="unit_price"]');
-            const qtyEl = el.querySelector('[data-summary="qty"]');
-            const lineTotalEl = el.querySelector('[data-summary="line_total"]');
-            if (nameEl) nameEl.textContent = p.name || '';
-            if (weightEl) weightEl.textContent = lineWeight;
-            if (unitPriceEl) unitPriceEl.textContent = priceNum.toLocaleString('id-ID');
-            if (qtyEl) qtyEl.textContent = qty;
-            if (lineTotalEl) lineTotalEl.textContent = lineTotal.toLocaleString('id-ID');
-            return el.outerHTML;
-          }).join('');
-          summaryItemsContainer.innerHTML = html || '';
-        }
-
-        const subtotal = itemsForOrder.reduce((acc, p) => {
-          const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
-          return acc + priceNum * (p.quantity || 0);
-        }, 0);
-        const totalWeight = itemsForOrder.reduce((acc, p) => acc + (p.quantity || 0) * productWeight, 0);
-
-        const shippingCostElement = document.getElementById('shippingCost');
-        const shippingCost = parseInt((shippingCostElement?.textContent || '').replace(/\./g, '')) || 0;
-        const total = subtotal + shippingCost;
-        if (totalPriceElement) totalPriceElement.textContent = total.toLocaleString('id-ID');
-
-        if (window.customerData) {
-          window.customerData.subtotal = subtotal;
-          window.customerData.weight = totalWeight;
-          if (selectedAddress) {
-            calculateShippingCost();
-          }
-        }
-      }
-
-      (function initCustomerData() {
-        const idx = typeof window.activeProductIndex === 'number' ? window.activeProductIndex : 0;
-        const activeProduct = (window.productsData && window.productsData[idx]) || null;
-        const quantity = activeProduct ? (activeProduct.quantity || 0) : 0;
-        const currentPrice = activeProduct ? (typeof activeProduct.price === 'number' ? activeProduct.price : (parseInt(activeProduct.price, 10) || 0)) : productPrice;
-        window.customerData = {
-          quantity,
-          subtotal: currentPrice * quantity,
-          weight: productWeight * quantity
-        };
-      })();
-
-      subdistrictInput.addEventListener('input', function () {
-        clearTimeout(debounceTimer);
-        const query = this.value.trim();
-        if (query.length < 2) {
-          dropdown.classList.add('hidden');
-          return;
-        }
-        debounceTimer = setTimeout(() => searchAddress(query), 500);
-      });
-
-      async function searchAddress(query) {
-        loadingElement.classList.remove('hidden');
-        resultsElement.innerHTML = '';
-        dropdown.classList.remove('hidden');
-        try {
-          const response = await fetch(`${domain}/api/address/search?keyword=${query}`);
-          const data = await response.json();
-          if (data.success && data.data.length > 0) {
-            displayResults(data.data);
+              if (index === 0) {
+                if (chipEl) chipEl.classList.add('ring-2', 'ring-indigo-500', 'bg-indigo-50', 'text-indigo-700');
+                mainProduct.price = variant.price;
+                try {
+                  const wp = (window.productsData || []).find(p => p.id === mainProduct.id);
+                  if (wp) wp.price = variant.price;
+                } catch (err) { /* ignore */ }
+                if (mainPriceEl) mainPriceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
+              }
+            });
           } else {
-            resultsElement.innerHTML = '<div class="p-3 text-center text-gray-500">Tidak ada hasil</div>';
+            if (mainPriceEl) mainPriceEl.textContent = `Rp ${Number(mainProduct.price).toLocaleString('id-ID')}`;
           }
-        } catch (error) {
-          console.error('Error searching address:', error);
-          resultsElement.innerHTML = '<div class="p-3 text-center text-red-500">Terjadi kesalahan</div>';
-        } finally {
-          loadingElement.classList.add('hidden');
         }
+
+        // Persist products with quantity forced to 0 on initial load
+        window.productsData = products.map(p => ({
+          ...p,
+          quantity: 0
+        }));
+        window.activeProductIndex = 0;
+      } catch (e) {
+        console.warn('Gagal render produk dari data-products:', e);
+      }
+    })();
+
+    function onVariantSelect(product, variant) {
+      const mainProduct = window.productsData.find(p => p.id === product.id);
+      if (mainProduct) {
+        mainProduct.price = variant.price;
+      }
+      const mainProductNode = document.querySelector('[data-role="product"]');
+      const mainPriceEl = mainProductNode.querySelector('[data-value="price"]');
+      if (mainPriceEl) {
+        mainPriceEl.textContent = `Rp ${Number(variant.price).toLocaleString('id-ID')}`;
+      }
+      updateSummary();
+    }
+
+    (function initFieldRendering() {
+      try {
+        const raw = document.body.dataset.fields || '{}';
+        const parsed = JSON.parse(raw.replace(/'/g, '"'));
+        const fields = Array.isArray(parsed.fields) ? parsed.fields : [];
+
+        const container = document.getElementById('forms');
+        const template = container ? container.querySelector('[data-role="field"]') : null;
+        if (!container || !template || !fields.length) return;
+
+        const buildFieldHTML = (field) => {
+          const el = template.cloneNode(true);
+          const labelEl = el.querySelector('[data-value="label"]') || el.querySelector('label');
+          const inputEl = el.querySelector('input');
+
+          if (labelEl) {
+            const labelText = field.label || '';
+            labelEl.innerHTML = `${labelText}${field.required ? ' <span class="text-red-500">*</span>' : ''}`;
+            if (field.id) labelEl.setAttribute('for', field.id);
+          }
+
+          if (inputEl) {
+            if (field.type) inputEl.setAttribute('type', field.type);
+            if (field.id) {
+              inputEl.setAttribute('id', field.id);
+              inputEl.setAttribute('name', field.id);
+            }
+            inputEl.required = !!field.required;
+            let placeholder = inputEl.getAttribute('placeholder') || '';
+            if (field.type === 'email') placeholder = 'email@example.com';
+            else if (field.type === 'tel') placeholder = '08xxxxxxxxxx';
+            else if (field.type === 'text') placeholder = `Masukkan ${field.label || ''}`.trim();
+            inputEl.setAttribute('placeholder', placeholder);
+          }
+
+          return el.outerHTML;
+        };
+
+        container.innerHTML = fields.map(buildFieldHTML).join('');
+      } catch (e) {
+        console.warn('Gagal render fields dari data-fields:', e);
+      }
+    })();
+
+    function getProductIndexFromChild(child) {
+      if (!productsContainer) return -1;
+      const cards = Array.from(productsContainer.querySelectorAll('[data-role="product"]'));
+      const card = child.closest('[data-role="product"]');
+      return cards.indexOf(card);
+    }
+
+    function setActiveProduct(byChild) {
+      const idx = getProductIndexFromChild(byChild);
+      if (idx >= 0) window.activeProductIndex = idx;
+    }
+
+    if (productsContainer) {
+      productsContainer.addEventListener('click', (e) => {
+        if (e.target.closest('[data-role="product"]')) {
+          setActiveProduct(e.target);
+          updateSummary();
+        }
+      });
+    }
+
+    function updateSummary() {
+      const mainProduct = window.productsData.find(p => !p.is_addon);
+      if (mainProduct) {
+        mainProduct.quantity = 1;
+      }
+      const itemsForOrder = mainProduct ? [mainProduct] : [];
+
+      if (summaryItemsContainer && summaryItemTemplate) {
+        const html = itemsForOrder.map(p => {
+          const qty = p.quantity || 0;
+          const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
+          const lineTotal = priceNum * qty;
+          const lineWeight = productWeight * qty;
+          const el = summaryItemTemplate.cloneNode(true);
+          el.classList.remove('hidden');
+          const nameEl = el.querySelector('[data-summary="name"]');
+          const weightEl = el.querySelector('[data-summary="weight"]');
+          const unitPriceEl = el.querySelector('[data-summary="unit_price"]');
+          const qtyEl = el.querySelector('[data-summary="qty"]');
+          const lineTotalEl = el.querySelector('[data-summary="line_total"]');
+          if (nameEl) nameEl.textContent = p.name || '';
+          if (weightEl) weightEl.textContent = lineWeight;
+          if (unitPriceEl) unitPriceEl.textContent = priceNum.toLocaleString('id-ID');
+          if (qtyEl) qtyEl.textContent = qty;
+          if (lineTotalEl) lineTotalEl.textContent = lineTotal.toLocaleString('id-ID');
+          return el.outerHTML;
+        }).join('');
+        summaryItemsContainer.innerHTML = html || '';
       }
 
-      function displayResults(addresses) {
-        resultsElement.innerHTML = addresses.map(addr =>
-          `<div onclick="selectAddress('${addr._id}', '${addr.SUBDISTRICT_NAME}', '${addr.DISTRICT_NAME}', '${addr.CITY_NAME}', '${addr.PROVINCE_NAME}', '${addr.ZIP_CODE || ''}')" class="p-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-0">
+      const subtotal = itemsForOrder.reduce((acc, p) => {
+        const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
+        return acc + priceNum * (p.quantity || 0);
+      }, 0);
+      const totalWeight = itemsForOrder.reduce((acc, p) => acc + (p.quantity || 0) * productWeight, 0);
+
+      const shippingCostElement = document.getElementById('shippingCost');
+      const shippingCost = parseInt((shippingCostElement?.textContent || '').replace(/\./g, '')) || 0;
+      const total = subtotal + shippingCost;
+      if (totalPriceElement) totalPriceElement.textContent = total.toLocaleString('id-ID');
+
+      if (window.customerData) {
+        window.customerData.subtotal = subtotal;
+        window.customerData.weight = totalWeight;
+        if (selectedAddress) {
+          calculateShippingCost();
+        }
+      }
+    }
+
+    (function initCustomerData() {
+      const idx = typeof window.activeProductIndex === 'number' ? window.activeProductIndex : 0;
+      const activeProduct = (window.productsData && window.productsData[idx]) || null;
+      const quantity = activeProduct ? (activeProduct.quantity || 0) : 0;
+      const currentPrice = activeProduct ? (typeof activeProduct.price === 'number' ? activeProduct.price : (parseInt(activeProduct.price, 10) || 0)) : productPrice;
+      window.customerData = {
+        quantity,
+        subtotal: currentPrice * quantity,
+        weight: productWeight * quantity
+      };
+    })();
+
+    subdistrictInput.addEventListener('input', function () {
+      clearTimeout(debounceTimer);
+      const query = this.value.trim();
+      if (query.length < 2) {
+        dropdown.classList.add('hidden');
+        return;
+      }
+      debounceTimer = setTimeout(() => searchAddress(query), 500);
+    });
+
+    async function searchAddress(query) {
+      loadingElement.classList.remove('hidden');
+      resultsElement.innerHTML = '';
+      dropdown.classList.remove('hidden');
+      try {
+        const response = await fetch(`${domain}/api/address/search?keyword=${query}`);
+        const data = await response.json();
+        if (data.success && data.data.length > 0) {
+          displayResults(data.data);
+        } else {
+          resultsElement.innerHTML = '<div class="p-3 text-center text-gray-500">Tidak ada hasil</div>';
+        }
+      } catch (error) {
+        console.error('Error searching address:', error);
+        resultsElement.innerHTML = '<div class="p-3 text-center text-red-500">Terjadi kesalahan</div>';
+      } finally {
+        loadingElement.classList.add('hidden');
+      }
+    }
+
+    function displayResults(addresses) {
+      resultsElement.innerHTML = addresses.map(addr =>
+        `<div onclick="selectAddress('${addr._id}', '${addr.SUBDISTRICT_NAME}', '${addr.DISTRICT_NAME}', '${addr.CITY_NAME}', '${addr.PROVINCE_NAME}', '${addr.ZIP_CODE || ''}')" class="p-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-0">
           ${addr.SUBDISTRICT_NAME}, ${addr.DISTRICT_NAME}, ${addr.CITY_NAME}
         </div>`
-        ).join('');
-      }
+      ).join('');
+    }
 
-      window.selectAddress = function (id, subdistrict, district, city, province, zipCode) {
-        selectedAddress = { id, subdistrict, district, city, province, zipCode };
-        subdistrictInput.value = `${subdistrict}, ${district}, ${city}`;
-        dropdown.classList.add('hidden');
-        window.customerData.subdistrict = subdistrict;
-        window.customerData.district = district;
-        window.customerData.city = city;
-        window.customerData.province = province;
-        window.customerData.zip_code = zipCode;
-        window.customerData.destination_id = id;
-        if (courierGuard) courierGuard.classList.add('hidden');
-        if (courierOptions) courierOptions.classList.remove('hidden');
-        if (courierLoadingEl) courierLoadingEl.classList.remove('hidden');
-        calculateShippingCost();
-      };
+    window.selectAddress = function (id, subdistrict, district, city, province, zipCode) {
+      selectedAddress = { id, subdistrict, district, city, province, zipCode };
+      subdistrictInput.value = `${subdistrict}, ${district}, ${city}`;
+      dropdown.classList.add('hidden');
+      window.customerData.subdistrict = subdistrict;
+      window.customerData.district = district;
+      window.customerData.city = city;
+      window.customerData.province = province;
+      window.customerData.zip_code = zipCode;
+      window.customerData.destination_id = id;
+      if (courierGuard) courierGuard.classList.add('hidden');
+      if (courierOptions) courierOptions.classList.remove('hidden');
+      if (courierLoadingEl) courierLoadingEl.classList.remove('hidden');
+      calculateShippingCost();
+    };
 
-      async function calculateShippingCost() {
-        if (!selectedAddress) {
-          const shippingInfo = document.getElementById('shippingInfo');
-          courierOptions && courierOptions.classList.remove('hidden');
-          courierGuard && courierGuard.classList.remove('hidden');
-          courierLoadingEl && courierLoadingEl.classList.add('hidden');
-          shippingInfo && shippingInfo.classList.add('hidden');
-          return;
-        }
-        const mainProduct = window.productsData.find(p => !p.is_addon);
-        const itemsForShipping = mainProduct ? [mainProduct] : [];
-        const totalQty = itemsForShipping.reduce((acc, p) => acc + (p.quantity || 0), 0);
-        if (totalQty <= 0) {
-          const shippingInfo = document.getElementById('shippingInfo');
-          courierOptions && courierOptions.classList.add('hidden');
-          courierGuard && courierGuard.classList.add('hidden');
-          courierLoadingEl && courierLoadingEl.classList.add('hidden');
-          shippingInfo && shippingInfo.classList.add('hidden');
-          return;
-        }
-        const weight = totalQty * productWeight;
-        const destinationId = selectedAddress.id;
-        try {
-          courierGuard && courierGuard.classList.add('hidden');
-          courierOptions && courierOptions.classList.remove('hidden');
-          courierLoadingEl && courierLoadingEl.classList.remove('hidden');
-          const response = await fetch(`${domain}/api/address/shipping-estimate?origin_id=${originId}&destination_id=${destinationId}&weight=${weight}`);
-          const data = await response.json();
-          if (data.success) {
-            displayCourierOptions(data.data);
-          }
-        } catch (error) {
-          console.error('Error calculating shipping cost:', error);
-        } finally {
-          courierLoadingEl && courierLoadingEl.classList.add('hidden');
-        }
-      }
-
-      function displayCourierOptions(shippingData) {
-        const allowedCouriers = ["JNE", "JNECargo", "SiCepat", "SiCepatCargo", "SAP", "SapCargo", "iDexpress", "JT", "lion", "iDexpressCargo", "paxel", "Ninja"];
-        const preSelectedCourier = (window.customerData && window.customerData.courier_name) || null;
+    async function calculateShippingCost() {
+      if (!selectedAddress) {
+        const shippingInfo = document.getElementById('shippingInfo');
+        courierOptions && courierOptions.classList.remove('hidden');
+        courierGuard && courierGuard.classList.remove('hidden');
         courierLoadingEl && courierLoadingEl.classList.add('hidden');
-        let template = courierList ? courierList.querySelector('#courierItemTemplate') : null;
-        if (!template && window.courierItemTemplate) {
-          template = window.courierItemTemplate;
+        shippingInfo && shippingInfo.classList.add('hidden');
+        return;
+      }
+      const mainProduct = window.productsData.find(p => !p.is_addon);
+      const itemsForShipping = mainProduct ? [mainProduct] : [];
+      const totalQty = itemsForShipping.reduce((acc, p) => acc + (p.quantity || 0), 0);
+      if (totalQty <= 0) {
+        const shippingInfo = document.getElementById('shippingInfo');
+        courierOptions && courierOptions.classList.add('hidden');
+        courierGuard && courierGuard.classList.add('hidden');
+        courierLoadingEl && courierLoadingEl.classList.add('hidden');
+        shippingInfo && shippingInfo.classList.add('hidden');
+        return;
+      }
+      const weight = totalQty * productWeight;
+      const destinationId = selectedAddress.id;
+      try {
+        courierGuard && courierGuard.classList.add('hidden');
+        courierOptions && courierOptions.classList.remove('hidden');
+        courierLoadingEl && courierLoadingEl.classList.remove('hidden');
+        const response = await fetch(`${domain}/api/address/shipping-estimate?origin_id=${originId}&destination_id=${destinationId}&weight=${weight}`);
+        const data = await response.json();
+        if (data.success) {
+          displayCourierOptions(data.data);
         }
-        if (template) {
-          window.courierItemTemplate = template;
-          Array.from(courierList.children).forEach(child => {
-            if (child.id !== 'courierItemTemplate' && child.id !== 'courierLoading') child.remove();
-          });
-        } else {
-          courierList.innerHTML = '';
-        }
-        let hasValidCourier = false;
-        Object.entries(shippingData).forEach(([courier, details]) => {
-          if (allowedCouriers.includes(courier) && details.price > 0) {
-            hasValidCourier = true;
-            let el;
-            const inputId = `courier-${courier}`;
-            if (template) {
-              el = template.cloneNode(true);
-              el.id = '';
-              el.classList.remove('hidden');
-              const inputEl = el.querySelector('input[type="radio"]');
-              const labelEl = el.querySelector('label');
-              const nameEl = el.querySelector('[data-field="name"]');
-              const priceEl = el.querySelector('[data-field="price"]');
-              const etaEl = el.querySelector('[data-field="eta"]');
-              if (inputEl) {
-                inputEl.id = inputId;
-                inputEl.name = 'courier';
-                inputEl.value = courier;
-                if (preSelectedCourier === courier) inputEl.checked = true;
-              }
-              if (labelEl) labelEl.setAttribute('for', inputId);
-              if (nameEl) nameEl.textContent = courier;
-              if (priceEl) priceEl.textContent = `Rp ${details.price.toLocaleString('id-ID')}`;
-              if (etaEl) etaEl.textContent = details.estimatedDate || '-';
-              el.addEventListener('click', function () {
-                if (inputEl) inputEl.checked = true;
-                selectCourier(courier, details.price);
-              });
-            } else {
-              const courierDiv = document.createElement('div');
-              courierDiv.className = 'flex items-center p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 transition-colors cursor-pointer';
-              courierDiv.innerHTML = `
+      } catch (error) {
+        console.error('Error calculating shipping cost:', error);
+      } finally {
+        courierLoadingEl && courierLoadingEl.classList.add('hidden');
+      }
+    }
+
+    function displayCourierOptions(shippingData) {
+      const allowedCouriers = ["JNE", "JNECargo", "SiCepat", "SiCepatCargo", "SAP", "SapCargo", "iDexpress", "JT", "lion", "iDexpressCargo", "paxel", "Ninja"];
+      const preSelectedCourier = (window.customerData && window.customerData.courier_name) || null;
+      courierLoadingEl && courierLoadingEl.classList.add('hidden');
+      let template = courierList ? courierList.querySelector('#courierItemTemplate') : null;
+      if (!template && window.courierItemTemplate) {
+        template = window.courierItemTemplate;
+      }
+      if (template) {
+        window.courierItemTemplate = template;
+        Array.from(courierList.children).forEach(child => {
+          if (child.id !== 'courierItemTemplate' && child.id !== 'courierLoading') child.remove();
+        });
+      } else {
+        courierList.innerHTML = '';
+      }
+      let hasValidCourier = false;
+      Object.entries(shippingData).forEach(([courier, details]) => {
+        if (allowedCouriers.includes(courier) && details.price > 0) {
+          hasValidCourier = true;
+          let el;
+          const inputId = `courier-${courier}`;
+          if (template) {
+            el = template.cloneNode(true);
+            el.id = '';
+            el.classList.remove('hidden');
+            const inputEl = el.querySelector('input[type="radio"]');
+            const labelEl = el.querySelector('label');
+            const nameEl = el.querySelector('[data-field="name"]');
+            const priceEl = el.querySelector('[data-field="price"]');
+            const etaEl = el.querySelector('[data-field="eta"]');
+            if (inputEl) {
+              inputEl.id = inputId;
+              inputEl.name = 'courier';
+              inputEl.value = courier;
+              if (preSelectedCourier === courier) inputEl.checked = true;
+            }
+            if (labelEl) labelEl.setAttribute('for', inputId);
+            if (nameEl) nameEl.textContent = courier;
+            if (priceEl) priceEl.textContent = `Rp ${details.price.toLocaleString('id-ID')}`;
+            if (etaEl) etaEl.textContent = details.estimatedDate || '-';
+            el.addEventListener('click', function () {
+              if (inputEl) inputEl.checked = true;
+              selectCourier(courier, details.price);
+            });
+          } else {
+            const courierDiv = document.createElement('div');
+            courierDiv.className = 'flex items-center p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 transition-colors cursor-pointer';
+            courierDiv.innerHTML = `
                 <input type="radio" id="${inputId}" name="courier" value="${courier}" class="mr-3 w-4 h-4 text-blue-600 focus:ring-blue-500">
                 <label for="${inputId}" class="flex-1 cursor-pointer">
                   <div class="flex justify-between items-center">
@@ -632,252 +680,250 @@
                   <div class="text-sm text-gray-500">Estimasi: ${details.estimatedDate}</div>
                 </label>
               `;
-              courierDiv.addEventListener('click', function () {
-                document.getElementById(inputId).checked = true;
-                selectCourier(courier, details.price);
-              });
-              if (preSelectedCourier === courier) {
-                const radio = courierDiv.querySelector('input[type="radio"]');
-                if (radio) radio.checked = true;
-              }
-              el = courierDiv;
+            courierDiv.addEventListener('click', function () {
+              document.getElementById(inputId).checked = true;
+              selectCourier(courier, details.price);
+            });
+            if (preSelectedCourier === courier) {
+              const radio = courierDiv.querySelector('input[type="radio"]');
+              if (radio) radio.checked = true;
             }
-            courierList.appendChild(el);
+            el = courierDiv;
           }
-        });
-        if (hasValidCourier) {
-          courierOptions.classList.remove('hidden');
-          if (preSelectedCourier && shippingData[preSelectedCourier] && shippingData[preSelectedCourier].price > 0) {
-            selectCourier(preSelectedCourier, shippingData[preSelectedCourier].price);
-          }
+          courierList.appendChild(el);
+        }
+      });
+      if (hasValidCourier) {
+        courierOptions.classList.remove('hidden');
+        if (preSelectedCourier && shippingData[preSelectedCourier] && shippingData[preSelectedCourier].price > 0) {
+          selectCourier(preSelectedCourier, shippingData[preSelectedCourier].price);
         }
       }
+    }
 
-      function selectCourier(courier, price) {
-        window.customerData.courier_name = courier;
-        window.customerData.shipping_cost = price;
-        const shippingInfo = document.getElementById('shippingInfo');
-        const shippingAddress = document.getElementById('shippingAddress');
-        const selectedCourier = document.getElementById('selectedCourier');
-        const shippingCost = document.getElementById('shippingCost');
-        shippingInfo.classList.remove('hidden');
-        shippingAddress.textContent = window.customerData.address || 'Alamat lengkap';
-        selectedCourier.textContent = courier;
-        shippingCost.textContent = price.toLocaleString('id-ID');
-        const mainProduct = window.productsData.find(p => !p.is_addon);
-        const itemsForTotal = mainProduct ? [mainProduct] : [];
-        const subtotal = itemsForTotal.reduce((acc, p) => {
-          const qty = p.quantity || 0;
-          if (qty <= 0) return acc;
-          const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
-          return acc + priceNum * qty;
-        }, 0);
-        const total = subtotal + price;
-        totalPriceElement.textContent = total.toLocaleString('id-ID');
-        document.getElementById('courierError').classList.add('hidden');
+    function selectCourier(courier, price) {
+      window.customerData.courier_name = courier;
+      window.customerData.shipping_cost = price;
+      const shippingInfo = document.getElementById('shippingInfo');
+      const shippingAddress = document.getElementById('shippingAddress');
+      const selectedCourier = document.getElementById('selectedCourier');
+      const shippingCost = document.getElementById('shippingCost');
+      shippingInfo.classList.remove('hidden');
+      shippingAddress.textContent = window.customerData.address || 'Alamat lengkap';
+      selectedCourier.textContent = courier;
+      shippingCost.textContent = price.toLocaleString('id-ID');
+      const mainProduct = window.productsData.find(p => !p.is_addon);
+      const itemsForTotal = mainProduct ? [mainProduct] : [];
+      const subtotal = itemsForTotal.reduce((acc, p) => {
+        const qty = p.quantity || 0;
+        if (qty <= 0) return acc;
+        const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
+        return acc + priceNum * qty;
+      }, 0);
+      const total = subtotal + price;
+      totalPriceElement.textContent = total.toLocaleString('id-ID');
+      document.getElementById('courierError').classList.add('hidden');
+    }
+
+    orderForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      let fields = [];
+      try {
+        const rawFields = document.body.dataset.fields || '{}';
+        const parsedFields = JSON.parse(rawFields.replace(/'/g, '"'));
+        fields = Array.isArray(parsedFields.fields) ? parsedFields.fields : [];
+      } catch (err) { /* ignore */ }
+      const formValues = {};
+      const missingRequired = [];
+      fields.forEach(f => {
+        const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`);
+        const val = el ? (el.value || '').trim() : '';
+        formValues[f.id] = val;
+        if (f.required && !val) missingRequired.push(f.label || f.id);
+      });
+      if (missingRequired.length) {
+        alert('Mohon lengkapi field wajib: ' + missingRequired.join(', '));
+        return;
       }
-
-      orderForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        let fields = [];
-        try {
-          const rawFields = document.body.dataset.fields || '{}';
-          const parsedFields = JSON.parse(rawFields.replace(/'/g, '"'));
-          fields = Array.isArray(parsedFields.fields) ? parsedFields.fields : [];
-        } catch (err) { /* ignore */ }
-        const formValues = {};
-        const missingRequired = [];
-        fields.forEach(f => {
-          const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`);
-          const val = el ? (el.value || '').trim() : '';
-          formValues[f.id] = val;
-          if (f.required && !val) missingRequired.push(f.label || f.id);
+      if (!selectedAddress) {
+        alert('Mohon pilih desa/kelurahan');
+        return;
+      }
+      if (!window.customerData.courier_name) {
+        document.getElementById('courierError').classList.remove('hidden');
+        return;
+      }
+      Object.assign(window.customerData, formValues);
+      const addrVal = formValues.address || document.getElementById('address')?.value?.trim() || '';
+      window.customerData.address = addrVal;
+      window.customerData.full_address = `${addrVal}, ${selectedAddress.subdistrict}, ${selectedAddress.district}, ${selectedAddress.city}, ${selectedAddress.province}`;
+      const mainProductForOrder = (window.productsData || []).find(p => !p.is_addon);
+      const itemsForOrder = mainProductForOrder ? [mainProductForOrder] : [];
+      const subtotal = itemsForOrder.reduce((acc, p) => {
+        const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
+        return acc + priceNum * (p.quantity || 0);
+      }, 0);
+      window.customerData.subtotal = subtotal;
+      const totalQty = itemsForOrder.reduce((acc, p) => acc + (p.quantity || 0), 0);
+      window.customerData.weight = productWeight * totalQty;
+      const shippingCost = window.customerData.shipping_cost || 0;
+      const total = subtotal + shippingCost;
+      const product = itemsForOrder.length ? itemsForOrder.map((p, i) => ({
+        id: p.id || `SKU-${i + 1}`,
+        code: p.id || `SKU-${i + 1}`,
+        name: p.name || `Produk ${i + 1}`,
+        price: typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0),
+        quantity: p.quantity || 0
+      })) : [];
+      if (!product.length) {
+        alert('Pilih minimal 1 item sebelum menyelesaikan pesanan.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Selesaikan Pesanan';
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        return;
+      }
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmSource = urlParams.get('utm_source') || '';
+      const utmMedium = urlParams.get('utm_medium') || '';
+      const utmCampaign = urlParams.get('utm_campaign') || '';
+      const utmContent = urlParams.get('utm_content') || '';
+      const formId = document.body.dataset.formId || '';
+      const submissionData = {
+        customer_data: {
+          ...window.customerData,
+          utm_meta: { utm_source: utmSource, utm_medium: utmMedium, utm_campaign: utmCampaign, utm_content: utmContent }
+        },
+        subtotal: subtotal,
+        total: total,
+        product: product
+      };
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Memproses...';
+      submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+      try {
+        const response = await fetch(`${domain}/form/${formId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(submissionData)
         });
-        if (missingRequired.length) {
-          alert('Mohon lengkapi field wajib: ' + missingRequired.join(', '));
-          return;
-        }
-        if (!selectedAddress) {
-          alert('Mohon pilih desa/kelurahan');
-          return;
-        }
-        if (!window.customerData.courier_name) {
-          document.getElementById('courierError').classList.remove('hidden');
-          return;
-        }
-        Object.assign(window.customerData, formValues);
-        const addrVal = formValues.address || document.getElementById('address')?.value?.trim() || '';
-        window.customerData.address = addrVal;
-        window.customerData.full_address = `${addrVal}, ${selectedAddress.subdistrict}, ${selectedAddress.district}, ${selectedAddress.city}, ${selectedAddress.province}`;
-        const mainProductForOrder = (window.productsData || []).find(p => !p.is_addon);
-        const itemsForOrder = mainProductForOrder ? [mainProductForOrder] : [];
-        const subtotal = itemsForOrder.reduce((acc, p) => {
-          const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
-          return acc + priceNum * (p.quantity || 0);
-        }, 0);
-        window.customerData.subtotal = subtotal;
-        const totalQty = itemsForOrder.reduce((acc, p) => acc + (p.quantity || 0), 0);
-        window.customerData.weight = productWeight * totalQty;
-        const shippingCost = window.customerData.shipping_cost || 0;
-        const total = subtotal + shippingCost;
-        const product = itemsForOrder.length ? itemsForOrder.map((p, i) => ({
-          id: p.id || `SKU-${i + 1}`,
-          code: p.id || `SKU-${i + 1}`,
-          name: p.name || `Produk ${i + 1}`,
-          price: typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0),
-          quantity: p.quantity || 0
-        })) : [];
-        if (!product.length) {
-          alert('Pilih minimal 1 item sebelum menyelesaikan pesanan.');
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Selesaikan Pesanan';
-          submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
-          return;
-        }
-        const urlParams = new URLSearchParams(window.location.search);
-        const utmSource = urlParams.get('utm_source') || '';
-        const utmMedium = urlParams.get('utm_medium') || '';
-        const utmCampaign = urlParams.get('utm_campaign') || '';
-        const utmContent = urlParams.get('utm_content') || '';
-        const formId = document.body.dataset.formId || '';
-        const submissionData = {
-          customer_data: {
-            ...window.customerData,
-            utm_meta: { utm_source: utmSource, utm_medium: utmMedium, utm_campaign: utmCampaign, utm_content: utmContent }
-          },
-          subtotal: subtotal,
-          total: total,
-          product: product
-        };
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Memproses...';
-        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
-        try {
-          const response = await fetch(`${domain}/form/${formId}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(submissionData)
-          });
-          if (typeof fbq !== 'undefined') { fbq('track', submitEvent, { value: total, currency: 'IDR' }); }
-          if (typeof ttq !== 'undefined') { ttq.track(submitEvent, { value: total, currency: 'IDR' }); }
-          if (typeof twq !== 'undefined') { twq('event', submitEvent, { value: total, currency: 'IDR' }); }
-          const result = await response.json();
-          if (result.id) {
-            successMessage.classList.remove('hidden');
-            setTimeout(() => {
-              successContent.classList.remove('scale-95', 'opacity-0');
-              successContent.classList.add('scale-100', 'opacity-100');
-              let width = 0;
-              const interval = setInterval(() => {
-                width += 10;
-                progressBar.style.width = width + '%';
-                if (width >= 100) {
-                  clearInterval(interval);
-                  window.location.href = `${domain}/invoice/${result.id}`;
-                }
-              }, 100);
+        if (typeof fbq !== 'undefined') { fbq('track', submitEvent, { value: total, currency: 'IDR' }); }
+        if (typeof ttq !== 'undefined') { ttq.track(submitEvent, { value: total, currency: 'IDR' }); }
+        if (typeof twq !== 'undefined') { twq('event', submitEvent, { value: total, currency: 'IDR' }); }
+        const result = await response.json();
+        if (result.id) {
+          successMessage.classList.remove('hidden');
+          setTimeout(() => {
+            successContent.classList.remove('scale-95', 'opacity-0');
+            successContent.classList.add('scale-100', 'opacity-100');
+            let width = 0;
+            const interval = setInterval(() => {
+              width += 10;
+              progressBar.style.width = width + '%';
+              if (width >= 100) {
+                clearInterval(interval);
+                window.location.href = `${domain}/invoice/${result.id}`;
+              }
             }, 100);
-          } else {
-            throw new Error('Failed to submit order');
-          }
-        } catch (error) {
-          console.error('Error submitting order:', error);
-          alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Selesaikan Pesanan';
-          submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+          }, 100);
+        } else {
+          throw new Error('Failed to submit order');
         }
-      });
-
-      document.addEventListener('click', function (e) {
-        if (!subdistrictInput.contains(e.target) && !dropdown.contains(e.target)) {
-          dropdown.classList.add('hidden');
-        }
-      });
-
-      subdistrictInput.addEventListener('keydown', function (e) {
-        const results = resultsElement.querySelectorAll('div');
-        if (results.length === 0) return;
-        let currentIndex = -1;
-        results.forEach((result, index) => {
-          if (result.classList.contains('bg-blue-100')) { currentIndex = index; }
-        });
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          if (currentIndex < results.length - 1) {
-            if (currentIndex >= 0) { results[currentIndex].classList.remove('bg-blue-100'); }
-            results[currentIndex + 1].classList.add('bg-blue-100');
-          }
-        } else if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          if (currentIndex > 0) {
-            results[currentIndex].classList.remove('bg-blue-100');
-            results[currentIndex - 1].classList.add('bg-blue-100');
-          }
-        } else if (e.key === 'Enter') {
-          e.preventDefault();
-          if (currentIndex >= 0) { results[currentIndex].click(); }
-        } else if (e.key === 'Escape') {
-          dropdown.classList.add('hidden');
-        }
-      });
-
-      // Initialize summary after setup
-      updateSummary();
-
-      // Multi-step Navigation (generic)
-      const stepsOrder = ['step-product', 'step-identity', 'step-shipping', 'step-summary'];
-      let currentStepIndex = 0;
-      function showStep(index) {
-        currentStepIndex = index;
-        stepsOrder.forEach((id, i) => {
-          const el = document.getElementById(id);
-          if (!el) return;
-          el.classList.toggle('hidden', i !== index);
-        });
-        updateStepperUI();
+      } catch (error) {
+        console.error('Error submitting order:', error);
+        alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Selesaikan Pesanan';
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
       }
-      function updateStepperUI() {
-        document.querySelectorAll('#ms-stepper .step-node').forEach((node) => {
-          const idx = Number(node.dataset.stepIndex);
-          const circle = node.querySelector('div');
-          if (idx < currentStepIndex) {
-            circle.classList.remove('bg-gray-100','text-gray-500');
-            circle.classList.add('bg-green-100','text-green-600');
-          } else if (idx === currentStepIndex) {
-            circle.classList.remove('bg-gray-100','text-gray-500');
-            circle.classList.add('bg-blue-100','text-blue-600');
-          } else {
-            circle.classList.remove('bg-blue-100','text-blue-600','bg-green-100','text-green-600');
-            circle.classList.add('bg-gray-100','text-gray-500');
-          }
-        });
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!subdistrictInput.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.add('hidden');
       }
-      function validateCurrentStep() {
-        const id = stepsOrder[currentStepIndex];
-        if (id === 'step-identity') {
-          const requiredInputs = document.querySelectorAll('#forms [required]');
-          for (const input of requiredInputs) {
-            if (!input.value) { input.focus(); return false; }
-          }
-          return true;
+    });
+
+    subdistrictInput.addEventListener('keydown', function (e) {
+      const results = resultsElement.querySelectorAll('div');
+      if (results.length === 0) return;
+      let currentIndex = -1;
+      results.forEach((result, index) => {
+        if (result.classList.contains('bg-blue-100')) { currentIndex = index; }
+      });
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (currentIndex < results.length - 1) {
+          if (currentIndex >= 0) { results[currentIndex].classList.remove('bg-blue-100'); }
+          results[currentIndex + 1].classList.add('bg-blue-100');
         }
-        if (id === 'step-shipping') {
-          const addressOk = document.getElementById('address')?.value?.trim();
-          const subOk = document.getElementById('subdistrict')?.value?.trim();
-          const courierChecked = document.querySelector('#courierList input[name="courier"]:checked');
-          return Boolean(addressOk && subOk && courierChecked);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (currentIndex > 0) {
+          results[currentIndex].classList.remove('bg-blue-100');
+          results[currentIndex - 1].classList.add('bg-blue-100');
+        }
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (currentIndex >= 0) { results[currentIndex].click(); }
+      } else if (e.key === 'Escape') {
+        dropdown.classList.add('hidden');
+      }
+    });
+
+    // Initialize summary after setup
+    updateSummary();
+
+    // Multi-step Navigation (generic)
+    const stepsOrder = ['step-product', 'step-identity', 'step-shipping', 'step-summary'];
+    let currentStepIndex = 0;
+    function showStep(index) {
+      currentStepIndex = index;
+      stepsOrder.forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.toggle('hidden', i !== index);
+      });
+      updateStepperUI();
+    }
+    function updateStepperUI() {
+      document.querySelectorAll('#ms-stepper .step-node').forEach((node) => {
+        const idx = Number(node.dataset.stepIndex);
+        const circle = node.querySelector('div');
+        if (idx < currentStepIndex) {
+          circle.classList.remove('bg-gray-100', 'text-gray-500');
+          circle.classList.add('bg-green-100', 'text-green-600');
+        } else if (idx === currentStepIndex) {
+          circle.classList.remove('bg-gray-100', 'text-gray-500');
+          circle.classList.add('bg-blue-100', 'text-blue-600');
+        } else {
+          circle.classList.remove('bg-blue-100', 'text-blue-600', 'bg-green-100', 'text-green-600');
+          circle.classList.add('bg-gray-100', 'text-gray-500');
+        }
+      });
+    }
+    function validateCurrentStep() {
+      const id = stepsOrder[currentStepIndex];
+      if (id === 'step-identity') {
+        const requiredInputs = document.querySelectorAll('#forms [required]');
+        for (const input of requiredInputs) {
+          if (!input.value) { input.focus(); return false; }
         }
         return true;
       }
-      document.querySelectorAll('[data-nav="next"]').forEach(btn => {
-        btn.addEventListener('click', () => { if (!validateCurrentStep()) return; if (currentStepIndex < stepsOrder.length - 1) showStep(currentStepIndex + 1); });
-      });
-      document.querySelectorAll('[data-nav="prev"]').forEach(btn => {
-        btn.addEventListener('click', () => { if (currentStepIndex > 0) showStep(currentStepIndex - 1); });
-      });
-      showStep(0);
-    </script>
-  </section>
-</body>
-</html>
+      if (id === 'step-shipping') {
+        const addressOk = document.getElementById('address')?.value?.trim();
+        const subOk = document.getElementById('subdistrict')?.value?.trim();
+        const courierChecked = document.querySelector('#courierList input[name="courier"]:checked');
+        return Boolean(addressOk && subOk && courierChecked);
+      }
+      return true;
+    }
+    document.querySelectorAll('[data-nav="next"]').forEach(btn => {
+      btn.addEventListener('click', () => { if (!validateCurrentStep()) return; if (currentStepIndex < stepsOrder.length - 1) showStep(currentStepIndex + 1); });
+    });
+    document.querySelectorAll('[data-nav="prev"]').forEach(btn => {
+      btn.addEventListener('click', () => { if (currentStepIndex > 0) showStep(currentStepIndex - 1); });
+    });
+    showStep(0);
+  </script>
+</section>
