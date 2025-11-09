@@ -11,6 +11,7 @@
   data-products='[{"id":"SKU-001","name":"Cupcake Base","price":6000,"discount_price":0,"description":"Pilih varian ukuran dan gaya.","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":1,"is_required":true,"allow_custom_price":false,"variants":[{"id":"size-regular","name":"Regular","price":6000},{"id":"size-large","name":"Large","price":8000},{"id":"style-classic","name":"Classic","price":6000},{"id":"style-choco","name":"Choco","price":7000}],"weight":200}]'
   data-fields='{"fields":[{"id":"name","label":"Nama","type":"text","required":true},{"id":"email","label":"Email","type":"email","required":false},{"id":"phone","label":"Nomor Telepon","type":"tel","required":true}]}'
   data-domain="http://localhost:5556"
+  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
   data-origin-id="pv-form2"
 >
   <section class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50 py-6 lg:py-10">
@@ -261,44 +262,123 @@
 
     renderSummary();
 
-    // Submit Handling (menyamakan pola dengan quantity_based)
+    // Submit Handling mengikuti pola template-1
     orderForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      // Ambil data form
-      const formValues = {};
-      orderForm.querySelectorAll('input').forEach(inp => {
-        formValues[inp.name] = inp.value;
-      });
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Memproses...';
 
+      // Ambil data form
+      const formData = new FormData(orderForm);
+      const data = Object.fromEntries(formData.entries());
+      
+      // Get UTM parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmSource = urlParams.get('utm_source') || '';
+      const utmMedium = urlParams.get('utm_medium') || '';
+      const utmCampaign = urlParams.get('utm_campaign') || '';
+      const utmContent = urlParams.get('utm_content') || '';
+      
+      // Prepare customer data
+      const customerData = {
+        ...data,
+        address: data.address || '',
+        full_address: data.address || '',
+        utm_meta: {
+          utm_source: utmSource,
+          utm_medium: utmMedium,
+          utm_campaign: utmCampaign,
+          utm_content: utmContent
+        }
+      };
+      
+      // Prepare product data with variant price
       const p = orderState.product;
       const unitPrice = orderState.selectedVariantPrice ?? (p?.price || 0);
       const qty = orderState.qty;
-      const orderItems = [{ id: p?.id, name: p?.name, price: unitPrice, quantity: qty }];
-      const payload = { originId, items: orderItems, customer: formValues, total: (unitPrice * qty).toLocaleString('id-ID') };
+      
+      const productData = [{
+        id: p?.id,
+        code: p?.id,
+        name: p?.name,
+        price: unitPrice,
+        quantity: qty,
+        is_addon: false
+      }];
+      
+      const subtotal = unitPrice * qty;
+      const total = subtotal;
+      
+      const payload = {
+        customer_data: customerData,
+        subtotal: subtotal,
+        total: total,
+        product: productData
+      };
 
-      // Feedback sukses (tanpa request eksternal di template)
-      successMessage.classList.remove('hidden');
-      setTimeout(() => {
-        successContent.classList.remove('opacity-0');
-        successContent.classList.remove('scale-95');
-      }, 20);
-
-      let progress = 0;
-      const timer = setInterval(() => {
-        progress = Math.min(100, progress + 5);
-        progressBar.style.width = progress + '%';
-        if (progress >= 100) {
-          clearInterval(timer);
-          // Simulasi redirect ke halaman pembayaran jika domain tersedia
-          if (domain) {
-            setTimeout(() => {
-              window.location.href = domain + '/checkout?ref=' + encodeURIComponent(originId);
-            }, 600);
-          }
+      try {
+        const response = await fetch(`${domain}/form/${document.body.dataset.formId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        const result = await response.json();
+        
+        // Track pixel events
+        const submitEvent = document.body.dataset.submitEvent || 'Lead';
+        if (typeof fbq !== 'undefined') {
+          fbq('track', submitEvent, {
+            value: total,
+            currency: 'IDR'
+          });
         }
-      }, 80);
-
-      console.log('Order Payload (preview):', payload);
+        
+        if (typeof ttq !== 'undefined') {
+          ttq.track(submitEvent, {
+            value: total,
+            currency: 'IDR'
+          });
+        }
+        
+        if (typeof twq !== 'undefined') {
+          twq('event', submitEvent, {
+            value: total,
+            currency: 'IDR'
+          });
+        }
+        
+        if(response.ok && result.id) {
+          // Show success message
+          successMessage.classList.remove('hidden');
+          setTimeout(() => {
+            successContent.classList.remove('scale-95', 'opacity-0');
+            successContent.classList.add('scale-100', 'opacity-100');
+            
+            // Animate progress bar
+            let width = 0;
+            const interval = setInterval(() => {
+              width += 10;
+              progressBar.style.width = width + '%';
+              
+              if (width >= 100) {
+                clearInterval(interval);
+                // Redirect to invoice page
+                window.location.href = `${domain}/invoice/${result.id}`;
+              }
+            }, 100);
+          }, 100);
+        } else {
+          alert('Gagal membuat pesanan. Silakan coba lagi.');
+        }
+      } catch (error) {
+        console.error('Error submitting order:', error);
+        alert('Terjadi kesalahan. Silakan coba lagi.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Selesaikan Pesanan';
+      }
     });
   </script>
 </body>

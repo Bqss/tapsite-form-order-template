@@ -12,7 +12,7 @@
   data-products='[{"id":"SKU-001","name":"IKAN","price":2000,"discount_price":0,"description":"adsfafsdsdadsf","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":1,"is_required":true,"allow_custom_price":false,"variants":[{"id":"SKU-001-red","name":"Merah","price":3000},{"id":"XL","name":"XL","price":3500}],"weight":200}]'
   data-fields='{"fields":[{"id":"name","label":"Nama","type":"text","required":true},{"id":"email","label":"Email","type":"email","required":false},{"id":"phone","label":"Nomor Telepon","type":"tel","required":true}]}'
   data-couriers='["JNE","JNECargo","SiCepat","SiCepatCargo","SAP","SapCargo","iDexpress","JT","lion","iDexpressCargo","paxel","Ninja"]'
-  data-domain="http://localhost:5556" data-origin-id="5fc63944f8f44b34aa4c819e">
+  data-domain="http://localhost:5556" data-origin-id="5fc63944f8f44b34aa4c819e" data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595">
   <section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
     <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto">
       <!-- Header -->
@@ -201,6 +201,9 @@
     let debounceTimer;
     let selectedAddress = null;
 
+    // Initialize customer data
+    window.customerData = { quantity: 1, subtotal: 0, weight: productWeight };
+
     (function initProductRendering() {
       try {
         const raw = document.body.dataset.products || '[]';
@@ -322,6 +325,9 @@
         list.appendChild(el);
         const totalPriceEl = document.getElementById('totalPrice');
         if (totalPriceEl) totalPriceEl.textContent = Number(total).toLocaleString('id-ID');
+        
+        // Update customer data subtotal
+        window.customerData.subtotal = total;
       } catch (e) {}
     }
 
@@ -373,6 +379,124 @@
       nextStepBtn.addEventListener('click', () => showStep(stepIndex + 1));
       showStep(0);
     })();
+
+    // Form submission logic
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Validate required fields
+      try {
+        const rawFields = document.body.dataset.fields || '{}';
+        const parsedFields = JSON.parse(rawFields.replace(/'/g, '"'));
+        const fields = Array.isArray(parsedFields.fields) ? parsedFields.fields : [];
+        const formValues = {};
+        const missingRequired = [];
+        
+        fields.forEach(f => {
+          const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`);
+          const val = el ? (el.value || '').trim() : '';
+          formValues[f.id] = val;
+          if (f.required && !val) missingRequired.push(f.label || f.id);
+        });
+        
+        if (missingRequired.length) {
+          alert('Mohon lengkapi field wajib: ' + missingRequired.join(', '));
+          return;
+        }
+        
+        // Collect customer data
+        Object.assign(window.customerData, formValues);
+        
+        // Prepare product data
+        const mainProduct = (window.productsData || []).find(p => !p.is_addon);
+        const itemsForOrder = mainProduct ? [mainProduct] : [];
+        
+        if (!itemsForOrder.length) {
+          alert('Pilih minimal 1 item sebelum menyelesaikan pesanan.');
+          return;
+        }
+        
+        const subtotal = window.customerData.subtotal || 0;
+        const total = subtotal; // No shipping cost for PD template
+        
+        const product = itemsForOrder.map((p, i) => ({
+          id: p.id || `SKU-${i + 1}`,
+          code: p.id || `SKU-${i + 1}`,
+          name: p.name || `Produk ${i + 1}`,
+          price: typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0),
+          quantity: p.quantity || 0
+        }));
+        
+        // Get UTM parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmSource = urlParams.get('utm_source') || '';
+        const utmMedium = urlParams.get('utm_medium') || '';
+        const utmCampaign = urlParams.get('utm_campaign') || '';
+        const utmContent = urlParams.get('utm_content') || '';
+        
+        const formId = document.body.dataset.formId || '';
+        const submissionData = {
+          customer_data: {
+            ...window.customerData,
+            utm_meta: { utm_source: utmSource, utm_medium: utmMedium, utm_campaign: utmCampaign, utm_content: utmContent }
+          },
+          subtotal: subtotal,
+          total: total,
+          product: product
+        };
+        
+        // Update UI
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Memproses...';
+        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+        
+        try {
+          const response = await fetch(`${domain}/form/${formId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(submissionData)
+          });
+          
+          // Track conversion
+          if (typeof fbq !== 'undefined') { fbq('track', submitEvent, { value: total, currency: 'IDR' }); }
+          if (typeof ttq !== 'undefined') { ttq.track(submitEvent, { value: total, currency: 'IDR' }); }
+          if (typeof twq !== 'undefined') { twq('event', submitEvent, { value: total, currency: 'IDR' }); }
+          
+          const result = await response.json();
+          
+          if (result.id) {
+            // Show success message
+            successMessage.classList.remove('hidden');
+            setTimeout(() => {
+              successContent.classList.remove('scale-95', 'opacity-0');
+              successContent.classList.add('scale-100', 'opacity-100');
+              
+              // Animate progress bar
+              let width = 0;
+              const interval = setInterval(() => {
+                width += 10;
+                progressBar.style.width = width + '%';
+                if (width >= 100) {
+                  clearInterval(interval);
+                  window.location.href = `${domain}/invoice/${result.id}`;
+                }
+              }, 100);
+            }, 100);
+          } else {
+            throw new Error('Failed to submit order');
+          }
+        } catch (error) {
+          console.error('Error submitting order:', error);
+          alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Selesaikan Pesanan';
+          submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        }
+      } catch (err) {
+        console.error('Error in form submission:', err);
+        alert('Terjadi kesalahan. Silakan coba lagi.');
+      }
+    });
   </script>
 </body>
 

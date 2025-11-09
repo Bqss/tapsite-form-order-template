@@ -13,7 +13,8 @@
   data-products='[{"id":"KPRI01","name":"Friendly Business Access (UMKM Oriented)","price":197000,"discount_price":0,"description":"Cocok Untuk: Pemilik UMKM, pemula, pengguna paket basic Dripsender\n\nValue Proposisi:\n\n- Konsultasi ringan & edukatif\n- Fokus pada audit WhatsApp Marketing, optimasi LP, dan funnel basic\n- Dapat dilakukan di café dengan suasana santai","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":0,"is_required":false,"allow_custom_price":false,"imageLoading":false},{"id":"KPRI02","name":"Strategi Bisnis Menengah (Growth Oriented)","price":397000,"description":"Cocok Untuk: Pemilik bisnis yang sudah aktif tapi belum optimal secara digital\n\nValue Proposisi:\n\n- Business funnel diagnosis\n- Strategi konten, autoresponder, closing script\n- Termasuk review LP dan automation sequence","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":0,"is_required":false,"allow_custom_price":false,"imageLoading":false},{"id":"KPRI03","name":"VIP Strategic Session (High Ticket)","price":897000,"description":"Cocok Untuk: Pebisnis skala besar, agency, atau pengguna langganan premium\n\nValue Proposisi:\n\n- Analisis mendalam berbasis data\n- Blueprint strategi growth WhatsApp + LP funnel\n- Follow-up report tertulis (opsional), dan bisa 1-on-1 langsung dengan expert","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":0,"is_required":false,"allow_custom_price":false,"imageLoading":false}]'
   data-fields='{"fields":[{"id":"name","label":"Nama","type":"text","required":true},{"id":"email","label":"Email","type":"email","required":false},{"id":"phone","label":"Nomor Telepon","type":"tel","required":true}]}'
   data-domain="http://localhost:5556" 
-  data-origin-id="5fc63944f8f44b34aa4c819e">
+  data-origin-id="5fc63944f8f44b34aa4c819e"
+  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595">
   <section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
     <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto" bis_skin_checked="1">
       <!-- Header -->
@@ -334,29 +335,112 @@
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
 
-        const payload = {
+        // Get UTM parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmSource = urlParams.get('utm_source') || '';
+        const utmMedium = urlParams.get('utm_medium') || '';
+        const utmCampaign = urlParams.get('utm_campaign') || '';
+        const utmContent = urlParams.get('utm_content') || '';
+        
+        // Prepare customer data
+        const customerData = {
           ...data,
-          products: state.products.filter(p => p.quantity > 0),
-          total: state.totalPrice
+          address: data.address || '',
+          full_address: data.address || '',
+          utm_meta: {
+            utm_source: utmSource,
+            utm_medium: utmMedium,
+            utm_campaign: utmCampaign,
+            utm_content: utmContent
+          }
+        };
+        
+        // Prepare product data
+        const selectedProduct = state.products.find(p => p.quantity > 0);
+        const productData = selectedProduct ? [{
+          id: selectedProduct.id,
+          code: selectedProduct.id,
+          name: selectedProduct.name,
+          price: typeof selectedProduct.custom_price === 'number' ? selectedProduct.custom_price : selectedProduct.price,
+          quantity: 1,
+          is_addon: false
+        }] : [];
+        
+        // Calculate subtotal and total
+        const subtotal = selectedProduct ? (typeof selectedProduct.custom_price === 'number' ? selectedProduct.custom_price : selectedProduct.price) : 0;
+        const total = subtotal;
+
+        const payload = {
+          customer_data: customerData,
+          subtotal: subtotal,
+          total: total,
+          product: productData
         };
 
         try {
-          const response = await fetch(`${document.body.dataset.domain}/api/orders`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          if (response.ok) {
-            document.getElementById('successMessage').classList.remove('hidden');
-            document.getElementById('successContent').classList.add('scale-100', 'opacity-100');
-          } else {
-            alert('Gagal membuat pesanan. Silakan coba lagi.');
-          }
+            const response = await fetch(`${document.body.dataset.domain}/form/${document.body.dataset.formId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            
+            const result = await response.json();
+            
+            // Track pixel events
+            const submitEvent = document.body.dataset.submitEvent || 'Lead';
+            if (typeof fbq !== 'undefined') {
+                fbq('track', submitEvent, {
+                    value: total,
+                    currency: 'IDR'
+                });
+            }
+            
+            if (typeof ttq !== 'undefined') {
+                ttq.track(submitEvent, {
+                    value: total,
+                    currency: 'IDR'
+                });
+            }
+            
+            if (typeof twq !== 'undefined') {
+                twq('event', submitEvent, {
+                    value: total,
+                    currency: 'IDR'
+                });
+            }
+            
+            if(response.ok && result.id) {
+                // Show success message
+                document.getElementById('successMessage').classList.remove('hidden');
+                const successContent = document.getElementById('successContent');
+                const progressBar = document.getElementById('progressBar');
+                
+                setTimeout(() => {
+                    successContent.classList.remove('scale-95', 'opacity-0');
+                    successContent.classList.add('scale-100', 'opacity-100');
+                    
+                    // Animate progress bar
+                    let width = 0;
+                    const interval = setInterval(() => {
+                        width += 10;
+                        progressBar.style.width = width + '%';
+                        
+                        if (width >= 100) {
+                            clearInterval(interval);
+                            // Redirect to invoice page
+                            window.location.href = `${document.body.dataset.domain}/invoice/${result.id}`;
+                        }
+                    }, 100);
+                }, 100);
+            } else {
+                alert('Gagal membuat pesanan. Silakan coba lagi.');
+            }
         } catch (error) {
-          alert('Terjadi kesalahan. Silakan coba lagi.');
+            console.error('Error submitting order:', error);
+            alert('Terjadi kesalahan. Silakan coba lagi.');
         } finally {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Selesaikan Pesanan';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Selesaikan Pesanan';
         }
       });
 

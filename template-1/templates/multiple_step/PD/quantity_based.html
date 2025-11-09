@@ -10,7 +10,7 @@
   data-products="[{'id':'KPRI01','name':'Friendly Business Access (UMKM Oriented)','price':197000,'discount_price':0,'description':'Cocok Untuk: Pemilik UMKM, pemula, pengguna paket basic Dripsender\n\nValue Proposisi:\n\n- Konsultasi ringan & edukatif\n- Fokus pada audit WhatsApp Marketing, optimasi LP, dan funnel basic\n- Dapat dilakukan di café dengan suasana santai','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false,'imageLoading':false},{'id':'KPRI02','name':'Strategi Bisnis Menengah (Growth Oriented)','price':397000,'description':'Cocok Untuk: Pemilik bisnis yang sudah aktif tapi belum optimal secara digital\n\nValue Proposisi:\n\n- Business funnel diagnosis\n- Strategi konten, autoresponder, closing script\n- Termasuk review LP dan automation sequence','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false,'imageLoading':false},{'id':'KPRI03','name':'VIP Strategic Session (High Ticket)','price':897000,'description':'Cocok Untuk: Pebisnis skala besar, agency, atau pengguna langganan premium\n\nValue Proposisi:\n\n- Analisis mendalam berbasis data\n- Blueprint strategi growth WhatsApp + LP funnel\n- Follow-up report tertulis (opsional), dan bisa 1-on-1 langsung dengan expert','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false,'imageLoading':false}]"
   data-fields="{'fields':[{'id':'name','label':'Nama','type':'text','required':true},{'id':'email','label':'Email','type':'email','required':false},{'id':'phone','label':'Nomor Telepon','type':'tel','required':true}]}"
   data-couriers="['JNE','JNECargo','SiCepat','SiCepatCargo','SAP','SapCargo','iDexpress','JT','lion','iDexpressCargo','paxel','Ninja']"
-  data-domain="http://localhost:5556" data-origin-id="5fc63944f8f44b34aa4c819e">
+  data-domain="http://localhost:5556" data-origin-id="5fc63944f8f44b34aa4c819e" data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595">
   <section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
     <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto">
       <div class="text-center mb-8">
@@ -144,6 +144,24 @@
     </div>
   </section>
 
+  <!-- Success Message Modal -->
+  <div id="successMessage" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl p-8 max-w-sm w-full mx-4 transform transition-all duration-300 scale-95 opacity-0" id="successContent">
+      <div class="text-center">
+        <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+          <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">Pesanan Berhasil!</h3>
+        <p class="text-sm text-gray-500 mb-4">Mengalihkan ke halaman invoice...</p>
+        <div class="w-full bg-gray-200 rounded-full h-2.5">
+          <div id="progressBar" class="bg-blue-600 h-2.5 rounded-full transition-all duration-100" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     const productsRaw = (document.body.dataset.products || '[]').replace(/'/g, '"');
     const products = JSON.parse(productsRaw);
@@ -154,9 +172,17 @@
     const summaryItems = document.getElementById('summaryItems');
     const summaryItemTpl = document.getElementById('summaryItemTemplate');
     const totalPriceEl = document.getElementById('totalPrice');
+    const orderForm = document.getElementById('orderForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMessage = document.getElementById('successMessage');
+    const successContent = document.getElementById('successContent');
+    const progressBar = document.getElementById('progressBar');
 
     // State: quantities per product
     const qtyState = new Map(products.map(p => [p.id, 0]));
+
+    // Initialize customerData
+    window.customerData = { quantity: 0, subtotal: 0, weight: 200 };
 
     function buildProductHTML(p) {
       const el = productTpl.cloneNode(true);
@@ -209,6 +235,8 @@
     function updateSummary() {
       summaryItems.innerHTML = '';
       let grandTotal = 0;
+      let totalQty = 0;
+      let totalWeight = 0;
       products.forEach(p => {
         const qty = qtyState.get(p.id) || 0;
         if (qty > 0) {
@@ -227,10 +255,18 @@
           const w = Number(p.weight || 200);
           if (weightEl) weightEl.textContent = w * qty;
           grandTotal += lineTotal;
+          totalQty += qty;
+          totalWeight += w * qty;
           summaryItems.appendChild(line);
         }
       });
       totalPriceEl.textContent = Number(grandTotal).toLocaleString('id-ID');
+      // Update customerData
+      if (window.customerData) {
+        window.customerData.subtotal = grandTotal;
+        window.customerData.quantity = totalQty;
+        window.customerData.weight = totalWeight;
+      }
     }
 
     // Fields rendering
@@ -303,6 +339,129 @@
       nextStepBtn.addEventListener('click', () => showStep(stepIndex + 1));
       showStep(0);
     })();
+
+    // Form submission
+    orderForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      
+      let fields = []; 
+      try { 
+        const rawFields = document.body.dataset.fields || '{}'; 
+        const parsedFields = JSON.parse(rawFields.replace(/'/g, '"')); 
+        fields = Array.isArray(parsedFields.fields) ? parsedFields.fields : []; 
+      } catch (err) { }
+      
+      const formValues = {}; 
+      const missingRequired = []; 
+      fields.forEach(f => { 
+        const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`); 
+        const val = el ? (el.value || '').trim() : ''; 
+        formValues[f.id] = val; 
+        if (f.required && !val) missingRequired.push(f.label || f.id); 
+      });
+      
+      if (missingRequired.length) { 
+        alert('Mohon lengkapi field wajib: ' + missingRequired.join(', ')); 
+        return; 
+      }
+      
+      Object.assign(window.customerData, formValues);
+      
+      const itemsForOrder = products.filter(p => (qtyState.get(p.id) || 0) > 0);
+      const subtotal = itemsForOrder.reduce((acc, p) => acc + Number(p.price || 0) * (qtyState.get(p.id) || 0), 0);
+      window.customerData.subtotal = subtotal;
+      
+      const formId = document.body.dataset.formId || '';
+      const total = subtotal;
+      
+      const product = itemsForOrder.map((p, i) => ({ 
+        id: p.id || `SKU-${i + 1}`, 
+        code: p.id || `SKU-${i + 1}`, 
+        name: p.name || `Produk ${i + 1}`, 
+        price: Number(p.price || 0), 
+        quantity: qtyState.get(p.id) || 0, 
+        is_addon: !!p.is_addon 
+      }));
+      
+      if (!product.length) { 
+        alert('Pilih minimal 1 item sebelum menyelesaikan pesanan.'); 
+        submitBtn.disabled = false; 
+        submitBtn.textContent = 'Selesaikan Pesanan'; 
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed'); 
+        return; 
+      }
+      
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmSource = urlParams.get('utm_source') || ''; 
+      const utmMedium = urlParams.get('utm_medium') || ''; 
+      const utmCampaign = urlParams.get('utm_campaign') || ''; 
+      const utmContent = urlParams.get('utm_content') || '';
+      
+      const submissionData = { 
+        customer_data: { 
+          ...window.customerData, 
+          utm_meta: { 
+            utm_source: utmSource, 
+            utm_medium: utmMedium, 
+            utm_campaign: utmCampaign, 
+            utm_content: utmContent 
+          } 
+        }, 
+        subtotal: subtotal, 
+        total: total, 
+        product: product 
+      };
+      
+      submitBtn.disabled = true; 
+      submitBtn.textContent = 'Memproses...'; 
+      submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+      
+      try {
+        const domain = document.body.dataset.domain || 'http://localhost:5556';
+        const response = await fetch(`${domain}/form/${formId}`, { 
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' }, 
+          body: JSON.stringify(submissionData) 
+        });
+        
+        if (typeof fbq !== 'undefined') { 
+          fbq('track', 'SubmitApplication', { value: total, currency: 'IDR' }); 
+        }
+        if (typeof ttq !== 'undefined') { 
+          ttq.track('SubmitApplication', { value: total, currency: 'IDR' }); 
+        }
+        if (typeof twq !== 'undefined') { 
+          twq('event', 'SubmitApplication', { value: total, currency: 'IDR' }); 
+        }
+        
+        const result = await response.json();
+        
+        if (result.id) {
+          successMessage.classList.remove('hidden');
+          setTimeout(() => { 
+            successContent.classList.remove('scale-95', 'opacity-0'); 
+            successContent.classList.add('scale-100', 'opacity-100'); 
+            let width = 0; 
+            const interval = setInterval(() => { 
+              width += 10; 
+              progressBar.style.width = width + '%'; 
+              if (width >= 100) { 
+                clearInterval(interval); 
+                window.location.href = `${domain}/invoice/${result.id}`; 
+              } 
+            }, 100); 
+          }, 100);
+        } else { 
+          throw new Error('Failed to submit order'); 
+        }
+      } catch (error) { 
+        console.error('Error submitting order:', error); 
+        alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.'); 
+        submitBtn.disabled = false; 
+        submitBtn.textContent = 'Selesaikan Pesanan'; 
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed'); 
+      }
+    });
   </script>
 </body>
 </html>

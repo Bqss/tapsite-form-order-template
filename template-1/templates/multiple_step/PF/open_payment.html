@@ -12,7 +12,9 @@
   data-products='[{"id":"KPRI01","name":"Friendly Business Access (UMKM Oriented)","price":197000,"discount_price":0,"description":"Cocok Untuk: Pemilik UMKM, pemula, pengguna paket basic Dripsender\n\nValue Proposisi:\n\n- Konsultasi ringan & edukatif\n- Fokus pada audit WhatsApp Marketing, optimasi LP, dan funnel basic\n- Dapat dilakukan di café dengan suasana santai","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":0,"is_required":false,"allow_custom_price":false,"imageLoading":false},{"id":"KPRI02","name":"Strategi Bisnis Menengah (Growth Oriented)","price":397000,"description":"Cocok Untuk: Pemilik bisnis yang sudah aktif tapi belum optimal secara digital\n\nValue Proposisi:\n\n- Business funnel diagnosis\n- Strategi konten, autoresponder, closing script\n- Termasuk review LP dan automation sequence","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":0,"is_required":false,"allow_custom_price":false,"imageLoading":false},{"id":"KPRI03","name":"VIP Strategic Session (High Ticket)","price":897000,"description":"Cocok Untuk: Pebisnis skala besar, agency, atau pengguna langganan premium\n\nValue Proposisi:\n\n- Analisis mendalam berbasis data\n- Blueprint strategi growth WhatsApp + LP funnel\n- Follow-up report tertulis (opsional), dan bisa 1-on-1 langsung dengan expert","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":0,"is_required":false,"allow_custom_price":false,"imageLoading":false}]'
   data-fields='{"fields":[{"id":"name","label":"Nama","type":"text","required":true},{"id":"email","label":"Email","type":"email","required":false},{"id":"phone","label":"Nomor Telepon","type":"tel","required":true}]}'
   data-couriers='["JNE","JNECargo","SiCepat","SiCepatCargo","SAP","SapCargo","iDexpress","JT","lion","iDexpressCargo","paxel","Ninja"]'
-  data-domain="http://localhost:5556" data-origin-id="5fc63944f8f44b34aa4c819e">
+  data-domain="http://localhost:5556"
+  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
+  data-origin-id="5fc63944f8f44b34aa4c819e">
   <section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
     <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto">
       <!-- Header -->
@@ -213,280 +215,20 @@
               </svg>
             </div>
             <h2 class="text-2xl font-bold text-gray-900 mb-2">Pesanan Berhasil!</h2>
-            <p class="text-gray-600 mb-6">Terima kasih! Pesanan Anda telah kami terima dan akan segera diproses.</p>
-            <a href="#" id="backToHome" class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors">Kembali ke Halaman Utama</a>
+            <p class="text-gray-600 mb-6">Terima kasih telah melakukan pemesanan. Anda akan diarahkan ke halaman pembayaran.</p>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-blue-600 h-2 rounded-full" id="progressBar" style="width: 0%"></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Scripts: original logic preserved -->
+  <!-- Scripts: correct interaction logic with custom price support -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const state = {
-        products: [],
-        fields: [],
-        couriers: [],
-        selectedSubdistrict: null,
-        selectedCourier: null,
-        formValues: {},
-        totalWeight: 0,
-        totalPrice: 0,
-        shippingCost: 0,
-      };
-
-      function formatCurrency(amount) {
-        return new Intl.NumberFormat('id-ID').format(amount);
-      }
-
-      function getElementData(element, key) {
-        return element.dataset[key];
-      }
-
-      function initializeData() {
-        const body = document.body;
-        state.products = JSON.parse(getElementData(body, 'products'));
-        state.fields = JSON.parse(getElementData(body, 'fields')).fields;
-        state.couriers = JSON.parse(getElementData(body, 'couriers'));
-      }
-
-      function renderProducts() {
-        const productContainer = document.getElementById('products');
-        const productTemplate = document.querySelector('[data-template="product"]');
-        productContainer.innerHTML = '';
-
-        state.products.forEach((product) => {
-          const productEl = productTemplate.cloneNode(true);
-          productEl.dataset.productId = product.id;
-          productEl.querySelector('[data-value="name"]').textContent = product.name;
-          productEl.querySelector('[data-value="description"]').textContent = product.description;
-          productEl.querySelector('[data-value="image_url"]').src = product.image_url;
-          const radio = productEl.querySelector('input[type="radio"]');
-          radio.value = product.id;
-
-          // Custom price handling
-          if (typeof product.custom_price !== 'number') {
-            product.custom_price = product.price;
-          }
-          const priceInput = productEl.querySelector('[data-role="price-input"]');
-          if (priceInput) {
-            priceInput.value = product.custom_price;
-            priceInput.addEventListener('input', (e) => {
-              const val = Number(e.target.value || 0);
-              product.custom_price = isNaN(val) ? 0 : Math.max(0, val);
-              const isSelected = product.quantity > 0;
-              if (isSelected) updateSummary();
-            });
-          }
-
-          productEl.addEventListener('click', () => {
-            document.querySelectorAll('[data-role="product"]').forEach(el => {
-              el.classList.remove('border-blue-500', 'shadow-lg');
-              const dotWrap = el.querySelector('.w-6.h-6.bg-white');
-              if (dotWrap) dotWrap.classList.remove('border-blue-500');
-              const dot = el.querySelector('.w-3.h-3.bg-blue-500');
-              if (dot) dot.classList.add('scale-0');
-            });
-
-            productEl.classList.add('border-blue-500', 'shadow-lg');
-            const dotWrap = productEl.querySelector('.w-6.h-6.bg-white');
-            if (dotWrap) dotWrap.classList.add('border-blue-500');
-            const dot = productEl.querySelector('.w-3.h-3.bg-blue-500');
-            if (dot) dot.classList.remove('scale-0');
-            radio.checked = true;
-
-            state.products.forEach(p => p.quantity = (p.id === product.id) ? 1 : 0);
-            updateSummary();
-          });
-
-          productContainer.appendChild(productEl);
-        });
-      }
-
-      function renderForms() {
-        const formsContainer = document.getElementById('forms');
-        const fieldTemplate = document.querySelector('[data-template="field"]');
-        formsContainer.innerHTML = '';
-
-        state.fields.forEach(field => {
-          const fieldEl = fieldTemplate.cloneNode(true);
-          const label = fieldEl.querySelector('[data-value="label"]');
-          label.textContent = field.label;
-          if (field.required) label.innerHTML += ' <span class="text-red-500">*</span>';
-
-          const input = fieldEl.querySelector('input');
-          input.id = field.id;
-          input.name = field.id;
-          input.type = field.type;
-          input.required = field.required;
-          input.placeholder = `Masukkan ${field.label.toLowerCase()}`;
-
-          formsContainer.appendChild(fieldEl);
-        });
-      }
-
-      function updateSummary() {
-        const summaryItemsContainer = document.getElementById('summaryItems');
-        const summaryItemTemplate = document.querySelector('[data-template="summary-item"]');
-        summaryItemsContainer.innerHTML = '';
-        let subtotal = 0;
-        state.totalWeight = 0;
-
-        const selectedProduct = state.products.find(p => p.quantity > 0);
-        if (selectedProduct) {
-          const itemEl = summaryItemTemplate.cloneNode(true);
-          itemEl.classList.remove('hidden');
-          itemEl.querySelector('[data-summary="name"]').textContent = selectedProduct.name;
-          itemEl.querySelector('[data-summary="weight"]').textContent = 200;
-          const lineTotal = typeof selectedProduct.custom_price === 'number' ? selectedProduct.custom_price : selectedProduct.price;
-          itemEl.querySelector('[data-summary="line_total"]').textContent = formatCurrency(lineTotal);
-          summaryItemsContainer.appendChild(itemEl);
-          subtotal = lineTotal;
-          state.totalWeight = 200;
-        }
-
-        const shippingCost = state.selectedCourier ? state.selectedCourier.cost[0].value : 0;
-        state.shippingCost = shippingCost;
-        state.totalPrice = subtotal + shippingCost;
-        document.getElementById('shippingCost').textContent = formatCurrency(shippingCost);
-        document.getElementById('totalPrice').textContent = formatCurrency(state.totalPrice);
-
-        const shippingInfo = document.getElementById('shippingInfo');
-        if (state.selectedCourier) {
-          shippingInfo.classList.remove('hidden');
-          document.getElementById('selectedCourier').textContent = `${state.selectedCourier.service} (${state.selectedCourier.description})`;
-        } else {
-          shippingInfo.classList.add('hidden');
-        }
-      }
-
-      async function searchSubdistrict(query) {
-        const dropdown = document.getElementById('dropdown');
-        const loading = document.getElementById('loading');
-        const resultsContainer = document.getElementById('results');
-        if (query.length < 3) { dropdown.classList.add('hidden'); return; }
-        dropdown.classList.remove('hidden');
-        loading.classList.remove('hidden');
-        resultsContainer.innerHTML = '';
-        try {
-          const response = await fetch(`${document.body.dataset.domain}/api/subdistricts?q=${query}`);
-          const data = await response.json();
-          loading.classList.add('hidden');
-          if (data.length) {
-            data.forEach(item => {
-              const div = document.createElement('div');
-              div.className = 'p-3 hover:bg-gray-100 cursor-pointer';
-              div.textContent = `${item.subdistrict_name}, ${item.city}, ${item.province}`;
-              div.addEventListener('click', () => {
-                document.getElementById('subdistrict').value = div.textContent;
-                dropdown.classList.add('hidden');
-                state.selectedSubdistrict = item;
-                fetchCourierOptions();
-              });
-              resultsContainer.appendChild(div);
-            });
-          } else {
-            resultsContainer.textContent = 'Tidak ditemukan.';
-          }
-        } catch (error) {
-          loading.classList.add('hidden');
-          resultsContainer.textContent = 'Gagal memuat data.';
-        }
-      }
-
-      async function fetchCourierOptions() {
-        const courierGuard = document.getElementById('courierGuard');
-        const courierLoading = document.getElementById('courierLoading');
-        const courierList = document.getElementById('courierList');
-        const courierItemTemplate = document.getElementById('courierItemTemplate');
-        courierGuard.classList.add('hidden');
-        courierLoading.classList.remove('hidden');
-        courierList.innerHTML = '';
-        try {
-          const response = await fetch(`${document.body.dataset.domain}/api/ongkir`, {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ origin: document.body.dataset.originId, destination: state.selectedSubdistrict.subdistrict_id, weight: state.totalWeight, courier: state.couriers.join(':') })
-          });
-          const data = await response.json();
-          courierLoading.classList.add('hidden');
-          if (data.length) {
-            const allCouriers = data.flatMap(group => group.costs.map(cost => ({...cost, code: group.code, name: group.name})));
-            allCouriers.forEach(courier => {
-              const courierEl = courierItemTemplate.cloneNode(true);
-              courierEl.classList.remove('hidden');
-              const radio = courierEl.querySelector('input[type="radio"]');
-              radio.value = `${courier.code}-${courier.service}`;
-              radio.addEventListener('change', () => { state.selectedCourier = courier; updateSummary(); });
-              courierEl.querySelector('[data-field="name"]').textContent = `${courier.name} - ${courier.service}`;
-              courierEl.querySelector('[data-field="price"]').textContent = `Rp ${formatCurrency(courier.cost[0].value)}`;
-              courierEl.querySelector('[data-field="eta"]').textContent = courier.cost[0].etd;
-              courierList.appendChild(courierEl);
-            });
-          } else {
-            courierList.textContent = 'Tidak ada kurir tersedia.';
-          }
-        } catch (error) {
-          courierLoading.classList.add('hidden');
-          courierList.textContent = 'Gagal memuat data kurir.';
-        }
-      }
-
-      document.getElementById('subdistrict').addEventListener('input', (e) => searchSubdistrict(e.target.value));
-
-      document.getElementById('orderForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.disabled = true; submitBtn.textContent = 'Memproses...';
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
-        const payload = {
-          ...data,
-          products: state.products.filter(p => p.quantity > 0),
-          total: state.totalPrice,
-          shipping_cost: state.shippingCost,
-          courier: state.selectedCourier,
-          subdistrict: state.selectedSubdistrict
-        };
-        try {
-          const response = await fetch(`${document.body.dataset.domain}/api/orders`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-          if(response.ok) {
-            document.getElementById('successMessage').classList.remove('hidden');
-            document.getElementById('successContent').classList.add('scale-100', 'opacity-100');
-          } else { alert('Gagal membuat pesanan. Silakan coba lagi.'); }
-        } catch (error) { alert('Terjadi kesalahan. Silakan coba lagi.'); }
-        finally { submitBtn.disabled = false; submitBtn.textContent = 'Selesaikan Pesanan'; }
-      });
-
-      // Initialize original logic
-      initializeData();
-      renderProducts();
-      renderForms();
-      updateSummary();
-
-      // Stepper controls
-      let currentStep = 1;
-      const sections = Array.from(document.querySelectorAll('.step-section'));
-      const dots = Array.from(document.querySelectorAll('.step-dot'));
-      function updateStepperUI() {
-        sections.forEach(sec => sec.classList.toggle('hidden', Number(sec.dataset.step) !== currentStep));
-        dots.forEach(dot => {
-          const idx = Number(dot.dataset.stepIndex);
-          if (idx === currentStep) { dot.classList.remove('bg-gray-200','text-gray-700'); dot.classList.add('bg-blue-600','text-white'); }
-          else { dot.classList.add('bg-gray-200','text-gray-700'); dot.classList.remove('bg-blue-600','text-white'); }
-        });
-        const progress = document.getElementById('stepProgress');
-        progress.style.width = `${(currentStep/4)*100}%`;
-      }
-      document.querySelectorAll('[data-action="next"]').forEach(btn => btn.addEventListener('click', () => { currentStep = Math.min(4, currentStep + 1); updateStepperUI(); }));
-      document.querySelectorAll('[data-action="prev"]').forEach(btn => btn.addEventListener('click', () => { currentStep = Math.max(1, currentStep - 1); updateStepperUI(); }));
-      updateStepperUI();
-    });
-  </script>
-
-  <!-- Stepper UI behavior (match single_product/form_ms.html) -->
-  <script>
-    (function() {
+    // Stepper UI behavior
+    (function () {
       const steps = Array.from(document.querySelectorAll('.step-section'));
       const stepperNodes = document.querySelectorAll('#ms-stepper .step-node');
       let currentStepIndex = steps.findIndex(sec => !sec.classList.contains('hidden'));
@@ -498,14 +240,14 @@
           const circle = node.querySelector('div');
           if (!circle) return;
           if (idx < currentStepIndex) {
-            circle.classList.remove('bg-gray-100','text-gray-500');
-            circle.classList.add('bg-green-100','text-green-600');
+            circle.classList.remove('bg-gray-100', 'text-gray-500');
+            circle.classList.add('bg-green-100', 'text-green-600');
           } else if (idx === currentStepIndex) {
-            circle.classList.remove('bg-gray-100','text-gray-500');
-            circle.classList.add('bg-blue-100','text-blue-600');
+            circle.classList.remove('bg-gray-100', 'text-gray-500');
+            circle.classList.add('bg-blue-100', 'text-blue-600');
           } else {
-            circle.classList.remove('bg-blue-100','text-blue-600','bg-green-100','text-green-600');
-            circle.classList.add('bg-gray-100','text-gray-500');
+            circle.classList.remove('bg-blue-100', 'text-blue-600', 'bg-green-100', 'text-green-600');
+            circle.classList.add('bg-gray-100', 'text-gray-500');
           }
         });
       }
@@ -521,6 +263,361 @@
 
       updateStepperUI();
     })();
+
+    const domain = document.body.dataset.domain || '';
+    const originId = document.body.dataset.originId || '';
+    const formId = document.body.dataset.formId || '';
+    const submitEvent = document.body.dataset.submitEvent || '';
+    const defaultWeight = 200;
+
+    const productsContainer = document.getElementById('products');
+    const summaryItemsContainer = document.getElementById('summaryItems');
+    const summaryItemTemplate = document.getElementById('summaryItemTemplate');
+    const totalPriceElement = document.getElementById('totalPrice');
+    const subdistrictInput = document.getElementById('subdistrict');
+    const dropdown = document.getElementById('dropdown');
+    const loadingElement = document.getElementById('loading');
+    const resultsElement = document.getElementById('results');
+    const courierOptions = document.getElementById('courierOptions');
+    const courierList = document.getElementById('courierList');
+    const courierGuard = document.getElementById('courierGuard');
+    const courierLoadingEl = document.getElementById('courierLoading');
+    const orderForm = document.getElementById('orderForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMessage = document.getElementById('successMessage');
+    const successContent = document.getElementById('successContent');
+    const progressBar = document.getElementById('progressBar');
+    let debounceTimer; let selectedAddress = null;
+
+    (function initProductRendering() {
+      try {
+        const raw = document.body.dataset.products || '[]';
+        const products = JSON.parse(raw);
+        
+        // Initialize window.productsData first with quantity property
+        window.productsData = products.map(p => {
+          // Initialize custom_price if not set
+          if (typeof p.custom_price !== 'number') {
+            p.custom_price = p.price;
+          }
+          p.quantity = 0;
+          return p;
+        });
+        window.selectedProductIndex = -1;
+        
+        const container = productsContainer;
+        const template = container ? container.querySelector('[data-role="product"]') : null;
+        if (!container || !template || !Array.isArray(products)) return;
+        container.innerHTML = '';
+        
+        window.productsData.forEach((product, index) => {
+          const el = template.cloneNode(true);
+          const imgEl = el.querySelector('[data-value="image_url"]') || el.querySelector('img');
+          if (imgEl) { if (product.image_url) imgEl.src = product.image_url; if (product.name) imgEl.alt = product.name; }
+          el.querySelectorAll('[data-value="name"]').forEach(node => { node.textContent = product.name || ''; });
+          const descEl = el.querySelector('[data-value="description"]'); if (descEl) descEl.textContent = product.description || '';
+
+          // Custom price handling for open_payment
+          const priceInput = el.querySelector('[data-role="price-input"]');
+          if (priceInput) {
+            priceInput.value = product.custom_price;
+            priceInput.addEventListener('input', (e) => {
+              const val = Number(e.target.value || 0);
+              // Update directly on window.productsData
+              window.productsData[index].custom_price = isNaN(val) ? 0 : Math.max(0, val);
+              console.log('Updated custom_price:', window.productsData[index].custom_price);
+              // Update summary if this product is currently selected
+              if (window.selectedProductIndex === index) {
+                updateSummary();
+              }
+            });
+          }
+
+          el.setAttribute('data-product-id', product.id || '');
+          const radio = el.querySelector('input[type="radio"]');
+          if (radio) { radio.value = product.id || String(index); radio.name = 'product_selection'; }
+
+          // Klik card untuk memilih
+          el.addEventListener('click', (e) => {
+            // Prevent click when clicking on input
+            if (e.target === priceInput) return;
+            
+            // Unselect semua
+            container.querySelectorAll('[data-role="product"]').forEach(item => {
+              item.classList.remove('border-blue-500', 'shadow-lg');
+              const ring = item.querySelector('.w-6.h-6.bg-white');
+              const dot = item.querySelector('.w-3.h-3.bg-blue-500');
+              if (ring) ring.classList.remove('border-blue-500');
+              if (dot) dot.classList.add('scale-0');
+              const r = item.querySelector('input[type="radio"]');
+              if (r) r.checked = false;
+            });
+
+            // Select current
+            el.classList.add('border-blue-500', 'shadow-lg');
+            const ring = el.querySelector('.w-6.h-6.bg-white');
+            const dot = el.querySelector('.w-3.h-3.bg-blue-500');
+            if (ring) ring.classList.add('border-blue-500');
+            if (dot) dot.classList.remove('scale-0');
+            if (radio) radio.checked = true;
+
+            window.selectedProductIndex = index;
+            // Update quantity without losing custom_price reference
+            window.productsData.forEach((p, i) => {
+              p.quantity = (i === index) ? 1 : 0;
+            });
+            updateSummary();
+            if (selectedAddress) calculateShippingCost();
+          });
+
+          container.appendChild(el);
+        });
+      } catch (e) { console.warn('Gagal render produk:', e); }
+    })();
+
+    (function initFieldRendering() {
+      try {
+        const raw = document.body.dataset.fields || '{}';
+        const parsed = JSON.parse(raw);
+        const fields = Array.isArray(parsed.fields) ? parsed.fields : [];
+        const container = document.getElementById('forms');
+        const template = container ? container.querySelector('[data-role="field"]') : null;
+        if (!container || !template || !fields.length) return;
+        const buildFieldHTML = (field) => {
+          const el = template.cloneNode(true);
+          const labelEl = el.querySelector('[data-value="label"]') || el.querySelector('label');
+          const inputEl = el.querySelector('input');
+          if (labelEl) { const labelText = field.label || ''; labelEl.innerHTML = `${labelText}${field.required ? ' <span class=\"text-red-500\">*</span>' : ''}`; if (field.id) labelEl.setAttribute('for', field.id); }
+          if (inputEl) { if (field.type) inputEl.setAttribute('type', field.type); if (field.id) { inputEl.setAttribute('id', field.id); inputEl.setAttribute('name', field.id); } inputEl.required = !!field.required; let placeholder = inputEl.getAttribute('placeholder') || ''; if (field.type === 'email') placeholder = 'email@example.com'; else if (field.type === 'tel') placeholder = '08xxxxxxxxxx'; else if (field.type === 'text') placeholder = `Masukkan ${String(field.label || '').toLowerCase()}`.trim(); inputEl.setAttribute('placeholder', placeholder); }
+          return el.outerHTML;
+        };
+        container.innerHTML = fields.map(buildFieldHTML).join('');
+      } catch (e) { console.warn('Gagal render fields:', e); }
+    })();
+
+    function updateSummary() {
+      const product = window.productsData && window.productsData[window.selectedProductIndex];
+      if (summaryItemsContainer && summaryItemTemplate) {
+        if (product) {
+          const el = summaryItemTemplate.cloneNode(true);
+          el.classList.remove('hidden');
+          const nameEl = el.querySelector('[data-summary="name"]');
+          const weightEl = el.querySelector('[data-summary="weight"]');
+          const lineTotalEl = el.querySelector('[data-summary="line_total"]');
+          console.log(product)
+          const priceNum = typeof product.custom_price === 'number' ? product.custom_price : (typeof product.price === 'number' ? product.price : parseInt(product.price, 10) || 0);
+          const weightNum = product.weight ? (typeof product.weight === 'number' ? product.weight : parseInt(product.weight, 10) || defaultWeight) : defaultWeight;
+          if (nameEl) nameEl.textContent = product.name || '';
+          if (weightEl) weightEl.textContent = weightNum;
+          if (lineTotalEl) lineTotalEl.textContent = priceNum.toLocaleString('id-ID');
+          summaryItemsContainer.innerHTML = el.outerHTML;
+        } else {
+          summaryItemsContainer.innerHTML = '';
+        }
+      }
+      const shippingCostElement = document.getElementById('shippingCost');
+      const shippingCost = parseInt((shippingCostElement?.textContent || '').replace(/\./g, '')) || 0;
+      const priceNum = product ? (typeof product.custom_price === 'number' ? product.custom_price : (typeof product.price === 'number' ? product.price : parseInt(product.price, 10) || 0)) : 0;
+      const total = priceNum + shippingCost;
+      if (totalPriceElement) totalPriceElement.textContent = total.toLocaleString('id-ID');
+      if (window.customerData) {
+        window.customerData.subtotal = priceNum;
+        window.customerData.weight = product && product.weight ? (typeof product.weight === 'number' ? product.weight : parseInt(product.weight, 10) || defaultWeight) : defaultWeight;
+      }
+    }
+
+    (function initCustomerData() {
+      window.customerData = { quantity: 1, subtotal: 0, weight: defaultWeight };
+    })();
+
+    subdistrictInput.addEventListener('input', function () {
+      clearTimeout(debounceTimer);
+      const query = this.value.trim();
+      if (query.length < 2) { dropdown.classList.add('hidden'); return; }
+      debounceTimer = setTimeout(() => searchAddress(query), 500);
+    });
+
+    async function searchAddress(query) {
+      loadingElement.classList.remove('hidden');
+      resultsElement.innerHTML = '';
+      dropdown.classList.remove('hidden');
+      try {
+        const response = await fetch(`${domain}/api/address/search?keyword=${query}`);
+        const data = await response.json();
+        if (data.success && data.data.length > 0) { displayResults(data.data); }
+        else { resultsElement.innerHTML = '<div class="p-3 text-center text-gray-500">Tidak ada hasil</div>'; }
+      } catch (error) {
+        console.error('Error searching address:', error);
+        resultsElement.innerHTML = '<div class="p-3 text-center text-red-500">Terjadi kesalahan</div>';
+      } finally { loadingElement.classList.add('hidden'); }
+    }
+
+    function displayResults(addresses) {
+      resultsElement.innerHTML = addresses.map(addr =>
+        `<div onclick="selectAddress('${addr._id}', '${addr.SUBDISTRICT_NAME}', '${addr.DISTRICT_NAME}', '${addr.CITY_NAME}', '${addr.PROVINCE_NAME}', '${addr.ZIP_CODE || ''}')" class="p-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-0">${addr.SUBDISTRICT_NAME}, ${addr.DISTRICT_NAME}, ${addr.CITY_NAME}</div>`
+      ).join('');
+    }
+
+    window.selectAddress = function (id, subdistrict, district, city, province, zipCode) {
+      selectedAddress = { id, subdistrict, district, city, province, zipCode };
+      subdistrictInput.value = `${subdistrict}, ${district}, ${city}`;
+      dropdown.classList.add('hidden');
+      window.customerData.subdistrict = subdistrict; window.customerData.district = district; window.customerData.city = city; window.customerData.province = province; window.customerData.zip_code = zipCode; window.customerData.destination_id = id;
+      if (courierGuard) courierGuard.classList.add('hidden'); if (courierOptions) courierOptions.classList.remove('hidden'); if (courierLoadingEl) courierLoadingEl.classList.remove('hidden');
+      calculateShippingCost();
+    };
+
+    async function calculateShippingCost() {
+      const product = window.productsData && window.productsData[window.selectedProductIndex];
+      if (!selectedAddress || !product) { const shippingInfo = document.getElementById('shippingInfo'); courierOptions && courierOptions.classList.remove('hidden'); courierGuard && courierGuard.classList.remove('hidden'); courierLoadingEl && courierLoadingEl.classList.add('hidden'); shippingInfo && shippingInfo.classList.add('hidden'); return; }
+      const weight = product.weight ? (typeof product.weight === 'number' ? product.weight : parseInt(product.weight, 10) || defaultWeight) : defaultWeight;
+      const destinationId = selectedAddress.id;
+      try {
+        courierGuard && courierGuard.classList.add('hidden'); courierOptions && courierOptions.classList.remove('hidden'); courierLoadingEl && courierLoadingEl.classList.remove('hidden');
+        const response = await fetch(`${domain}/api/address/shipping-estimate?origin_id=${originId}&destination_id=${destinationId}&weight=${weight}`);
+        const data = await response.json();
+        if (data.success) { displayCourierOptions(data.data); }
+      } catch (error) { console.error('Error calculating shipping cost:', error); }
+      finally { courierLoadingEl && courierLoadingEl.classList.add('hidden'); }
+    }
+
+    function displayCourierOptions(shippingData) {
+      const allowedCouriers = ["JNE", "JNECargo", "SiCepat", "SiCepatCargo", "SAP", "SapCargo", "iDexpress", "JT", "lion", "iDexpressCargo", "paxel", "Ninja"];
+      const preSelectedCourier = (window.customerData && window.customerData.courier_name) || null;
+      courierLoadingEl && courierLoadingEl.classList.add('hidden');
+      let template = courierList ? courierList.querySelector('#courierItemTemplate') : null;
+      if (!template && window.courierItemTemplate) { template = window.courierItemTemplate; }
+      if (template) { window.courierItemTemplate = template; Array.from(courierList.children).forEach(child => { if (child.id !== 'courierItemTemplate' && child.id !== 'courierLoading') child.remove(); }); }
+      else { courierList.innerHTML = ''; }
+      let hasValidCourier = false;
+      Object.entries(shippingData).forEach(([courier, details]) => {
+        if (allowedCouriers.includes(courier) && details.price > 0) {
+          hasValidCourier = true;
+          let el; const inputId = `courier-${courier}`;
+          if (template) {
+            el = template.cloneNode(true); el.id = ''; el.classList.remove('hidden');
+            const inputEl = el.querySelector('input[type="radio"]'); const labelEl = el.querySelector('label'); const nameEl = el.querySelector('[data-field="name"]'); const priceEl = el.querySelector('[data-field="price"]'); const etaEl = el.querySelector('[data-field="eta"]');
+            if (inputEl) { inputEl.id = inputId; inputEl.name = 'courier'; inputEl.value = courier; if (preSelectedCourier === courier) inputEl.checked = true; }
+            if (labelEl) labelEl.setAttribute('for', inputId);
+            if (nameEl) nameEl.textContent = courier;
+            if (priceEl) priceEl.textContent = `Rp ${details.price.toLocaleString('id-ID')}`;
+            if (etaEl) etaEl.textContent = details.estimatedDate || '-';
+            el.addEventListener('click', function () { if (inputEl) inputEl.checked = true; selectCourier(courier, details.price); });
+          } else {
+            const courierDiv = document.createElement('div');
+            courierDiv.className = 'flex items-center p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 transition-colors cursor-pointer';
+            courierDiv.innerHTML = `
+              <input type="radio" id="${inputId}" name="courier" value="${courier}" class="mr-3 w-4 h-4 text-blue-600 focus:ring-blue-500">
+              <label for="${inputId}" class="flex-1 cursor-pointer">
+                <div class="flex justify-between items-center">
+                  <span class="font-medium">${courier}</span>
+                  <span class="text-blue-600 font-semibold">Rp ${details.price.toLocaleString('id-ID')}</span>
+                </div>
+                <div class="text-sm text-gray-500">Estimasi: ${details.estimatedDate}</div>
+              </label>`;
+            courierDiv.addEventListener('click', function () { document.getElementById(inputId).checked = true; selectCourier(courier, details.price); });
+            if (preSelectedCourier === courier) { const radio = courierDiv.querySelector('input[type="radio"]'); if (radio) radio.checked = true; }
+            el = courierDiv;
+          }
+          courierList.appendChild(el);
+        }
+      });
+      if (hasValidCourier) { courierOptions.classList.remove('hidden'); if (preSelectedCourier && shippingData[preSelectedCourier] && shippingData[preSelectedCourier].price > 0) { selectCourier(preSelectedCourier, shippingData[preSelectedCourier].price); } }
+    }
+
+    function selectCourier(courier, price) {
+      window.customerData.courier_name = courier; window.customerData.shipping_cost = price;
+      const shippingInfo = document.getElementById('shippingInfo'); const shippingAddress = document.getElementById('shippingAddress'); const selectedCourier = document.getElementById('selectedCourier'); const shippingCost = document.getElementById('shippingCost');
+      shippingInfo.classList.remove('hidden'); shippingAddress.textContent = window.customerData.address || 'Alamat lengkap'; selectedCourier.textContent = courier; shippingCost.textContent = price.toLocaleString('id-ID');
+      const product = window.productsData && window.productsData[window.selectedProductIndex];
+      const priceNum = product ? (typeof product.custom_price === 'number' ? product.custom_price : (typeof product.price === 'number' ? product.price : parseInt(product.price, 10) || 0)) : 0;
+      const total = priceNum + price; totalPriceElement.textContent = total.toLocaleString('id-ID');
+      document.getElementById('courierError').classList.add('hidden');
+    }
+
+    orderForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formId = document.body.dataset.formId
+      const product = window.productsData && window.productsData[window.selectedProductIndex];
+      if (!product) { alert('Silakan pilih salah satu produk terlebih dahulu.'); return; }
+      let fields = []; try { const rawFields = document.body.dataset.fields || '{}'; const parsedFields = JSON.parse(rawFields); fields = Array.isArray(parsedFields.fields) ? parsedFields.fields : []; } catch (err) { }
+      const formValues = {}; const missingRequired = []; fields.forEach(f => { const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`); const val = el ? (el.value || '').trim() : ''; formValues[f.id] = val; if (f.required && !val) missingRequired.push(f.label || f.id); });
+      if (missingRequired.length) { alert('Mohon lengkapi field wajib: ' + missingRequired.join(', ')); return; }
+      if (!selectedAddress) { alert('Mohon pilih desa/kelurahan'); return; }
+      if (!window.customerData.courier_name) { document.getElementById('courierError').classList.remove('hidden'); return; }
+      Object.assign(window.customerData, formValues);
+      const addrVal = formValues.address || document.getElementById('address')?.value?.trim() || '';
+      window.customerData.address = addrVal; window.customerData.full_address = `${addrVal}, ${selectedAddress.subdistrict}, ${selectedAddress.district}, ${selectedAddress.city}, ${selectedAddress.province}`;
+      const priceNum = typeof product.custom_price === 'number' ? product.custom_price : (typeof product.price === 'number' ? product.price : parseInt(product.price, 10) || 0);
+      window.customerData.subtotal = priceNum;
+      const weight = product.weight ? (typeof product.weight === 'number' ? product.weight : parseInt(product.weight, 10) || defaultWeight) : defaultWeight;
+      window.customerData.weight = weight;
+      const shippingCost = window.customerData.shipping_cost || 0;
+      const total = priceNum + shippingCost;
+      const productData = { id: product.id || 'SKU-1', code: product.id || 'SKU-1', name: product.name || 'Produk', price: priceNum, quantity: 1, is_addon: !!product.is_addon };
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmSource = urlParams.get('utm_source') || ''; const utmMedium = urlParams.get('utm_medium') || ''; const utmCampaign = urlParams.get('utm_campaign') || ''; const utmContent = urlParams.get('utm_content') || '';
+      const submissionData = { customer_data: { ...window.customerData, utm_meta: { utm_source: utmSource, utm_medium: utmMedium, utm_campaign: utmCampaign, utm_content: utmContent } }, subtotal: priceNum, total: total, product: [productData] };
+      submitBtn.disabled = true; submitBtn.textContent = 'Memproses...'; submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+      try {
+        const response = await fetch(`${domain}/form/${formId}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(submissionData) });
+        if (typeof fbq !== 'undefined') { fbq('track', submitEvent, { value: total, currency: 'IDR' }); }
+        if (typeof ttq !== 'undefined') { ttq.track(submitEvent, { value: total, currency: 'IDR' }); }
+        if (typeof twq !== 'undefined') { twq('event', submitEvent, { value: total, currency: 'IDR' }); }
+        const result = await response.json();
+        if (result.id) {
+          successMessage.classList.remove('hidden');
+          setTimeout(() => { successContent.classList.remove('scale-95', 'opacity-0'); successContent.classList.add('scale-100', 'opacity-100'); let width = 0; const interval = setInterval(() => { width += 10; progressBar.style.width = width + '%'; if (width >= 100) { clearInterval(interval); window.location.href = `${domain}/invoice/${result.id}`; } }, 100); }, 100);
+        } else { throw new Error('Failed to submit order'); }
+      } catch (error) { console.error('Error submitting order:', error); alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.'); submitBtn.disabled = false; submitBtn.textContent = 'Selesaikan Pesanan'; submitBtn.classList.remove('opacity-75', 'cursor-not-allowed'); }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!subdistrictInput.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.add('hidden');
+      }
+    });
+
+    subdistrictInput.addEventListener('keydown', function (e) {
+      const results = resultsElement.querySelectorAll('div');
+      if (results.length === 0) return;
+
+      let currentIndex = -1;
+      results.forEach((result, index) => {
+        if (result.classList.contains('bg-blue-100')) {
+          currentIndex = index;
+        }
+      });
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (currentIndex < results.length - 1) {
+          if (currentIndex >= 0) {
+            results[currentIndex].classList.remove('bg-blue-100');
+          }
+          results[currentIndex + 1].classList.add('bg-blue-100');
+        }
+      }
+      else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (currentIndex > 0) {
+          results[currentIndex].classList.remove('bg-blue-100');
+        }
+        results[currentIndex - 1].classList.add('bg-blue-100');
+      }
+      else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (currentIndex >= 0) {
+          results[currentIndex].click();
+        }
+      }
+      else if (e.key === 'Escape') {
+        dropdown.classList.add('hidden');
+      }
+    });
+
+    // Initialize
+    updateSummary();
   </script>
 </body>
 

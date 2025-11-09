@@ -17,6 +17,7 @@
   data-fields="{'fields':[{'id':'name','label':'Nama','type':'text','required':true},{'id':'email','label':'Email','type':'email','required':false},{'id':'phone','label':'Nomor Telepon','type':'tel','required':true}]}"
   data-couriers="['JNE','JNECargo','SiCepat','SiCepatCargo','SAP','SapCargo','iDexpress','JT','lion','iDexpressCargo','paxel','Ninja']"
   data-domain="http://localhost:5556"
+  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
   data-origin-id="5fc63944f8f44b34aa4c819e"
   >
   <section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
@@ -786,7 +787,7 @@
         submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
 
         try {
-          const response = await fetch(`${domain}/form/${originId}`, {
+          const response = await fetch(`${document.body.dataset.domain}/form/${document.body.dataset.formId}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

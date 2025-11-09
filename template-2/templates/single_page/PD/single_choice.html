@@ -10,8 +10,9 @@
 <body
   data-products='[{"id":"SP-001","name":"Cupcake Regular","price":6000,"discount_price":0,"description":"Satu produk saja, tanpa varian.","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":1,"is_required":true,"allow_custom_price":false,"weight":200}]'
   data-fields='{"fields":[{"id":"name","label":"Nama","type":"text","required":true},{"id":"email","label":"Email","type":"email","required":false},{"id":"phone","label":"Nomor Telepon","type":"tel","required":true}]}'
-  data-domain="http://localhost:5555"
+  data-domain="http://localhost:5556"
   data-origin-id="sp-form2"
+  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
 >
   <section class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50 py-6 lg:py-10">
     <div class="max-w-6xl mx-auto px-4">
@@ -180,25 +181,119 @@
     }
     renderSummary();
 
-    // Submit Handling mengikuti pola quantity_based
+    // Submit Handling mengikuti pola template-1
     orderForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      // Ambil data form
-      const formValues = {};
-      orderForm.querySelectorAll('input').forEach(inp => { formValues[inp.name] = inp.value; });
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Memproses...';
 
+      // Ambil data form
+      const formData = new FormData(orderForm);
+      const data = Object.fromEntries(formData.entries());
+      
+      // Get UTM parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmSource = urlParams.get('utm_source') || '';
+      const utmMedium = urlParams.get('utm_medium') || '';
+      const utmCampaign = urlParams.get('utm_campaign') || '';
+      const utmContent = urlParams.get('utm_content') || '';
+      
+      // Prepare customer data
+      const customerData = {
+        ...data,
+        address: data.address || '',
+        full_address: data.address || '',
+        utm_meta: {
+          utm_source: utmSource,
+          utm_medium: utmMedium,
+          utm_campaign: utmCampaign,
+          utm_content: utmContent
+        }
+      };
+      
+      // Prepare product data
+      const productData = [{
+        id: state.product?.id,
+        code: state.product?.id,
+        name: state.product?.name,
+        price: state.product?.price,
+        quantity: state.qty,
+        is_addon: false
+      }];
+      
+      const subtotal = (state.product?.price || 0) * state.qty;
+      const total = subtotal;
+      
       const payload = {
-        originId,
-        items: [{ id: state.product?.id, name: state.product?.name, price: state.product?.price, quantity: state.qty }],
-        customer: formValues,
-        total: totalPriceEl.textContent
+        customer_data: customerData,
+        subtotal: subtotal,
+        total: total,
+        product: productData
       };
 
-      // Feedback sukses (tanpa request eksternal di template)
-      successMessage.classList.remove('hidden');
-      setTimeout(() => { successContent.classList.remove('opacity-0'); successContent.classList.remove('scale-95'); }, 20);
-      let progress = 0; const timer = setInterval(() => { progress = Math.min(100, progress + 5); progressBar.style.width = progress + '%'; if (progress >= 100) { clearInterval(timer); if (domain) { setTimeout(() => { window.location.href = domain + '/checkout?ref=' + encodeURIComponent(originId); }, 600); } } }, 80);
-      console.log('Order Payload (preview):', payload);
+      try {
+        const response = await fetch(`${domain}/form/${document.body.dataset.formId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        const result = await response.json();
+        
+        // Track pixel events
+        const submitEvent = document.body.dataset.submitEvent || 'Lead';
+        if (typeof fbq !== 'undefined') {
+          fbq('track', submitEvent, {
+            value: total,
+            currency: 'IDR'
+          });
+        }
+        
+        if (typeof ttq !== 'undefined') {
+          ttq.track(submitEvent, {
+            value: total,
+            currency: 'IDR'
+          });
+        }
+        
+        if (typeof twq !== 'undefined') {
+          twq('event', submitEvent, {
+            value: total,
+            currency: 'IDR'
+          });
+        }
+        
+        if(response.ok && result.id) {
+          // Show success message
+          successMessage.classList.remove('hidden');
+          setTimeout(() => {
+            successContent.classList.remove('scale-95', 'opacity-0');
+            successContent.classList.add('scale-100', 'opacity-100');
+            
+            // Animate progress bar
+            let width = 0;
+            const interval = setInterval(() => {
+              width += 10;
+              progressBar.style.width = width + '%';
+              
+              if (width >= 100) {
+                clearInterval(interval);
+                // Redirect to invoice page
+                window.location.href = `${domain}/invoice/${result.id}`;
+              }
+            }, 100);
+          }, 100);
+        } else {
+          alert('Gagal membuat pesanan. Silakan coba lagi.');
+        }
+      } catch (error) {
+        console.error('Error submitting order:', error);
+        alert('Terjadi kesalahan. Silakan coba lagi.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Selesaikan Pesanan';
+      }
     });
   </script>
 </body>

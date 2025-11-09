@@ -13,6 +13,7 @@
   data-couriers='["JNE","JNECargo","SiCepat","SiCepatCargo","SAP","SapCargo","iDexpress","JT","lion","iDexpressCargo","paxel","Ninja"]'
   data-domain="http://localhost:5556"
   data-origin-id="5fc63944f8f44b34aa4c819e"
+  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
   class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50">
 
   <!-- Header -->
@@ -444,11 +445,24 @@
 
       submitBtn.disabled = true; submitBtn.textContent = 'Memproses...'; submitBtn.classList.add('opacity-75','cursor-not-allowed');
       try{
-        const response = await fetch(`${domain}/form/${originId}`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(submissionData) });
+        const response = await fetch(`${domain}/form/${document.body.dataset.formId}`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(submissionData) });
         const result = await response.json();
-        if (result.id){ successMessage.classList.remove('hidden'); setTimeout(()=>{ successContent.classList.remove('scale-95','opacity-0'); successContent.classList.add('scale-100','opacity-100'); let width=0; const interval=setInterval(()=>{ width+=10; progressBar.style.width=width+'%'; if (width>=100){ clearInterval(interval); window.location.href = `${domain}/invoice/${result.id}`; } },100); },100); }
-        else { throw new Error('Failed to submit order'); }
-      } catch(err){ console.error('Error submitting order:', err); alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.'); submitBtn.disabled=false; submitBtn.textContent='Selesaikan Pesanan'; submitBtn.classList.remove('opacity-75','cursor-not-allowed'); }
+        
+        // Track pixel events
+        const submitEvent = document.body.dataset.submitEvent || 'Lead';
+        if (typeof fbq !== 'undefined') {
+          fbq('track', submitEvent, { value: total, currency: 'IDR' });
+        }
+        if (typeof ttq !== 'undefined') {
+          ttq.track(submitEvent, { value: total, currency: 'IDR' });
+        }
+        if (typeof twq !== 'undefined') {
+          twq('event', submitEvent, { value: total, currency: 'IDR' });
+        }
+        
+        if (response.ok && result.id){ successMessage.classList.remove('hidden'); setTimeout(()=>{ successContent.classList.remove('scale-95','opacity-0'); successContent.classList.add('scale-100','opacity-100'); let width=0; const interval=setInterval(()=>{ width+=10; progressBar.style.width=width+'%'; if (width>=100){ clearInterval(interval); window.location.href = `${domain}/invoice/${result.id}`; } },100); },100); }
+        else { alert('Gagal membuat pesanan. Silakan coba lagi.'); }
+      } catch(err){ console.error('Error submitting order:', err); alert('Terjadi kesalahan. Silakan coba lagi.'); } finally { submitBtn.disabled=false; submitBtn.textContent='Selesaikan Pesanan'; submitBtn.classList.remove('opacity-75','cursor-not-allowed'); }
     });
   </script>
 </body>

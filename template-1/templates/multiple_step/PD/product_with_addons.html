@@ -16,6 +16,7 @@
   data-fields="{'fields':[{'id':'name','label':'Nama','type':'text','required':true},{'id':'email','label':'Email','type':'email','required':false},{'id':'phone','label':'Nomor Telepon','type':'tel','required':true}]}"
   data-couriers="['JNE','JNECargo','SiCepat','SiCepatCargo','SAP','SapCargo','iDexpress','JT','lion','iDexpressCargo','paxel','Ninja']"
   data-domain="http://localhost:5556"
+  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
   data-origin-id="5fc63944f8f44b34aa4c819e"
   >
   <section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
@@ -196,6 +197,14 @@
       const successContent = document.getElementById('successContent');
       const progressBar = document.getElementById('progressBar');
 
+      // Initialize customer data object
+      window.customerData = { 
+        quantity: 1, 
+        subtotal: 0, 
+        weight: PRODUCT_WEIGHT,
+        shipping_cost: 0 
+      };
+
       (function initProductRendering() {
         try {
           const raw = document.body.dataset.products || '[]';
@@ -338,6 +347,9 @@
         });
 
         totalPriceElement.textContent = Number(grandTotal).toLocaleString('id-ID');
+        
+        // Update customer data with subtotal
+        window.customerData.subtotal = grandTotal;
       }
 
       // Multi-step
@@ -373,6 +385,147 @@
         nextStepBtn.addEventListener('click', () => { updateSummary(); showStep(stepIndex + 1); });
         showStep(0);
       })();
+
+      // Form submission logic (without shipping cost calculation)
+      const formId = document.body.dataset.formId || document.body.dataset.originId || '';
+      const submitEvent = document.body.dataset.submitEvent || '';
+
+      orderForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        
+        // Validate required fields
+        let fields = [];
+        try { 
+          const rawFields = document.body.dataset.fields || '{}'; 
+          const parsedFields = JSON.parse(rawFields.replace(/'/g, '"')); 
+          fields = Array.isArray(parsedFields.fields) ? parsedFields.fields : []; 
+        } catch (err) { }
+        
+        const formValues = {}; 
+        const missingRequired = [];
+        
+        fields.forEach(f => { 
+          const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`); 
+          const val = el ? (el.value || '').trim() : ''; 
+          formValues[f.id] = val; 
+          if (f.required && !val) missingRequired.push(f.label || f.id); 
+        });
+        
+        if (missingRequired.length) { 
+          alert('Mohon lengkapi field wajib: ' + missingRequired.join(', ')); 
+          return; 
+        }
+        
+        // Collect customer data
+        Object.assign(window.customerData, formValues);
+        
+        // Calculate totals
+        const subtotal = (window.customerData && typeof window.customerData.subtotal === 'number') 
+          ? window.customerData.subtotal 
+          : (typeof window.productData.price === 'number' 
+            ? window.productData.price 
+            : (parseInt(window.productData.price, 10) || 0));
+        
+        const total = subtotal; // No shipping cost in PD template
+        
+        // Prepare products data
+        const p = window.productData;
+        const baseProduct = { 
+          id: p.id || `SKU-1`, 
+          code: p.id || `SKU-1`, 
+          name: p.name || `Produk 1`, 
+          price: typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0), 
+          quantity: 1, 
+          is_addon: !!p.is_addon 
+        };
+        
+        const selectedAddons = (window.addonsData || [])
+          .filter(a => a.selected)
+          .map(a => ({ 
+            id: a.id || 'ADDON', 
+            code: a.id || 'ADDON', 
+            name: a.name || 'Addon', 
+            price: typeof a.price === 'number' ? a.price : (parseInt(a.price, 10) || 0), 
+            quantity: a.quantity || 1, 
+            is_addon: true 
+          }));
+        
+        // Get UTM parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmSource = urlParams.get('utm_source') || '';
+        const utmMedium = urlParams.get('utm_medium') || '';
+        const utmCampaign = urlParams.get('utm_campaign') || '';
+        const utmContent = urlParams.get('utm_content') || '';
+        
+        const submissionData = { 
+          customer_data: { 
+            ...window.customerData, 
+            utm_meta: { 
+              utm_source: utmSource, 
+              utm_medium: utmMedium, 
+              utm_campaign: utmCampaign, 
+              utm_content: utmContent 
+            } 
+          }, 
+          subtotal: subtotal, 
+          total: total, 
+          product: [baseProduct, ...selectedAddons] 
+        };
+        
+        // Disable submit button
+        submitBtn.disabled = true; 
+        submitBtn.textContent = 'Memproses...'; 
+        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+        
+        try {
+          const response = await fetch(`${domain}/form/${formId}`, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify(submissionData) 
+          });
+          
+          // Track conversion events
+          if (typeof fbq !== 'undefined') { 
+            fbq('track', submitEvent, { value: total, currency: 'IDR' }); 
+          }
+          if (typeof ttq !== 'undefined') { 
+            ttq.track(submitEvent, { value: total, currency: 'IDR' }); 
+          }
+          if (typeof twq !== 'undefined') { 
+            twq('event', submitEvent, { value: total, currency: 'IDR' }); 
+          }
+          
+          const result = await response.json();
+          if (result.id) {
+            // Show success message
+            successMessage.classList.remove('hidden');
+            setTimeout(() => {
+              successContent.classList.remove('scale-95', 'opacity-0');
+              successContent.classList.add('scale-100', 'opacity-100');
+              let width = 0;
+              const interval = setInterval(() => {
+                width += 10;
+                progressBar.style.width = width + '%';
+                if (width >= 100) {
+                  clearInterval(interval);
+                  // Redirect to invoice
+                  window.location.href = `${domain}/invoice/${result.id}`;
+                }
+              }, 100);
+            }, 100);
+          } else { 
+            throw new Error('Failed to submit order'); 
+          }
+        } catch (error) {
+          console.error('Error submitting order:', error);
+          alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
+          
+          // Re-enable submit button
+          submitBtn.disabled = false; 
+          submitBtn.textContent = 'Selesaikan Pesanan'; 
+          submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        }
+      });
     </script>
   </section>
 </body>

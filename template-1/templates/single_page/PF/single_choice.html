@@ -18,6 +18,7 @@
   data-couriers="['JNE','JNECargo','SiCepat','SiCepatCargo','SAP','SapCargo','iDexpress','JT','lion','iDexpressCargo','paxel','Ninja']"
   data-domain="http://localhost:5556"
   data-origin-id="5fc63944f8f44b34aa4c819e"
+  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
   >
   <section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
     <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto" bis_skin_checked="1">
@@ -761,7 +762,7 @@
         const utmSource = urlParams.get('utm_source') || '';
         const utmMedium = urlParams.get('utm_medium') || '';
         const utmCampaign = urlParams.get('utm_campaign') || '';
-        const utmContent = url_params.get('utm_content') || '';
+        const utmContent = urlParams.get('utm_content') || '';
 
         // Prepare submission data
         const submissionData = {
@@ -785,7 +786,7 @@
         submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
 
         try {
-          const response = await fetch(`${domain}/form/${originId}`, {
+          const response = await fetch(`${document.body.dataset.domain}/form/${document.body.dataset.formId}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

@@ -9,7 +9,8 @@
 <body
   data-products="[{'id':'KPRI01','name':'Friendly Business Access (UMKM Oriented)','price':197000,'discount_price':0,'description':'Cocok Untuk: Pemilik UMKM, pemula, pengguna paket basic Dripsender\n\nValue Proposisi:\n\n- Konsultasi ringan & edukatif\n- Fokus pada audit WhatsApp Marketing, optimasi LP, dan funnel basic\n- Dapat dilakukan di café dengan suasana santai','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':1,'is_required':true,'allow_custom_price':false,'imageLoading':false}]"
   data-fields="{'fields':[{'id':'name','label':'Nama','type':'text','required':true},{'id':'email','label':'Email','type':'email','required':false},{'id':'phone','label':'Nomor Telepon','type':'tel','required':true}]}"
-  data-domain="http://localhost:5556" data-origin-id="5fc63944f8f44b34aa4c819e">
+  data-domain="http://localhost:5556" data-origin-id="5fc63944f8f44b34aa4c819e"
+  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595">
   <section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
     <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto">
       <div class="text-center mb-8">
@@ -132,6 +133,24 @@
     </div>
   </section>
 
+  <!-- Success Message Modal -->
+  <div id="successMessage" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div id="successContent" class="bg-white rounded-lg p-8 max-w-md w-full mx-4 transform transition-all duration-300 scale-95 opacity-0">
+      <div class="text-center">
+        <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+          <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">Pesanan Berhasil!</h3>
+        <p class="text-sm text-gray-600 mb-6">Pesanan Anda sedang diproses. Mohon tunggu sebentar...</p>
+        <div class="w-full bg-gray-200 rounded-full h-2">
+          <div id="progressBar" class="bg-green-600 h-2 rounded-full transition-all duration-100" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Render product
     (function renderProduct(){
@@ -190,6 +209,13 @@
       el.querySelector('[data-summary="weight"]').textContent = PRODUCT_WEIGHT;
       list.appendChild(el);
       document.getElementById('totalPrice').textContent = Number(p.price||0).toLocaleString('id-ID');
+      
+      // Update window.customerData
+      if (window.customerData) {
+        window.customerData.subtotal = Number(p.price||0);
+        window.customerData.quantity = 1;
+        window.customerData.weight = PRODUCT_WEIGHT;
+      }
     }
     updateSummary();
 
@@ -226,6 +252,147 @@
       nextStepBtn.addEventListener('click', () => { updateSummary(); showStep(stepIndex + 1); });
       showStep(0);
     })();
+
+    // Form submission variables
+    const orderForm = document.getElementById('orderForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMessage = document.getElementById('successMessage');
+    const successContent = document.getElementById('successContent');
+    const progressBar = document.getElementById('progressBar');
+    const domain = document.body.dataset.domain || '';
+    const originId = document.body.dataset.originId || '';
+    const submitEvent = document.body.dataset.submitEvent || '';
+    
+    // Initialize customer data
+    (function initCustomerData() {
+      const p = window.singleProduct;
+      const quantity = 1;
+      const currentPrice = p ? (typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0)) : 0;
+      window.customerData = { quantity, subtotal: currentPrice * quantity, weight: 200 * quantity };
+    })();
+
+    // Form submission
+    orderForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      
+      // Validate required fields
+      let fields = [];
+      try { 
+        const rawFields = document.body.dataset.fields || '{}';
+        const parsedFields = JSON.parse(rawFields.replace(/'/g, '"'));
+        fields = Array.isArray(parsedFields.fields) ? parsedFields.fields : [];
+      } catch (err) { /* ignore */ }
+      
+      const formValues = {};
+      const missingRequired = [];
+      
+      fields.forEach(f => {
+        const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`);
+        const val = el ? (el.value || '').trim() : '';
+        formValues[f.id] = val;
+        if (f.required && !val) missingRequired.push(f.label || f.id);
+      });
+      
+      if (missingRequired.length) {
+        alert('Mohon lengkapi field wajib: ' + missingRequired.join(', '));
+        return;
+      }
+      
+      // Prepare customer data
+      Object.assign(window.customerData, formValues);
+      const p = window.singleProduct;
+      const subtotal = Number(p.price || 0);
+      const total = subtotal;
+      
+      // Prepare product data
+      const product = {
+        id: p.id || 'SKU-1',
+        code: p.id || 'SKU-1',
+        name: p.name || 'Produk 1',
+        price: Number(p.price || 0),
+        quantity: 1,
+        is_addon: !!p.is_addon
+      };
+      
+      // Get UTM parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmSource = urlParams.get('utm_source') || '';
+      const utmMedium = urlParams.get('utm_medium') || '';
+      const utmCampaign = urlParams.get('utm_campaign') || '';
+      const utmContent = urlParams.get('utm_content') || '';
+      
+      const submissionData = {
+        customer_data: {
+          ...window.customerData,
+          utm_meta: {
+            utm_source: utmSource,
+            utm_medium: utmMedium,
+            utm_campaign: utmCampaign,
+            utm_content: utmContent
+          }
+        },
+        subtotal: subtotal,
+        total: total,
+        product: [product]
+      };
+      
+      // Disable submit button
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Memproses...';
+      submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+      
+      try {
+        const formId = document.body.dataset.formId || '';
+        const response = await fetch(`${domain}/form/${formId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(submissionData)
+        });
+        
+        // Track conversion
+        if (typeof fbq !== 'undefined') {
+          fbq('track', submitEvent, { value: total, currency: 'IDR' });
+        }
+        if (typeof ttq !== 'undefined') {
+          ttq.track(submitEvent, { value: total, currency: 'IDR' });
+        }
+        if (typeof twq !== 'undefined') {
+          twq('event', submitEvent, { value: total, currency: 'IDR' });
+        }
+        
+        const result = await response.json();
+        
+        if (result.id) {
+          // Show success message
+          successMessage.classList.remove('hidden');
+          setTimeout(() => {
+            successContent.classList.remove('scale-95', 'opacity-0');
+            successContent.classList.add('scale-100', 'opacity-100');
+            
+            // Animate progress bar
+            let width = 0;
+            const interval = setInterval(() => {
+              width += 10;
+              progressBar.style.width = width + '%';
+              if (width >= 100) {
+                clearInterval(interval);
+                window.location.href = `${domain}/invoice/${result.id}`;
+              }
+            }, 100);
+          }, 100);
+        } else {
+          throw new Error('Failed to submit order');
+        }
+      } catch (error) {
+        console.error('Error submitting order:', error);
+        alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
+        
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Selesaikan Pesanan';
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+      }
+    });
   </script>
 </body>
 </html>

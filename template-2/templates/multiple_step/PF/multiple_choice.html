@@ -13,6 +13,7 @@
   data-couriers='["JNE","JNECargo","SiCepat","SiCepatCargo","SAP","SapCargo","iDexpress","JT","lion","iDexpressCargo","paxel","Ninja"]'
   data-domain="http://localhost:5556"
   data-origin-id="5fc63944f8f44b34aa4c819e"
+  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
   class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50">
 
   <!-- Header + Stepper (match style of single_product/form2_ms.html) -->
@@ -25,22 +26,23 @@
           <div class="w-full bg-white/20 rounded-full h-2">
             <div id="stepProgressBar" class="bg-white h-2 rounded-full transition-all duration-500" style="width:25%"></div>
           </div>
-          <div class="mt-3 grid grid-cols-4 gap-2 text-xs sm:text-sm">
-            <div data-step-index="1" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white text-teal-800 ring-2 ring-white/70 shadow-md scale-[1.02] font-semibold">
-              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white text-teal-700 font-bold">1</span>
-              Produk
+          <div class="mt-3 grid grid-cols-4 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+            <div data-step-index="1" class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white text-teal-800 ring-2 ring-white/70 shadow-md scale-[1.02] font-semibold">
+              <span class="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white text-teal-700 font-bold text-xs sm:text-sm">1</span>
+              <span class="text-[10px] sm:text-xs">Produk</span>
             </div>
-            <div data-step-index="2" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
-              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold">2</span>
-              Pemesan
+            <div data-step-index="2" class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
+              <span class="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold text-xs sm:text-sm">2</span>
+              <span class="text-[10px] sm:text-xs">Pemesan</span>
             </div>
-            <div data-step-index="3" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
-              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold">3</span>
-              Pengiriman
+            <div data-step-index="3" class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
+              <span class="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold text-xs sm:text-sm">3</span>
+              <span class="text-[10px] sm:text-xs">Kirim</span>
             </div>
-            <div data-step-index="4" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
-              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold">4</span>
-              Ringkasan
+            <div data-step-index="4" class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
+              <span class="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold text-xs sm:text-sm">4</span>
+              <span class="text-[10px] sm:text-xs hidden sm:inline">Ringkasan</span>
+              <span class="text-[10px] sm:hidden">Done</span>
             </div>
           </div>
         </div>
@@ -537,7 +539,7 @@
 
       submitBtn.disabled = true; submitBtn.textContent = 'Memproses...'; submitBtn.classList.add('opacity-75','cursor-not-allowed');
       try{
-        const response = await fetch(`${domain}/form/${originId}`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(submissionData) });
+        const response = await fetch(`${domain}/form/${document.body.dataset.formId}`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(submissionData) });
         const result = await response.json();
         if (result.id){
           successMessage.classList.remove('hidden');

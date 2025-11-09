@@ -9,7 +9,7 @@
 <body
   data-products='[{"id":"KPRI01","name":"Friendly Business Access (UMKM Oriented)","price":197000,"discount_price":0,"description":"Cocok Untuk: Pemilik UMKM, pemula, pengguna paket basic Dripsender\n\nValue Proposisi:\n\n- Konsultasi ringan & edukatif\n- Fokus pada audit WhatsApp Marketing, optimasi LP, dan funnel basic\n- Dapat dilakukan di café dengan suasana santai","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":0,"is_required":false,"allow_custom_price":false,"imageLoading":false},{"id":"KPRI02","name":"Strategi Bisnis Menengah (Growth Oriented)","price":397000,"description":"Cocok Untuk: Pemilik bisnis yang sudah aktif tapi belum optimal secara digital\n\nValue Proposisi:\n\n- Business funnel diagnosis\n- Strategi konten, autoresponder, closing script\n- Termasuk review LP dan automation sequence","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":0,"is_required":false,"allow_custom_price":false,"imageLoading":false},{"id":"KPRI03","name":"VIP Strategic Session (High Ticket)","price":897000,"description":"Cocok Untuk: Pebisnis skala besar, agency, atau pengguna langganan premium\n\nValue Proposisi:\n\n- Analisis mendalam berbasis data\n- Blueprint strategi growth WhatsApp + LP funnel\n- Follow-up report tertulis (opsional), dan bisa 1-on-1 langsung dengan expert","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":0,"is_required":false,"allow_custom_price":false,"imageLoading":false}]'
   data-fields='{"fields":[{"id":"name","label":"Nama","type":"text","required":true},{"id":"email","label":"Email","type":"email","required":false},{"id":"phone","label":"Nomor Telepon","type":"tel","required":true}]}'
-  data-domain="http://localhost:5556" data-origin-id="5fc63944f8f44b34aa4c819e">
+  data-domain="http://localhost:5556" data-origin-id="5fc63944f8f44b34aa4c819e" data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595" data-submit-event="SubmitEvent">
   <section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
     <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto">
       <div class="text-center mb-8">
@@ -130,6 +130,24 @@
       </div>
     </div>
   </section>
+
+  <!-- Success Message -->
+  <div id="successMessage" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0" id="successContent">
+      <div class="text-center">
+        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Pesanan Berhasil!</h3>
+        <p class="text-gray-600 mb-6">Terima kasih telah melakukan pemesanan. Anda akan diarahkan ke halaman pembayaran.</p>
+        <div class="w-full bg-gray-200 rounded-full h-2">
+          <div class="bg-blue-600 h-2 rounded-full" id="progressBar" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -269,6 +287,141 @@
         nextStepBtn.addEventListener('click', () => { updateSummary(); showStep(stepIndex + 1); });
         showStep(0);
       })();
+
+      // Form submission logic
+      const orderForm = document.getElementById('orderForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const successMessage = document.getElementById('successMessage');
+      const successContent = document.getElementById('successContent');
+      const progressBar = document.getElementById('progressBar');
+      
+      orderForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        
+        // Get selected product
+        const selectedProduct = state.products.find(p => (p.quantity||0) > 0);
+        if (!selectedProduct) {
+          alert('Silakan pilih salah satu produk terlebih dahulu.');
+          return;
+        }
+
+        // Get form data
+        const formData = {};
+        const missingRequired = [];
+        
+        state.fields.forEach(field => {
+          const input = document.getElementById(field.id) || orderForm.querySelector(`[name="${field.id}"]`);
+          const value = input ? (input.value || '').trim() : '';
+          formData[field.id] = value;
+          
+          if (field.required && !value) {
+            missingRequired.push(field.label || field.id);
+          }
+        });
+
+        // Validate required fields
+        if (missingRequired.length) {
+          alert('Mohon lengkapi field wajib: ' + missingRequired.join(', '));
+          return;
+        }
+
+        // Prepare submission data
+        const domain = document.body.dataset.domain || '';
+        const formId = document.body.dataset.formId || '';
+        const submitEvent = document.body.dataset.submitEvent || '';
+        
+        const priceNum = selectedProduct.price || 0;
+        const productData = {
+          id: selectedProduct.id,
+          code: selectedProduct.id,
+          name: selectedProduct.name,
+          price: priceNum,
+          quantity: 1,
+          is_addon: !!selectedProduct.is_addon
+        };
+
+        // Get UTM parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmSource = urlParams.get('utm_source') || '';
+        const utmMedium = urlParams.get('utm_medium') || '';
+        const utmCampaign = urlParams.get('utm_campaign') || '';
+        const utmContent = urlParams.get('utm_content') || '';
+
+        const submissionData = {
+          customer_data: {
+            ...formData,
+            utm_meta: {
+              utm_source: utmSource,
+              utm_medium: utmMedium,
+              utm_campaign: utmCampaign,
+              utm_content: utmContent
+            }
+          },
+          subtotal: priceNum,
+          total: priceNum,
+          product: [productData]
+        };
+
+        // Disable submit button
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Memproses...';
+        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+
+        try {
+          // Track conversion events
+          if (typeof fbq !== 'undefined') {
+            fbq('track', submitEvent, { value: priceNum, currency: 'IDR' });
+          }
+          if (typeof ttq !== 'undefined') {
+            ttq.track(submitEvent, { value: priceNum, currency: 'IDR' });
+          }
+          if (typeof twq !== 'undefined') {
+            twq('event', submitEvent, { value: priceNum, currency: 'IDR' });
+          }
+
+          // Submit form
+          const response = await fetch(`${domain}/form/${formId}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(submissionData)
+          });
+
+          const result = await response.json();
+          
+          if (result.id) {
+            // Show success message
+            successMessage.classList.remove('hidden');
+            setTimeout(() => {
+              successContent.classList.remove('scale-95', 'opacity-0');
+              successContent.classList.add('scale-100', 'opacity-100');
+              
+              // Progress bar animation
+              let width = 0;
+              const interval = setInterval(() => {
+                width += 10;
+                progressBar.style.width = width + '%';
+                if (width >= 100) {
+                  clearInterval(interval);
+                  // Redirect to invoice page
+                  window.location.href = `${domain}/invoice/${result.id}`;
+                }
+              }, 100);
+            }, 100);
+          } else {
+            throw new Error('Failed to submit order');
+          }
+        } catch (error) {
+          console.error('Error submitting order:', error);
+          alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
+          
+          // Re-enable submit button
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Selesaikan Pesanan';
+          submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        }
+      });
     });
   </script>
 </body>

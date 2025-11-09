@@ -13,6 +13,7 @@
   data-couriers='["JNE","JNECargo","SiCepat","SiCepatCargo","SAP","SapCargo","iDexpress","JT","lion","iDexpressCargo","paxel","Ninja"]'
   data-domain="http://localhost:5556"
   data-origin-id="5fc63944f8f44b34aa4c819e"
+  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
   class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50">
 
   <!-- Header + Stepper -->
@@ -25,22 +26,23 @@
           <div class="w-full bg-white/20 rounded-full h-2">
             <div id="stepProgressBar" class="bg-white h-2 rounded-full transition-all duration-500" style="width:25%"></div>
           </div>
-          <div class="mt-3 grid grid-cols-4 gap-2 text-xs sm:text-sm">
-            <div data-step-index="1" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white text-teal-800 ring-2 ring-white/70 shadow-md scale-[1.02] font-semibold">
-              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white text-teal-700 font-bold">1</span>
-              Produk
+          <div class="mt-3 grid grid-cols-4 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+            <div data-step-index="1" class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white text-teal-800 ring-2 ring-white/70 shadow-md scale-[1.02] font-semibold">
+              <span class="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white text-teal-700 font-bold text-xs sm:text-sm">1</span>
+              <span class="text-[10px] sm:text-xs">Produk</span>
             </div>
-            <div data-step-index="2" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
-              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold">2</span>
-              Pemesan
+            <div data-step-index="2" class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
+              <span class="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold text-xs sm:text-sm">2</span>
+              <span class="text-[10px] sm:text-xs">Pemesan</span>
             </div>
-            <div data-step-index="3" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
-              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold">3</span>
-              Pengiriman
+            <div data-step-index="3" class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
+              <span class="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold text-xs sm:text-sm">3</span>
+              <span class="text-[10px] sm:text-xs">Kirim</span>
             </div>
-            <div data-step-index="4" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
-              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold">4</span>
-              Ringkasan
+            <div data-step-index="4" class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
+              <span class="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold text-xs sm:text-sm">4</span>
+              <span class="text-[10px] sm:text-xs hidden sm:inline">Ringkasan</span>
+              <span class="text-[10px] sm:hidden">Done</span>
             </div>
           </div>
         </div>
@@ -56,12 +58,12 @@
         <div id="step1" data-step="1" class="space-y-5">
           <h2 class="text-xl font-bold text-gray-900">Konfirmasi Produk</h2>
           <div id="productsGrid" class="grid grid-cols-1">
-            <div data-role="product" data-template="product" class="group bg-white/80 backdrop-blur-sm border border-teal-100 rounded-2xl p-3 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:ring-1 hover:ring-teal-300 transition-all duration-300">
-              <div class="flex items-center gap-3">
-                <img data-value="image_url" src="https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="Produk" class="w-20 h-20 rounded-xl object-cover border border-gray-200" />
-                <div class="flex-1 min-w-0">
+            <div data-role="product" data-template="product" class="group bg-white/80 backdrop-blur-sm border border-teal-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:ring-1 hover:ring-teal-300 transition-all duration-300">
+              <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <img data-value="image_url" src="https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="Produk" class="w-full sm:w-24 h-48 sm:h-24 rounded-xl object-cover border border-gray-200" />
+                <div class="flex-1 min-w-0 w-full">
                   <div class="flex items-start justify-between gap-2">
-                    <h3 class="text-lg font-bold text-gray-900" data-value="name">Nama Produk</h3>
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-900" data-value="name">Nama Produk</h3>
                     <span class="text-sm text-gray-500">200g</span>
                   </div>
                   <p class="text-sm text-gray-600" data-value="description">Deskripsi singkat produk.</p>
@@ -492,30 +494,22 @@
       window.customerData.address = addrVal;
       window.customerData.full_address = `${addrVal}, ${selectedAddress.subdistrict}, ${selectedAddress.district}, ${selectedAddress.city}, ${selectedAddress.province}`;
 
-      // Siapkan payload ala form2.html asli
-      const subtotal = Number(window.customerData.subtotal||Number(p.price||0));
-      const shipping = Number(window.customerData.shipping_cost||0);
-      const total = subtotal + shipping;
-      const payload = {
-        originId,
-        items: [{ id:p.id, code:p.id, name:p.name, price: subtotal, quantity:1, is_addon: !!p.is_addon }],
-        customer: { ...window.customerData },
-        total
-      };
+      const itemsForSubmit = [{ id:p.id, code:p.id, name:p.name, price:Number(p.price||0), quantity:1, is_addon:!!p.is_addon }];
+      const subtotal = Number(window.customerData.subtotal||0);
+      const shippingCost = Number(window.customerData.shipping_cost||0);
+      const total = subtotal + shippingCost;
 
-      // Tampilkan modal sukses dan redirect ke checkout seperti form2.html asli
-      console.log('Order Payload (PF Single Product • Multi-step):', payload);
+      const urlParams = new URLSearchParams(window.location.search);
+      const utm = { utm_source: urlParams.get('utm_source')||'', utm_medium: urlParams.get('utm_medium')||'', utm_campaign: urlParams.get('utm_campaign')||'', utm_content: urlParams.get('utm_content')||'' };
+      const submissionData = { customer_data: { ...window.customerData, utm_meta: utm }, subtotal, total, product: itemsForSubmit };
+
       submitBtn.disabled = true; submitBtn.textContent = 'Memproses...'; submitBtn.classList.add('opacity-75','cursor-not-allowed');
-      successMessage.classList.remove('hidden');
-      setTimeout(()=>{
-        successContent.classList.remove('scale-95','opacity-0');
-        successContent.classList.add('scale-100','opacity-100');
-        let width=0; const interval=setInterval(()=>{
-          width = Math.min(100, width+5);
-          document.getElementById('progressBar').style.width=width+'%';
-          if (width>=100){ clearInterval(interval); setTimeout(()=>{ window.location.href = domain + '/checkout?ref=' + encodeURIComponent(originId); }, 600); }
-        },80);
-      },100);
+      try{
+        const response = await fetch(`${domain}/form/${document.body.dataset.formId}`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(submissionData) });
+        const result = await response.json();
+        if (result.id){ successMessage.classList.remove('hidden'); setTimeout(()=>{ successContent.classList.remove('scale-95','opacity-0'); successContent.classList.add('scale-100','opacity-100'); let width=0; const interval=setInterval(()=>{ width+=10; document.getElementById('progressBar').style.width=width+'%'; if (width>=100){ clearInterval(interval); window.location.href = `${domain}/invoice/${result.id}`; } },100); },100); }
+        else { throw new Error('Failed to submit order'); }
+      } catch(err){ console.error('Error submitting order:', err); alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.'); submitBtn.disabled=false; submitBtn.textContent='Selesaikan Pesanan'; submitBtn.classList.remove('opacity-75','cursor-not-allowed'); }
     });
   </script>
 </body>

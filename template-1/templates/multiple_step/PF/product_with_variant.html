@@ -10,7 +10,9 @@
   data-products='[{"id":"SKU-001","name":"IKAN","price":2000,"discount_price":0,"description":"adsfafsdsdadsf","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":1,"is_required":true,"allow_custom_price":false,"variants":[{"id":"SKU-001-red","name":"Merah","price":3000},{"id":"XL","name":"XL","price":3500}],"weight":200}]'
   data-fields="{'fields':[{'id':'name','label':'Nama','type':'text','required':true},{'id':'email','label':'Email','type':'email','required':false},{'id':'phone','label':'Nomor Telepon','type':'tel','required':true}]}"
   data-couriers="['JNE','JNECargo','SiCepat','SiCepatCargo','SAP','SapCargo','iDexpress','JT','lion','iDexpressCargo','paxel','Ninja']"
-  data-domain="http://localhost:5556" data-origin-id="5fc63944f8f44b34aa4c819e"
+  data-domain="http://localhost:5556" 
+  data-origin-id="5fc63944f8f44b34aa4c819e"
+  data-form-id="019a5bcf-ec8a-7-a2cc-c58ec5e57de56595"
 >
   <section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
     <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto">
@@ -737,6 +739,7 @@
         const utmMedium = urlParams.get('utm_medium') || '';
         const utmCampaign = urlParams.get('utm_campaign') || '';
         const utmContent = urlParams.get('utm_content') || '';
+        const formId = document.body.dataset.formId || '';
         const submissionData = {
           customer_data: {
             ...window.customerData,
@@ -750,7 +753,7 @@
         submitBtn.textContent = 'Memproses...';
         submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
         try {
-          const response = await fetch(`${domain}/form/${originId}`, {
+          const response = await fetch(`${domain}/form/${formId}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(submissionData)
