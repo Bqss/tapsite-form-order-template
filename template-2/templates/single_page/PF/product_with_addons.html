@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tapsite.ai • Produk Fisik • Single Product + Add-ons • form2</title>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+</head>
+
+<body
+  data-products="[{'id':'BP01','name':'Base Cupcake Box (6 pcs)','price':120000,'description':'Paket dasar 6 cupcake pilihan.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'is_required':true,'weight':1000},{'id':'AD01','name':'Extra Topping: Choco Chips','price':5000,'description':'Taburan choco chips ekstra.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':true,'is_required':false,'weight':20},{'id':'AD02','name':'Extra Topping: Strawberry Slice','price':7000,'description':'Irisan stroberi segar.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':true,'is_required':false,'weight':30},{'id':'AD03','name':'Message Card','price':8000,'description':'Kartu ucapan personal.','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':true,'is_required':false,'weight':10}]"
+  data-fields="{'fields':[{'id':'name','label':'Nama','type':'text','required':true},{'id':'email','label':'Email','type':'email','required':false},{'id':'phone','label':'Nomor Telepon','type':'tel','required':true},{'id':'address','label':'Alamat Lengkap','type':'text','required':true}]}"
+  data-couriers='["JNE","JNECargo","SiCepat","SiCepatCargo","SAP","SapCargo","iDexpress","JT","lion","iDexpressCargo","paxel","Ninja"]'
+  data-domain="http://localhost:5556"
+  data-origin-id="5fc63944f8f44b34aa4c819e"
+  class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50">
+
+  <!-- Header -->
+  <header class="px-4 py-10 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="rounded-3xl bg-gradient-to-b from-teal-700 to-emerald-600 text-white p-6 sm:p-8 shadow-xl">
+        <h1 class="text-3xl font-extrabold tracking-tight">Form Order • Produk Utama + Add-ons</h1>
+        <p class="mt-2 opacity-90">Pilih paket dasar dan add-ons favoritmu, lengkapi pengiriman.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <section class="px-4 pb-12 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Products (match PD style) -->
+      <div class="bg-white rounded-3xl shadow-xl ring-1 ring-teal-100 p-6 sm:p-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Produk</h2>
+        <div id="baseProduct" class="space-y-3 mb-6">
+          <div data-role="base" data-template="base" class="group bg-white/80 backdrop-blur-sm border border-teal-100 rounded-2xl p-3 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:ring-1 hover:ring-teal-300 transition-all duration-300">
+            <div class="flex items-center gap-3">
+              <img data-value="image_url" src="https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="Produk" class="w-20 h-20 rounded-xl object-cover border border-gray-200" />
+              <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between gap-2">
+                  <h3 class="text-lg font-bold text-gray-900" data-value="name">Nama Produk</h3>
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-teal-50 text-teal-700 border border-teal-100">Produk utama</span>
+                </div>
+                <p class="text-base text-gray-600" data-value="description">Deskripsi singkat produk.</p>
+                <div class="mt-2 flex items-center gap-3">
+                  <p class="text-lg text-teal-600 font-semibold" data-value="price">Rp 0</p>
+                  <span class="text-sm text-gray-500">Berat: <span data-value="weight">0</span>g</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="text-xl font-bold text-gray-900 mb-2">Add-ons</h2>
+        <p class="text-sm text-gray-600 mb-4">Pilih add-ons opsional untuk melengkapi paketmu</p>
+        <div id="addonsList" class="flex flex-col gap-3">
+          <div id="addonItemTemplate" data-template="addon-item" class="hidden">
+            <label class="group flex items-start gap-3 p-4 bg-white/80 backdrop-blur-sm border border-teal-100 rounded-2xl hover:shadow-md hover:-translate-y-0.5 hover:ring-1 hover:ring-teal-300 transition-all duration-300 cursor-pointer">
+              <input type="checkbox" class="mt-1.5 w-4 h-4 text-teal-600 focus:ring-teal-500" />
+              <div class="flex-1">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-base font-medium text-gray-900" data-field="name">Addon</span>
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full text-sm font-semibold bg-teal-50 text-teal-700 border border-teal-100" data-field="price">Rp 0</span>
+                </div>
+                <p class="text-sm text-gray-600 mt-1" data-field="description"></p>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Identity + Shipping + Summary (ringkasan dipindah ke bawah) -->
+      <div>
+        <form id="orderForm" class="bg-white rounded-3xl shadow-xl ring-1 ring-teal-100 p-6 sm:p-8">
+
+          <!-- Identitas -->
+          <div data-role="parent" class="mt-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-3">Detail Pemesan</h3>
+            <div id="forms" class="grid grid-cols-1 gap-4">
+              <div data-role="field" data-template="field" class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700" data-value="label">Nama <span class="text-red-500">*</span></label>
+                <input type="text" required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all" placeholder="Masukkan nama lengkap" />
+            </div>
+          </div>
+        </div>
+
+          <!-- Pengiriman -->
+          <div data-role="parent" class="mt-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-3">Informasi Pengiriman</h3>
+            <div class="space-y-6">
+              <div class="relative">
+                <label for="subdistrict" class="block text-sm font-medium text-gray-700 mb-2">Desa/Kelurahan <span class="text-red-500">*</span></label>
+                <input type="text" id="subdistrict" name="subdistrict" required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all" placeholder="Ketik nama desa/kelurahan..." />
+                <div id="dropdown" class="absolute z-10 w-full bg-white border border-gray-200 rounded-lg mt-2 shadow-lg hidden">
+                  <div id="loading" class="p-3 text-center text-gray-500 hidden">Mencari alamat...</div>
+                  <div id="results"></div>
+                </div>
+              </div>
+
+              <div id="courierOptions" class="">
+                <h4 class="text-base font-semibold text-gray-900 mb-2">Pilih Kurir</h4>
+                <div id="courierGuard" class="text-sm text-gray-500">Silakan pilih alamat dahulu untuk melihat opsi kurir.</div>
+                <div id="courierList" class="space-y-2 mt-2">
+                  <div id="courierLoading" class="hidden p-2 text-sm text-gray-500">Menghitung ongkir...</div>
+                  <div id="courierItemTemplate" class="hidden">
+                    <div class="flex items-center p-3 border-2 border-gray-200 rounded-lg hover:border-teal-300 transition-colors cursor-pointer">
+                      <input type="radio" name="courier" class="mr-3 w-4 h-4 text-teal-600 focus:ring-teal-500" />
+                      <label class="flex-1 cursor-pointer">
+                        <div class="flex justify-between items-center">
+                          <span class="font-medium" data-field="name">Kurir</span>
+                          <span class="text-teal-600 font-semibold" data-field="price">Rp 0</span>
+                        </div>
+                        <div class="text-sm text-gray-500">Estimasi: <span data-field="eta">-</span></div>
+                      </label>
+                    </div>
+                  </div>
+                  <div id="courierError" class="hidden text-red-600 text-sm">Silakan pilih kurir terlebih dahulu</div>
+                </div>
+                <!-- Alamat Lengkap di bawah list kurir -->
+                <div class="mt-4">
+                  <label for="fullAddress" class="block text-sm font-medium text-gray-700 mb-2">Alamat Lengkap <span class="text-red-500">*</span></label>
+                  <textarea id="fullAddress" name="fullAddress" rows="3" required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all" placeholder="Nama jalan, nomor rumah, patokan, dsb."></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ringkasan Pesanan (dipindah ke paling bawah) -->
+          <div data-role="parent" class="mt-6">
+            <h2 class="text-2xl font-bold text-gray-900">Ringkasan Pesanan</h2>
+            <p class="text-sm text-gray-600 mt-1">Produk utama dan add-ons terpilih:</p>
+            <div class="mt-4 bg-gradient-to-br from-white to-cyan-50 rounded-2xl p-4 border border-teal-100">
+              <div id="summaryItems" class="space-y-3"></div>
+              <!-- Template summary item -->
+              <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item" class="hidden">
+                <div class="flex items-center justify-between pb-3 border-b border-teal-100">
+                  <div>
+                    <h3 class="font-semibold text-gray-900" data-summary="name">Nama Item</h3>
+                    <p class="text-xs text-gray-500">Berat: <span data-summary="weight">0</span>g</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-sm text-gray-600">Rp <span data-summary="unit_price">0</span> × <span data-summary="qty">1</span></p>
+                    <p class="font-semibold text-gray-900">Rp <span data-summary="line_total">0</span></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Info Pengiriman -->
+              <div id="shippingInfo" class="hidden mt-3 border border-teal-100 rounded-xl p-3 bg-white/60">
+                <div class="text-sm text-gray-700">Alamat: <span id="shippingAddress">-</span></div>
+                <div class="text-sm text-gray-700">Kurir: <span id="selectedCourier">-</span></div>
+                <div class="text-sm font-semibold text-teal-700">Ongkir: Rp <span id="shippingCost">0</span></div>
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <h3 class="text-lg font-bold text-gray-900">Total</h3>
+                <p class="text-xl font-extrabold text-teal-700">Rp <span id="totalPrice">0</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trust & Submit -->
+          <div class="mt-6">
+            <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500">
+              <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Pembayaran Aman</div>
+              <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>Data Terenkripsi</div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex justify-center">
+            <button type="submit" id="submitBtn" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
+              Selesaikan Pesanan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Modal -->
+  <div id="successMessage" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+    <div id="successContent" class="bg-white rounded-2xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0">
+      <div class="text-center">
+        <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Pesanan Berhasil!</h3>
+        <p class="text-gray-600 mb-6">Terima kasih. Kamu akan diarahkan ke halaman pembayaran.</p>
+        <div class="w-full bg-gray-200 rounded-full h-2">
+          <div class="bg-teal-600 h-2 rounded-full" id="progressBar" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const domain = document.body.dataset.domain || '';
+    const originId = document.body.dataset.originId || '';
+    const allowedCouriers = (() => { try { return JSON.parse((document.body.dataset.couriers||'[]').replace(/'/g,'"')); } catch { return ["JNE","JNECargo","SiCepat","SiCepatCargo","SAP","SapCargo","iDexpress","JT","lion","iDexpressCargo","paxel","Ninja"]; } })();
+
+    const baseContainer = document.getElementById('baseProduct');
+    const addonsContainer = document.getElementById('addonsList');
+    const summaryItemsContainer = document.getElementById('summaryItems');
+    const summaryItemTemplate = document.getElementById('summaryItemTemplate');
+    const totalPriceElement = document.getElementById('totalPrice');
+    const orderForm = document.getElementById('orderForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMessage = document.getElementById('successMessage');
+    const successContent = document.getElementById('successContent');
+    const progressBar = document.getElementById('progressBar');
+
+    // Address & courier UI
+    const subdistrictInput = document.getElementById('subdistrict');
+    const dropdown = document.getElementById('dropdown');
+    const resultsElement = document.getElementById('results');
+    const loadingElement = document.getElementById('loading');
+    const courierOptions = document.getElementById('courierOptions');
+    const courierGuard = document.getElementById('courierGuard');
+    const courierList = document.getElementById('courierList');
+    const courierLoadingEl = document.getElementById('courierLoading');
+    const courierItemTemplate = document.getElementById('courierItemTemplate');
+
+    let debounceTimer = null; let selectedAddress = null;
+    window.customerData = {}; window.productsData = [];
+
+    function updateSummary(){
+      const base = window.productsData.find(p=>!p.is_addon);
+      const addons = window.productsData.filter(p=>p.is_addon && (p.quantity||0)>0);
+      const fragment = document.createDocumentFragment();
+      let subtotal = 0; let totalWeight = 0;
+      if (base){
+        const qty = 1; const price = Number(base.price||0); const weight = Number(base.weight||0);
+        subtotal += price * qty; totalWeight += weight * qty;
+        const el = summaryItemTemplate.cloneNode(true); el.classList.remove('hidden');
+        el.querySelector('[data-summary="name"]').textContent = base.name;
+        el.querySelector('[data-summary="weight"]').textContent = weight * qty;
+        el.querySelector('[data-summary="unit_price"]').textContent = price.toLocaleString('id-ID');
+        el.querySelector('[data-summary="qty"]').textContent = qty;
+        el.querySelector('[data-summary="line_total"]').textContent = (price*qty).toLocaleString('id-ID');
+        fragment.appendChild(el);
+      }
+      addons.forEach(p=>{
+        const qty = Number(p.quantity||0); const price = Number(p.price||0); const weight = Number(p.weight||0);
+        subtotal += price * qty; totalWeight += weight * qty;
+        const el = summaryItemTemplate.cloneNode(true); el.classList.remove('hidden');
+        el.querySelector('[data-summary="name"]').textContent = p.name;
+        el.querySelector('[data-summary="weight"]').textContent = weight * qty;
+        el.querySelector('[data-summary="unit_price"]').textContent = price.toLocaleString('id-ID');
+        el.querySelector('[data-summary="qty"]').textContent = qty;
+        el.querySelector('[data-summary="line_total"]').textContent = (price*qty).toLocaleString('id-ID');
+        fragment.appendChild(el);
+      });
+      summaryItemsContainer.innerHTML = ''; summaryItemsContainer.appendChild(fragment);
+      const shippingCostEl = document.getElementById('shippingCost');
+      const shippingCost = parseInt((shippingCostEl?.textContent||'').replace(/\./g,''))||0;
+      totalPriceElement.textContent = (subtotal + shippingCost).toLocaleString('id-ID');
+      window.customerData.subtotal = subtotal; window.customerData.weight = totalWeight;
+      if (selectedAddress && totalWeight>0) calculateShippingCost();
+    }
+
+    // Render Produk
+    (function initProducts(){
+      try {
+        const raw = document.body.dataset.products || '[]';
+        const products = JSON.parse(raw.replace(/'/g,'"'));
+        window.productsData = products.map(p=> ({...p, quantity: 0}));
+        // Base
+        const base = products.find(p=>!p.is_addon);
+        if (base && baseContainer){
+          const template = baseContainer.querySelector('[data-role="base"]');
+          const el = template.cloneNode(true);
+          const imgEl = el.querySelector('[data-value="image_url"]') || el.querySelector('img');
+          if (imgEl && base.image_url) imgEl.src = base.image_url;
+          el.querySelector('[data-value="name"]').textContent = base.name || '';
+          el.querySelector('[data-value="description"]').textContent = base.description || '';
+          el.querySelector('[data-value="price"]').textContent = 'Rp ' + Number(base.price||0).toLocaleString('id-ID');
+          el.querySelector('[data-value="weight"]').textContent = Number(base.weight||0);
+          baseContainer.innerHTML = el.outerHTML;
+        }
+        // Addons (PD-style list rendering)
+        const addonsList = document.getElementById('addonsList');
+        const addonTpl = document.getElementById('addonItemTemplate');
+        if (addonsList && addonTpl){
+          addonsList.innerHTML = '';
+          products.filter(p=>p.is_addon).forEach(p=>{
+            const el = addonTpl.cloneNode(true); el.classList.remove('hidden'); el.removeAttribute('id');
+            el.setAttribute('data-product-id', p.id);
+            const nameEl = el.querySelector('[data-field="name"]'); const priceEl = el.querySelector('[data-field="price"]'); const descEl = el.querySelector('[data-field="description"]');
+            if (nameEl) nameEl.textContent = p.name || '';
+            if (priceEl) priceEl.textContent = 'Rp ' + Number(p.price||0).toLocaleString('id-ID');
+            if (descEl) descEl.textContent = p.description || '';
+            const cb = el.querySelector('input[type="checkbox"]');
+            const idx = window.productsData.findIndex(x=>x.id===p.id);
+            if (cb){ cb.checked = (window.productsData[idx]?.quantity||0)>0; cb.addEventListener('change', ()=>{ window.productsData[idx].quantity = cb.checked ? 1 : 0; updateSummary(); }); }
+            addonsList.appendChild(el);
+          });
+        }
+        updateSummary();
+      } catch(err){ console.warn('initProducts fail', err); }
+    })();
+
+    // Field Dinamis
+    (function initFieldRendering(){
+      try {
+        const raw = document.body.dataset.fields || '{}';
+        const parsed = JSON.parse(raw.replace(/'/g,'"'));
+        let fields = Array.isArray(parsed.fields) ? parsed.fields : [];
+        // Eksklusi alamat dari form identitas, karena textarea alamat ada di bagian pengiriman
+        fields = fields.filter(f => f.id !== 'address');
+        const container = document.getElementById('forms');
+        const template = container ? container.querySelector('[data-role="field"]') : null;
+        if (!container || !template || !fields.length) return;
+        const buildFieldHTML = (field) => {
+          const el = template.cloneNode(true);
+          const labelEl = el.querySelector('[data-value="label"]') || el.querySelector('label');
+          const inputEl = el.querySelector('input');
+          if (labelEl) labelEl.textContent = `${field.label}${field.required?' *':''}`;
+          if (inputEl){ inputEl.id = field.id; inputEl.name = field.id; inputEl.type = field.type || 'text'; inputEl.required = !!field.required; inputEl.placeholder = `Masukkan ${field.label}`; }
+          return el.outerHTML;
+        };
+        container.innerHTML = fields.map(buildFieldHTML).join('');
+      } catch(err){ console.warn('Gagal render field:', err); }
+    })();
+
+    // Address search
+    subdistrictInput.addEventListener('input', function(){
+      clearTimeout(debounceTimer);
+      const q = this.value.trim();
+      if (q.length < 2){ dropdown.classList.add('hidden'); return; }
+      debounceTimer = setTimeout(()=>searchAddress(q), 500);
+    });
+    async function searchAddress(query){
+      loadingElement.classList.remove('hidden'); resultsElement.innerHTML = ''; dropdown.classList.remove('hidden');
+      try{
+        const resp = await fetch(`${domain}/api/address/search?keyword=${encodeURIComponent(query)}`);
+        const data = await resp.json();
+        if (data.success && data.data.length>0){ displayResults(data.data); } else { resultsElement.innerHTML = '<div class=\"p-3 text-center text-gray-500\">Tidak ada hasil</div>'; }
+      } catch(err){ console.error('searchAddress', err); resultsElement.innerHTML = '<div class=\"p-3 text-center text-red-500\">Terjadi kesalahan</div>'; }
+      finally { loadingElement.classList.add('hidden'); }
+    }
+    function displayResults(addresses){
+      resultsElement.innerHTML = addresses.map(addr => `<div onclick=\"selectAddress('${addr._id}','${addr.SUBDISTRICT_NAME}','${addr.DISTRICT_NAME}','${addr.CITY_NAME}','${addr.PROVINCE_NAME}','${addr.ZIP_CODE||''}')\" class=\"p-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-0\">${addr.SUBDISTRICT_NAME}, ${addr.DISTRICT_NAME}, ${addr.CITY_NAME}</div>`).join('');
+    }
+    window.selectAddress = function(id, subdistrict, district, city, province, zipCode){
+      selectedAddress = { id, subdistrict, district, city, province, zipCode };
+      subdistrictInput.value = `${subdistrict}, ${district}, ${city}`; dropdown.classList.add('hidden');
+      Object.assign(window.customerData, { subdistrict, district, city, province, zip_code: zipCode, destination_id: id });
+      courierGuard && courierGuard.classList.add('hidden'); courierOptions && courierOptions.classList.remove('hidden'); courierLoadingEl && courierLoadingEl.classList.remove('hidden');
+      calculateShippingCost();
+    };
+
+    async function calculateShippingCost(){
+      const weight = Number(window.customerData.weight||0);
+      if (!selectedAddress || weight<=0){ const shippingInfo = document.getElementById('shippingInfo'); courierOptions && courierOptions.classList.remove('hidden'); courierGuard && courierGuard.classList.remove('hidden'); courierLoadingEl && courierLoadingEl.classList.add('hidden'); shippingInfo && shippingInfo.classList.add('hidden'); return; }
+      const destinationId = selectedAddress.id;
+      try{
+        courierGuard && courierGuard.classList.add('hidden'); courierOptions && courierOptions.classList.remove('hidden'); courierLoadingEl && courierLoadingEl.classList.remove('hidden');
+        const response = await fetch(`${domain}/api/address/shipping-estimate?origin_id=${originId}&destination_id=${destinationId}&weight=${weight}`);
+        const data = await response.json(); if (data.success){ displayCourierOptions(data.data); }
+      } catch(err){ console.error('calculateShippingCost', err); } finally { courierLoadingEl && courierLoadingEl.classList.add('hidden'); }
+    }
+
+    function displayCourierOptions(shippingData){
+      const preSelected = (window.customerData && window.customerData.courier_name) || null; courierLoadingEl && courierLoadingEl.classList.add('hidden');
+      Array.from(courierList.children).forEach(ch=>{ if (ch.id!=='courierItemTemplate' && ch.id!=='courierLoading') ch.remove(); });
+      let hasValid = false;
+      Object.entries(shippingData).forEach(([courier, details])=>{
+        if (!allowedCouriers.includes(courier)) return; if (!(details.price>0)) return; hasValid = true;
+        let el; const inputId = `courier-${courier}`;
+        if (courierItemTemplate){
+          el = courierItemTemplate.cloneNode(true); el.id=''; el.classList.remove('hidden');
+          const inputEl = el.querySelector('input[type="radio"]'); const labelEl = el.querySelector('label');
+          const nameEl = el.querySelector('[data-field="name"]'); const priceEl = el.querySelector('[data-field="price"]'); const etaEl = el.querySelector('[data-field="eta"]');
+          if (inputEl){ inputEl.id=inputId; inputEl.name='courier'; inputEl.value=courier; if (preSelected===courier) inputEl.checked=true; }
+          if (labelEl) labelEl.setAttribute('for', inputId);
+          if (nameEl) nameEl.textContent = courier;
+          if (priceEl) priceEl.textContent = `Rp ${Number(details.price||0).toLocaleString('id-ID')}`;
+          if (etaEl) etaEl.textContent = details.estimatedDate || '-';
+          el.addEventListener('click', function(){ if (inputEl) inputEl.checked=true; selectCourier(courier, Number(details.price||0)); });
+        } else {
+          const courierDiv = document.createElement('div'); courierDiv.className = 'flex items-center p-3 border-2 border-gray-200 rounded-lg hover:border-teal-300 transition-colors cursor-pointer';
+          courierDiv.innerHTML = `<input type=\"radio\" id=\"${inputId}\" name=\"courier\" value=\"${courier}\" class=\"mr-3 w-4 h-4 text-teal-600 focus:ring-teal-500\"><label for=\"${inputId}\" class=\"flex-1 cursor-pointer\"><div class=\"flex justify-between items-center\"><span class=\"font-medium\">${courier}</span><span class=\"text-teal-600 font-semibold\">Rp ${Number(details.price||0).toLocaleString('id-ID')}</span></div><div class=\"text-sm text-gray-500\">Estimasi: ${details.estimatedDate||'-'}</div></label>`;
+          courierDiv.addEventListener('click', function(){ document.getElementById(inputId).checked = true; selectCourier(courier, Number(details.price||0)); });
+          if (preSelected===courier){ const radio = courierDiv.querySelector('input[type="radio"]'); if (radio) radio.checked=true; }
+          el = courierDiv;
+        }
+        courierList.appendChild(el);
+      });
+      if (hasValid){ courierOptions.classList.remove('hidden'); if (preSelected && shippingData[preSelected] && shippingData[preSelected].price>0){ selectCourier(preSelected, Number(shippingData[preSelected].price||0)); } }
+    }
+
+    function selectCourier(courier, price){
+      window.customerData.courier_name = courier; window.customerData.shipping_cost = Number(price||0);
+      const shippingInfo = document.getElementById('shippingInfo'); const shippingAddress = document.getElementById('shippingAddress'); const selectedCourierEl = document.getElementById('selectedCourier'); const shippingCostEl = document.getElementById('shippingCost');
+      if (shippingInfo) shippingInfo.classList.remove('hidden');
+      const fullAddrVal = document.getElementById('fullAddress')?.value?.trim() || window.customerData.address || 'Alamat lengkap';
+      if (shippingAddress) shippingAddress.textContent = fullAddrVal;
+      if (selectedCourierEl) selectedCourierEl.textContent = courier;
+      if (shippingCostEl) shippingCostEl.textContent = Number(price||0).toLocaleString('id-ID');
+      const subtotal = Number(window.customerData.subtotal||0); totalPriceElement.textContent = (subtotal + Number(price||0)).toLocaleString('id-ID');
+      const courierErrorEl = document.getElementById('courierError'); if (courierErrorEl) courierErrorEl.classList.add('hidden');
+    }
+
+    // Sinkronisasi textarea alamat lengkap ke ringkasan pengiriman
+    const fullAddrInput = document.getElementById('fullAddress');
+    if (fullAddrInput){
+      fullAddrInput.addEventListener('input', () => {
+        const val = fullAddrInput.value.trim();
+        window.customerData.address = val;
+        const shippingAddress = document.getElementById('shippingAddress');
+        if (shippingAddress) shippingAddress.textContent = val || 'Alamat lengkap';
+      });
+    }
+
+    // Submit
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      // Validate base product
+      const base = window.productsData.find(p=>!p.is_addon);
+      if (!base){ alert('Produk dasar tidak ditemukan'); return; }
+      // Validate fields
+      let fields = []; try { const parsed = JSON.parse((document.body.dataset.fields||'{}').replace(/'/g,'"')); fields = Array.isArray(parsed.fields)?parsed.fields:[]; } catch {}
+      const formValues = {}; const missingRequired = [];
+      fields.forEach(f=>{ const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`); const val = el ? (el.value||'').trim() : ''; formValues[f.id] = val; if (f.required && !val && f.id!=='address') missingRequired.push(f.label||f.id); });
+      if (missingRequired.length){ alert('Mohon lengkapi field wajib: ' + missingRequired.join(', ')); return; }
+      if (!selectedAddress){ alert('Mohon pilih desa/kelurahan'); return; }
+      if (!window.customerData.courier_name){ document.getElementById('courierError').classList.remove('hidden'); return; }
+
+      Object.assign(window.customerData, formValues);
+      const addrVal = document.getElementById('fullAddress')?.value?.trim() || formValues.address || '';
+      window.customerData.address = addrVal;
+      window.customerData.full_address = `${addrVal}, ${selectedAddress.subdistrict}, ${selectedAddress.district}, ${selectedAddress.city}, ${selectedAddress.province}`;
+
+      const addonItems = window.productsData.filter(p=>p.is_addon && (p.quantity||0)>0).map(p=>({ id:p.id, code:p.id, name:p.name, price:Number(p.price||0), quantity:Number(p.quantity||0), is_addon:true }));
+      const items = [{ id:base.id, code:base.id, name:base.name, price:Number(base.price||0), quantity:1, is_addon:false }, ...addonItems];
+      const subtotal = items.reduce((acc,it)=> acc + (Number(it.price||0) * Number(it.quantity||0)), 0);
+      const totalWeight = Number(base.weight||0) + addonItems.reduce((acc,p)=> acc + (Number(p.quantity||0) * Number(window.productsData.find(x=>x.id===p.id)?.weight||0)), 0);
+      const shippingCost = Number(window.customerData.shipping_cost||0);
+      const total = subtotal + shippingCost;
+      window.customerData.subtotal = subtotal; window.customerData.weight = totalWeight;
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const utm = { utm_source: urlParams.get('utm_source')||'', utm_medium: urlParams.get('utm_medium')||'', utm_campaign: urlParams.get('utm_campaign')||'', utm_content: urlParams.get('utm_content')||'' };
+      const submissionData = { customer_data: { ...window.customerData, utm_meta: utm }, subtotal, total, product: items };
+
+      submitBtn.disabled = true; submitBtn.textContent = 'Memproses...'; submitBtn.classList.add('opacity-75','cursor-not-allowed');
+      try{
+        const response = await fetch(`${domain}/form/${originId}`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(submissionData) });
+        const result = await response.json();
+        if (result.id){ successMessage.classList.remove('hidden'); setTimeout(()=>{ successContent.classList.remove('scale-95','opacity-0'); successContent.classList.add('scale-100','opacity-100'); let width=0; const interval=setInterval(()=>{ width+=10; progressBar.style.width=width+'%'; if (width>=100){ clearInterval(interval); window.location.href = `${domain}/invoice/${result.id}`; } },100); },100); }
+        else { throw new Error('Failed to submit order'); }
+      } catch(err){ console.error('Error submitting order:', err); alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.'); submitBtn.disabled=false; submitBtn.textContent='Selesaikan Pesanan'; submitBtn.classList.remove('opacity-75','cursor-not-allowed'); }
+    });
+  </script>
+</body>
+</html>

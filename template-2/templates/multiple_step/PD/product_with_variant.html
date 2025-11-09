@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tapsite.ai • Product with Variants • Form 2 (multi-step)</title>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+</head>
+
+<body
+  data-products='[{"id":"SKU-001","name":"Cupcake Base","price":6000,"discount_price":0,"description":"Pilih varian ukuran dan gaya.","image_url":"https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds","is_addon":false,"quantity":1,"is_required":true,"allow_custom_price":false,"variants":[{"id":"size-regular","name":"Regular","price":6000},{"id":"size-large","name":"Large","price":8000},{"id":"style-classic","name":"Classic","price":6000},{"id":"style-choco","name":"Choco","price":7000}],"weight":200}]'
+  data-fields='{"fields":[{"id":"name","label":"Nama","type":"text","required":true},{"id":"email","label":"Email","type":"email","required":false},{"id":"phone","label":"Nomor Telepon","type":"tel","required":true}]}'
+  data-domain="http://localhost:5556"
+  data-origin-id="pv-form2"
+  class="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50"
+>
+  <!-- Header + Stepper: ikuti style yang sudah dibuat sebelumnya -->
+  <header class="px-4 py-10 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="rounded-3xl bg-gradient-to-b from-teal-700 to-emerald-600 text-white p-6 sm:p-8 shadow-xl">
+        <h1 class="text-3xl font-extrabold tracking-tight">Order Form • Produk dengan Variants • Multi-step</h1>
+        <p class="mt-2 opacity-90">Pilih produk & variannya, isi data pemesan, lalu konfirmasi ringkasan.</p>
+        <div class="mt-6">
+          <div class="w-full bg-white/20 rounded-full h-2">
+            <div id="stepProgressBar" class="bg-white h-2 rounded-full transition-all duration-500" style="width:33.33%"></div>
+          </div>
+          <div class="mt-3 grid grid-cols-3 gap-2 text-xs sm:text-sm">
+            <div data-step-index="1" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white text-teal-800 ring-2 ring-white/70 shadow-md scale-[1.02] font-semibold">
+              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white text-teal-700 font-bold">1</span>
+              Produk
+            </div>
+            <div data-step-index="2" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
+              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold">2</span>
+              Pemesan
+            </div>
+            <div data-step-index="3" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 text-white/80 opacity-80">
+              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/70 text-teal-800 font-semibold">3</span>
+              Ringkasan
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="px-4 pb-12 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <form id="orderForm" class="bg-white rounded-3xl shadow-xl ring-1 ring-teal-100 p-6 sm:p-8">
+
+        <!-- Step 1: Pilih Produk & Variant -->
+        <div id="step1" data-step="1" class="space-y-5">
+          <h2 class="text-xl font-bold text-gray-900">Pilih Satu Produk</h2>
+          <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Template card product (radio) -->
+            <label data-role="product" data-template="product" class="group bg-gradient-to-br from-white to-teal-50 border border-teal-100 rounded-2xl p-3 transition cursor-pointer hover:shadow-md">
+              <input type="radio" name="selectedProduct" class="sr-only" />
+              <div class="p-3 sm:p-4">
+                <div class="flex items-start gap-3 sm:block">
+                  <div class="w-16 h-16 sm:w-auto sm:h-auto sm:aspect-square rounded-lg sm:rounded-xl overflow-hidden bg-rose-100">
+                    <img data-value="image_url" src="https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="Produk" class="w-full h-full object-cover sm:group-hover:scale-105 transition-transform duration-300" />
+                  </div>
+                  <div class="flex-1 sm:mt-3">
+                    <h3 class="text-sm sm:text-lg font-bold text-gray-900" data-value="name">Nama Produk</h3>
+                    <p class="text-xs sm:text-sm text-gray-600 line-clamp-2 sm:line-clamp-none" data-value="description">Deskripsi singkat produk.</p>
+                    <div class="mt-2 sm:mt-4 flex items-center justify-between">
+                      <span class="text-base sm:text-xl font-extrabold text-teal-700" data-value="price">Rp 0</span>
+                      <span class="text-[10px] sm:text-xs text-gray-500">Berat: <span data-value="weight">0</span>g</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Variant chips untuk produk terpilih -->
+          <div id="variantCard" class="bg-white rounded-3xl shadow-xl ring-1 ring-teal-100 p-4 sm:p-5 hidden">
+            <div class="p-2 sm:p-3">
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">Pilih Variant</h3>
+              <div id="variantsContainer" class="flex flex-wrap gap-2"></div>
+              <!-- Template variant chip -->
+              <div data-template="variant-chip" class="hidden">
+                <button type="button" data-role="variant-chip" class="px-3 py-1 rounded-full border border-emerald-200 text-sm text-gray-700 hover:bg-emerald-50 hover:border-emerald-400 transition">
+                  <span data-value="name">Variant</span>
+                  <span class="ml-2 text-teal-600 font-semibold" data-value="price">Rp 0</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 flex items-center justify-end gap-3">
+            <button type="button" id="btnNext1" class="px-5 py-2.5 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold rounded-lg shadow hover:shadow-md transition-all">Lanjutkan</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Informasi Pemesan -->
+        <div id="step2" data-step="2" class="space-y-5 hidden">
+          <h2 class="text-xl font-bold text-gray-900">Informasi Pemesan</h2>
+          <p class="text-sm text-gray-600">Lengkapi data pemesan. Field bertanda * wajib diisi.</p>
+          <div id="forms" class="grid grid-cols-1 gap-4">
+            <div data-role="field" data-template="field" class="space-y-2">
+              <label class="block text-sm font-medium text-gray-700" data-value="label">Nama <span class="text-red-500">*</span></label>
+              <input type="text" required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all" placeholder="Masukkan nama lengkap" />
+            </div>
+          </div>
+          <div class="pt-4 flex items-center justify-between gap-3">
+            <button type="button" id="btnBack2" class="px-5 py-2.5 bg-white text-teal-700 border border-teal-200 rounded-lg hover:bg-teal-50 transition-all">Kembali</button>
+            <button type="button" id="btnNext2" class="px-5 py-2.5 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold rounded-lg shadow hover:shadow-md transition-all">Lanjutkan</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Ringkasan -->
+        <div id="step3" data-step="3" class="space-y-5 hidden">
+          <h2 class="text-xl font-bold text-gray-900">Ringkasan Pesanan</h2>
+          <p class="text-sm text-gray-600">Detail pesananmu:</p>
+          <div class="bg-gradient-to-br from-white to-cyan-50 rounded-2xl p-4 border border-teal-100">
+            <div id="summaryItems" class="space-y-3"></div>
+
+            <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item" class="hidden">
+              <div class="flex items-center justify-between pb-3 border-b border-teal-100">
+                <div>
+                  <h3 class="font-semibold text-gray-900" data-summary="name">Nama Produk</h3>
+                  <p class="text-xs text-gray-500">Berat: <span data-summary="weight">200</span>g</p>
+                </div>
+                <div class="text-right">
+                  <p class="font-semibold text-gray-900">Rp <span data-summary="line_total">0</span></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+              <h3 class="text-lg font-bold text-gray-900">Total</h3>
+              <p class="text-xl font-extrabold text-teal-700">Rp <span id="totalPrice">0</span></p>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500">
+              <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Pembayaran Aman</div>
+              <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>Data Terenkripsi</div>
+            </div>
+          </div>
+
+          <div class="pt-4 flex items-center justify-between gap-3">
+            <button type="button" id="btnBack3" class="px-5 py-2.5 bg-white text-teal-700 border border-teal-200 rounded-lg hover:bg-teal-50 transition-all">Kembali</button>
+            <button type="submit" id="submitBtn" class="px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">Selesaikan Pesanan</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- Success Modal -->
+  <div id="successMessage" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+    <div id="successContent" class="bg-white rounded-2xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0">
+      <div class="text-center">
+        <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Pesanan Berhasil!</h3>
+        <p class="text-gray-600 mb-6">Terima kasih. Kamu akan diarahkan ke halaman pembayaran.</p>
+        <div class="w-full bg-gray-200 rounded-full h-2">
+          <div class="bg-teal-600 h-2 rounded-full" id="progressBar" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Dataset & constants
+    const domain = document.body.dataset.domain || '';
+    const originId = document.body.dataset.originId || '';
+    const defaultWeight = 200; // gram
+    const fmt = (n)=>Number(n||0).toLocaleString('id-ID');
+
+    // Stepper UI (3 langkah)
+    const stepProgressBar = document.getElementById('stepProgressBar');
+    const stepperItems = document.querySelectorAll('[data-step-index]');
+    const steps = [
+      document.getElementById('step1'),
+      document.getElementById('step2'),
+      document.getElementById('step3')
+    ];
+    let currentStep = 1;
+    function updateStepperUI(step){
+      stepperItems.forEach(el => {
+        const idx = Number(el.dataset.stepIndex);
+        el.classList.remove('bg-white/20','text-white');
+        el.classList.remove('bg-white/10','text-white/80','opacity-80');
+        el.classList.remove('ring-2','ring-white/70','shadow-md','scale-[1.02]','font-semibold');
+        if (idx === step){
+          el.classList.add('bg-white','text-teal-800','ring-2','ring-white/70','shadow-md','scale-[1.02]','font-semibold');
+        } else {
+          el.classList.add('bg-white/10','text-white/80','opacity-80');
+        }
+      });
+      const pct = Math.min(100, Math.max(0, step * 33.3333));
+      stepProgressBar.style.width = pct + '%';
+    }
+    function goToStep(step){
+      currentStep = Math.max(1, Math.min(3, step));
+      steps.forEach((el, i) => {
+        if (!el) return; const idx = i+1;
+        if (idx === currentStep){ el.classList.remove('hidden'); el.classList.add('animate-[fadeIn_0.3s_ease]'); }
+        else { el.classList.add('hidden'); el.classList.remove('animate-[fadeIn_0.3s_ease]'); }
+      });
+      updateStepperUI(currentStep);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    updateStepperUI(1);
+
+    // Navigation buttons
+    const btnNext1 = document.getElementById('btnNext1');
+    const btnBack2 = document.getElementById('btnBack2');
+    const btnNext2 = document.getElementById('btnNext2');
+    const btnBack3 = document.getElementById('btnBack3');
+    btnNext1?.addEventListener('click', () => {
+      if (!state.selectedProductId){ alert('Silakan pilih salah satu produk terlebih dahulu.'); return; }
+      const sel = state.products.find(p=>p.id===state.selectedProductId);
+      const hasVariants = Array.isArray(sel?.variants) && sel.variants.length > 0;
+      if (hasVariants && !state.selectedVariantId){ alert('Silakan pilih salah satu variant terlebih dahulu.'); return; }
+      goToStep(2);
+    });
+    btnBack2?.addEventListener('click', () => goToStep(1));
+    btnNext2?.addEventListener('click', () => {
+      const missingRequired = [];
+      const formValues = {};
+      window.fieldsData.forEach(f=>{
+        const el = document.getElementById(f.id) || document.querySelector(`[name="${f.id}"]`);
+        const val = el ? (el.value||'').trim() : '';
+        formValues[f.id] = val;
+        if (f.required && !val) missingRequired.push(f.label||f.id);
+      });
+      if (missingRequired.length){ alert('Mohon lengkapi field wajib: ' + missingRequired.join(', ')); return; }
+      window.customerData = formValues;
+      goToStep(3);
+    });
+    btnBack3?.addEventListener('click', () => goToStep(2));
+
+    // State & DOM refs
+    const productsGrid = document.getElementById('productsGrid');
+    const variantCard = document.getElementById('variantCard');
+    const variantsContainer = document.getElementById('variantsContainer');
+    const orderForm = document.getElementById('orderForm');
+    const successMessage = document.getElementById('successMessage');
+    const successContent = document.getElementById('successContent');
+    const progressBar = document.getElementById('progressBar');
+    const summaryItemsContainer = document.getElementById('summaryItems');
+    const summaryItemTemplate = document.getElementById('summaryItemTemplate');
+    const totalPriceElement = document.getElementById('totalPrice');
+
+    const state = { products: [], selectedProductId: null, selectedVariantId: null, selectedPrice: 0 };
+    window.fieldsData = [];
+    window.customerData = {};
+
+    (function init(){
+      // Parse products
+      try {
+        const raw = document.body.dataset.products || '[]';
+        state.products = JSON.parse(raw.replace(/'/g,'"'));
+      } catch { state.products = []; }
+      // Parse fields
+      try {
+        const rawFields = document.body.dataset.fields || '{}';
+        const parsed = JSON.parse(rawFields.replace(/'/g,'"'));
+        window.fieldsData = Array.isArray(parsed.fields) ? parsed.fields : [];
+      } catch { window.fieldsData = []; }
+      renderProducts();
+      renderForms();
+      updateSummary();
+    })();
+
+    function renderProducts(){
+      const template = productsGrid.querySelector('[data-template="product"]');
+      productsGrid.innerHTML = '';
+      state.products.forEach(p=>{
+        const el = template.cloneNode(true);
+        el.removeAttribute('data-template');
+        const radio = el.querySelector('input[type="radio"]');
+        const img = el.querySelector('[data-value="image_url"]');
+        const nameEl = el.querySelector('[data-value="name"]');
+        const descEl = el.querySelector('[data-value="description"]');
+        const priceEl = el.querySelector('[data-value="price"]');
+        const weightEl = el.querySelector('[data-value="weight"]');
+        if (img && p.image_url) img.src = p.image_url;
+        if (nameEl) nameEl.textContent = p.name || 'Produk';
+        if (descEl) descEl.textContent = p.description || '';
+        if (priceEl) priceEl.textContent = 'Rp ' + fmt(p.price || 0);
+        if (weightEl) weightEl.textContent = p.weight || defaultWeight;
+        // selection
+        el.addEventListener('click', ()=>{
+          state.selectedProductId = p.id;
+          state.selectedVariantId = null; // reset variant on product change
+          state.selectedPrice = p.price || 0;
+          Array.from(document.querySelectorAll('[data-role="product"]')).forEach(node=>{
+            node.classList.remove('border-teal-500','shadow');
+          });
+          el.classList.add('border-teal-500','shadow');
+          if (radio) radio.checked = true;
+          renderVariantsForProduct(p);
+          updateSummary();
+        });
+        productsGrid.appendChild(el);
+      });
+      // Auto-select first product if available
+      if (state.products.length){
+        productsGrid.querySelector('[data-role="product"]')?.click();
+      }
+    }
+
+    function renderVariantsForProduct(p){
+      const chipTemplate = document.querySelector('[data-template="variant-chip"]');
+      const hasVariants = Array.isArray(p.variants) && p.variants.length > 0;
+      variantsContainer.innerHTML = '';
+      if (hasVariants){
+        variantCard.classList.remove('hidden');
+        p.variants.forEach((v, idx)=>{
+          const chip = chipTemplate.cloneNode(true);
+          chip.classList.remove('hidden');
+          chip.removeAttribute('data-template');
+          const chipBtn = chip.querySelector('[data-role="variant-chip"]');
+          chip.querySelector('[data-value="name"]').textContent = v.name;
+          chip.querySelector('[data-value="price"]').textContent = 'Rp ' + fmt(v.price);
+          chipBtn.addEventListener('click', ()=>{
+            variantsContainer.querySelectorAll('[data-role="variant-chip"]').forEach(b=>{
+              b.classList.remove('ring-2','ring-teal-500','bg-teal-50','text-teal-700');
+            });
+            chipBtn.classList.add('ring-2','ring-teal-500','bg-teal-50','text-teal-700');
+            state.selectedVariantId = v.id;
+            state.selectedPrice = v.price;
+            updateSummary();
+          });
+          variantsContainer.appendChild(chip);
+          // Preselect first variant
+          if (idx===0){
+            chipBtn.classList.add('ring-2','ring-teal-500','bg-teal-50','text-teal-700');
+            state.selectedVariantId = v.id;
+            state.selectedPrice = v.price;
+          }
+        });
+      } else {
+        variantCard.classList.add('hidden');
+        state.selectedVariantId = null;
+        state.selectedPrice = p.price || 0;
+      }
+    }
+
+    function renderForms(){
+      const container = document.getElementById('forms');
+      const template = container.querySelector('[data-template="field"]');
+      container.innerHTML = '';
+      window.fieldsData.forEach(f=>{
+        const el = template.cloneNode(true);
+        const label = el.querySelector('[data-value="label"]');
+        const input = el.querySelector('input');
+        if(label){ label.textContent = f.label + (f.required?' *':''); }
+        if(input){ input.id=f.id; input.name=f.id; input.type=f.type||'text'; input.required=!!f.required; input.placeholder=`Masukkan ${f.label}`; }
+        container.appendChild(el);
+      });
+    }
+
+    function updateSummary(){
+      summaryItemsContainer.innerHTML = '';
+      const sel = state.products.find(p=>p.id===state.selectedProductId);
+      if(sel){
+        const el = summaryItemTemplate.cloneNode(true);
+        el.classList.remove('hidden');
+        el.querySelector('[data-summary="name"]').textContent = sel.name + (state.selectedVariantId?` • ${state.selectedVariantId}`:'');
+        el.querySelector('[data-summary="weight"]').textContent = sel.weight || defaultWeight;
+        const lineTotal = Number(state.selectedPrice || sel.price || 0);
+        el.querySelector('[data-summary="line_total"]').textContent = fmt(lineTotal);
+        summaryItemsContainer.appendChild(el);
+        totalPriceElement.textContent = fmt(lineTotal);
+      } else {
+        totalPriceElement.textContent = '0';
+      }
+    }
+
+    // Submit Handling: feedback & redirect
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const sel = state.products.find(p=>p.id===state.selectedProductId);
+      if(!sel){ alert('Silakan pilih produk terlebih dahulu.'); return; }
+      const payload = {
+        originId,
+        items:[{ id: sel.id, name: sel.name, price: Number(state.selectedPrice || sel.price || 0), quantity: 1, variant_id: state.selectedVariantId || null }],
+        customer: window.customerData || {},
+        total: Number(state.selectedPrice || sel.price || 0)
+      };
+
+      // Success modal & progress
+      successMessage.classList.remove('hidden');
+      setTimeout(() => { successContent.classList.remove('opacity-0'); successContent.classList.remove('scale-95'); }, 20);
+      let progress = 0; const timer = setInterval(() => { progress = Math.min(100, progress + 5); progressBar.style.width = progress + '%'; if (progress >= 100) { clearInterval(timer); if (domain) { setTimeout(() => { window.location.href = domain + '/checkout?ref=' + encodeURIComponent(originId); }, 600); } } }, 80);
+      console.log('Order Payload (preview):', payload);
+    });
+  </script>
+</body>
+</html>

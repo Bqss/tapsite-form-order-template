@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form Quantity Based (Multi-Step)</title>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+</head>
+<body
+  data-products="[{'id':'KPRI01','name':'Friendly Business Access (UMKM Oriented)','price':197000,'discount_price':0,'description':'Cocok Untuk: Pemilik UMKM, pemula, pengguna paket basic Dripsender\n\nValue Proposisi:\n\n- Konsultasi ringan & edukatif\n- Fokus pada audit WhatsApp Marketing, optimasi LP, dan funnel basic\n- Dapat dilakukan di café dengan suasana santai','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false,'imageLoading':false},{'id':'KPRI02','name':'Strategi Bisnis Menengah (Growth Oriented)','price':397000,'description':'Cocok Untuk: Pemilik bisnis yang sudah aktif tapi belum optimal secara digital\n\nValue Proposisi:\n\n- Business funnel diagnosis\n- Strategi konten, autoresponder, closing script\n- Termasuk review LP dan automation sequence','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false,'imageLoading':false},{'id':'KPRI03','name':'VIP Strategic Session (High Ticket)','price':897000,'description':'Cocok Untuk: Pebisnis skala besar, agency, atau pengguna langganan premium\n\nValue Proposisi:\n\n- Analisis mendalam berbasis data\n- Blueprint strategi growth WhatsApp + LP funnel\n- Follow-up report tertulis (opsional), dan bisa 1-on-1 langsung dengan expert','image_url':'https://imageio.forbes.com/specials-images/imageserve/65df2e0562b5d061b718a4af/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds','is_addon':false,'quantity':0,'is_required':false,'allow_custom_price':false,'imageLoading':false}]"
+  data-fields="{'fields':[{'id':'name','label':'Nama','type':'text','required':true},{'id':'email','label':'Email','type':'email','required':false},{'id':'phone','label':'Nomor Telepon','type':'tel','required':true}]}"
+  data-couriers="['JNE','JNECargo','SiCepat','SiCepatCargo','SAP','SapCargo','iDexpress','JT','lion','iDexpressCargo','paxel','Ninja']"
+  data-domain="http://localhost:5556" data-origin-id="5fc63944f8f44b34aa4c819e">
+  <section class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Form Quantity Based</h1>
+        <p class="text-gray-600">Pilih jumlah untuk setiap produk</p>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <form id="orderForm" class="p-6 sm:p-8 lg:p-10">
+          <!-- Stepper -->
+          <div id="msStepper" class="mb-6">
+            <div class="flex items-center justify-between">
+              <div class="flex-1 flex flex-col items-center">
+                <div class="w-9 h-9 rounded-full flex items-center justify-center border-2 border-indigo-500 text-indigo-600 font-bold" data-step-circle="0">1</div>
+                <div class="mt-2 text-xs sm:text-sm font-medium text-indigo-600" data-step-label="0">Produk</div>
+              </div>
+              <div class="flex-1 h-0.5 bg-indigo-200 mx-2" data-step-line="0"></div>
+              <div class="flex-1 flex flex-col items-center">
+                <div class="w-9 h-9 rounded-full flex items-center justify-center border-2 border-gray-300 text-gray-400 font-bold" data-step-circle="1">2</div>
+                <div class="mt-2 text-xs sm:text-sm font-medium text-gray-400" data-step-label="1">Identitas</div>
+              </div>
+              <div class="flex-1 h-0.5 bg-indigo-200 mx-2" data-step-line="1"></div>
+              <div class="flex-1 flex flex-col items-center">
+                <div class="w-9 h-9 rounded-full flex items-center justify-center border-2 border-gray-300 text-gray-400 font-bold" data-step-circle="2">3</div>
+                <div class="mt-2 text-xs sm:text-sm font-medium text-gray-400" data-step-label="2">Ringkasan</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Produk: Quantity Controls -->
+          <div data-role="parent" class="mb-8 sm:mb-10 hover-highlight custom-cursor">
+            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
+              <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">1</span>
+              Pilih Produk
+            </h2>
+            <div class="flex flex-col gap-2" id="products">
+              <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 space-y-2 sm:p-6 border border-blue-100 hidden" data-role="product" data-template="product">
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <div class="w-full sm:w-1/3 flex-shrink-0">
+                    <img data-value="image_url" src="https://placehold.co/300x300/e2e8f0/64748b?text=Produk" alt="Produk"
+                      class="w-full h-32 sm:h-48 object-cover rounded-lg shadow-md hover-highlight custom-cursor">
+                  </div>
+                  <div class="w-full sm:w-2/3 min-w-0">
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2 hover-highlight custom-cursor" data-value="name">Nama Produk</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 hover-highlight custom-cursor" data-value="description">Deskripsi produk</p>
+                    <div class="flex flex-col gap-3 mb-3 sm:mb-4">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xl sm:text-2xl font-bold text-blue-600 hover-highlight custom-cursor" data-value="price">Rp 0</span>
+                        <div class="flex items-center flex-shrink-0">
+                          <button type="button" id="decreaseQty" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors hover-highlight custom-cursor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 hover-highlight custom-cursor" viewBox="0 0 20 20" fill="currentColor">
+                              <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                          </button>
+                          <input type="number" id="quantity" value="0" min="0" class="w-12 h-8 sm:w-16 sm:h-10 text-center border-2 border-gray-200 rounded-lg mx-1 sm:mx-2 focus:border-blue-500 focus:outline-none hover-highlight custom-cursor text-sm sm:text-base">
+                          <button type="button" id="increaseQty" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors hover-highlight custom-cursor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 hover-highlight custom-cursor" viewBox="0 0 20 20" fill="currentColor">
+                              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex items-center text-xs sm:text-sm text-gray-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 mr-1 hover-highlight custom-cursor" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
+                        <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"></path>
+                      </svg>
+                      <span class="hidden sm:inline">Berat: </span>200g per item
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Identitas -->
+          <div data-role="parent" class="mb-8 sm:mb-10">
+            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2">2</span>
+              Informasi Identitas
+            </h2>
+            <div id="forms" class="space-y-6">
+              <div data-role="field" data-template="field">
+                <label class="block text-base sm:text-sm font-medium text-gray-700 mb-2" data-value="label">Nama</label>
+                <input type="text" class="w-full px-4 py-4 sm:py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-base" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Ringkasan -->
+          <div data-role="parent" class="mb-8 sm:mb-10">
+            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <span class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2">3</span>
+              Ringkasan Pesanan
+            </h2>
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
+              <div class="space-y-4">
+                <div id="summaryItems" class="space-y-3"></div>
+                <div id="summaryItemTemplate" data-template="summary-item" data-role="summary-item" class="flex justify-between items-center pb-3 border-b border-blue-100 hidden" data-placeholder="true">
+                  <div>
+                    <h3 class="font-semibold text-gray-900" data-summary="name">Produk</h3>
+                    <p class="text-sm text-gray-500">Berat: <span data-summary="weight">0</span>g</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-sm text-gray-500">Rp <span data-summary="unit_price">0</span> × <span data-summary="qty">0</span></p>
+                    <p class="font-semibold text-gray-900">Rp <span data-summary="line_total">0</span></p>
+                  </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                  <h3 class="text-lg font-bold text-gray-900">Total</h3>
+                  <p class="text-xl font-bold text-blue-600">Rp <span id="totalPrice">0</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nav -->
+          <div id="msNav" class="flex justify-between items-center gap-3 mt-2 mb-4">
+            <button type="button" id="prevStep" class="px-6 py-3 rounded-lg border border-indigo-300 text-indigo-700 bg-indigo-50 hover:bg-indigo-100">Sebelumnya</button>
+            <button type="button" id="nextStep" class="px-6 py-3 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">Lanjut</button>
+          </div>
+
+          <!-- Submit -->
+          <div class="flex justify-center">
+            <button type="submit" id="submitBtn" class="w-full sm:w-auto px-8 py-5 sm:py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 min-h-14 sm:min-h-12 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Selesaikan Pesanan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const productsRaw = (document.body.dataset.products || '[]').replace(/'/g, '"');
+    const products = JSON.parse(productsRaw);
+    const formsRaw = (document.body.dataset.fields || '{}').replace(/'/g, '"');
+    const fieldsData = JSON.parse(formsRaw);
+    const productsContainer = document.getElementById('products');
+    const productTpl = productsContainer.querySelector('[data-role="product"]');
+    const summaryItems = document.getElementById('summaryItems');
+    const summaryItemTpl = document.getElementById('summaryItemTemplate');
+    const totalPriceEl = document.getElementById('totalPrice');
+
+    // State: quantities per product
+    const qtyState = new Map(products.map(p => [p.id, 0]));
+
+    function buildProductHTML(p) {
+      const el = productTpl.cloneNode(true);
+      el.classList.remove('hidden');
+      const imgEl = el.querySelector('[data-value="image_url"]');
+      const nameEl = el.querySelector('[data-value="name"]');
+      const descEl = el.querySelector('[data-value="description"]');
+      const priceEl = el.querySelector('[data-value="price"]');
+      if (imgEl) imgEl.src = p.image_url || 'https://placehold.co/300x300/e2e8f0/64748b?text=Produk';
+      if (nameEl) nameEl.textContent = p.name || '';
+      if (descEl) descEl.textContent = p.description || '';
+      if (priceEl) priceEl.textContent = `Rp ${Number(p.price||0).toLocaleString('id-ID')}`;
+      el.setAttribute('data-product-id', p.id || '');
+      return el.outerHTML;
+    }
+
+    function attachProductEvents() {
+      products.forEach(p => {
+        const card = productsContainer.querySelector(`[data-product-id="${p.id}"]`);
+        if (!card) return;
+        const qtyInput = card.querySelector('#quantity');
+        const incBtn = card.querySelector('#increaseQty');
+        const decBtn = card.querySelector('#decreaseQty');
+        qtyInput.value = qtyState.get(p.id) || 0;
+        incBtn.addEventListener('click', () => {
+          qtyState.set(p.id, (qtyState.get(p.id) || 0) + 1);
+          qtyInput.value = qtyState.get(p.id);
+          updateSummary();
+        });
+        decBtn.addEventListener('click', () => {
+          const v = Math.max(0, (qtyState.get(p.id) || 0) - 1);
+          qtyState.set(p.id, v);
+          qtyInput.value = v;
+          updateSummary();
+        });
+        qtyInput.addEventListener('input', () => {
+          const v = Math.max(0, Number(qtyInput.value || 0));
+          qtyState.set(p.id, v);
+          qtyInput.value = v;
+          updateSummary();
+        });
+      });
+    }
+
+    function renderProducts() {
+      productsContainer.innerHTML = products.map(buildProductHTML).join('');
+      attachProductEvents();
+    }
+
+    function updateSummary() {
+      summaryItems.innerHTML = '';
+      let grandTotal = 0;
+      products.forEach(p => {
+        const qty = qtyState.get(p.id) || 0;
+        if (qty > 0) {
+          const line = summaryItemTpl.cloneNode(true);
+          line.classList.remove('hidden');
+          const nameEl = line.querySelector('[data-summary="name"]');
+          const qtyEl = line.querySelector('[data-summary="qty"]');
+          const unitPriceEl = line.querySelector('[data-summary="unit_price"]');
+          const lineTotalEl = line.querySelector('[data-summary="line_total"]');
+          const weightEl = line.querySelector('[data-summary="weight"]');
+          if (nameEl) nameEl.textContent = p.name;
+          if (qtyEl) qtyEl.textContent = qty;
+          if (unitPriceEl) unitPriceEl.textContent = Number(p.price).toLocaleString('id-ID');
+          const lineTotal = qty * Number(p.price || 0);
+          if (lineTotalEl) lineTotalEl.textContent = Number(lineTotal).toLocaleString('id-ID');
+          const w = Number(p.weight || 200);
+          if (weightEl) weightEl.textContent = w * qty;
+          grandTotal += lineTotal;
+          summaryItems.appendChild(line);
+        }
+      });
+      totalPriceEl.textContent = Number(grandTotal).toLocaleString('id-ID');
+    }
+
+    // Fields rendering
+    (function renderFields() {
+      const formsEl = document.getElementById('forms');
+      const tpl = formsEl.querySelector('[data-role="field"]');
+      formsEl.innerHTML = '';
+      (fieldsData.fields || []).forEach(f => {
+        const el = tpl.cloneNode(true);
+        const label = el.querySelector('[data-value="label"]');
+        const input = el.querySelector('input');
+        if (label) label.textContent = f.label + (f.required ? ' *' : '');
+        if (input) {
+          input.type = f.type || 'text';
+          input.required = !!f.required;
+          input.name = f.id;
+          input.id = f.id;
+          input.placeholder = `Masukkan ${String(f.label||'').toLowerCase()}`;
+        }
+        formsEl.appendChild(el);
+      });
+    })();
+
+    renderProducts();
+    updateSummary();
+
+    // Multi-step
+    (function initMultiStep() {
+      const parents = Array.from(document.querySelectorAll('#orderForm [data-role="parent"]'));
+      const prevStepBtn = document.getElementById('prevStep');
+      const nextStepBtn = document.getElementById('nextStep');
+      const submitBtnEl = document.getElementById('submitBtn');
+      const stepCircles = Array.from(document.querySelectorAll('[data-step-circle]'));
+      const stepLabels = Array.from(document.querySelectorAll('[data-step-label]'));
+      let stepIndex = 0;
+
+      function refreshStepperUI() {
+        stepCircles.forEach((c, idx) => {
+          if (idx <= stepIndex) {
+            c.classList.remove('border-gray-300', 'text-gray-400');
+            c.classList.add('border-indigo-500', 'text-indigo-600');
+          } else {
+            c.classList.add('border-gray-300', 'text-gray-400');
+            c.classList.remove('border-indigo-500', 'text-indigo-600');
+          }
+        });
+        stepLabels.forEach((l, idx) => {
+          if (idx === stepIndex) {
+            l.classList.remove('text-gray-400');
+            l.classList.add('text-indigo-600');
+          } else {
+            l.classList.add('text-gray-400');
+            l.classList.remove('text-indigo-600');
+          }
+        });
+      }
+
+      function showStep(i) {
+        stepIndex = Math.max(0, Math.min(i, parents.length - 1));
+        parents.forEach((el, idx) => el.classList.toggle('hidden', idx !== stepIndex));
+        prevStepBtn.disabled = stepIndex === 0;
+        prevStepBtn.classList.toggle('opacity-50', stepIndex === 0);
+        nextStepBtn.classList.toggle('hidden', stepIndex === parents.length - 1);
+        if (submitBtnEl) submitBtnEl.classList.toggle('hidden', stepIndex !== parents.length - 1);
+        refreshStepperUI();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      prevStepBtn.addEventListener('click', () => showStep(stepIndex - 1));
+      nextStepBtn.addEventListener('click', () => showStep(stepIndex + 1));
+      showStep(0);
+    })();
+  </script>
+</body>
+</html>
