@@ -476,7 +476,7 @@
       const itemsForOrder = mainProduct ? [mainProduct] : [];
 
       if (summaryItemsContainer && summaryItemTemplate) {
-        const html = itemsForOrder.map(p => {
+        const innerHtml = itemsForOrder.map(p => {
           const qty = p.quantity || 0;
           const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
           const lineTotal = priceNum * qty;
@@ -495,7 +495,7 @@
           if (lineTotalEl) lineTotalEl.textContent = lineTotal.toLocaleString('id-ID');
           return el.outerHTML;
         }).join('');
-        summaryItemsContainer.innerHTML = html || '';
+        summaryItemsContainer.innerHTML = innerHtml || '';
       }
 
       const subtotal = itemsForOrder.reduce((acc, p) => {

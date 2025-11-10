@@ -404,7 +404,7 @@
       const itemsForOrder = (window.productsData || []).filter(p => (p.quantity || 0) > 0);
       // Render list items
       if (summaryItemsContainer && summaryItemTemplate) {
-        const html = itemsForOrder.map(p => {
+        const innerHTMl = itemsForOrder.map(p => {
           const qty = p.quantity || 0;
           const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
           const lineTotal = priceNum * qty;
@@ -423,7 +423,7 @@
           if (lineTotalEl) lineTotalEl.textContent = lineTotal.toLocaleString('id-ID');
           return el.outerHTML;
         }).join('');
-        summaryItemsContainer.innerHTML = html || '';
+        summaryItemsContainer.innerHTML = innerHTMl || '';
       }
 
       // Hitung subtotal dan total berat agregat
