@@ -575,13 +575,30 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(submissionData)
           });
+          
           if (response.ok) {
-            document.getElementById('successMessage').classList.remove('hidden');
-            document.getElementById('successContent').classList.add('scale-100', 'opacity-100');
+            const result = await response.json();
+            
+            if (result.id) {
+              // Show success message
+              document.getElementById('successMessage').classList.remove('hidden');
+              setTimeout(() => {
+                document.getElementById('successContent').classList.remove('scale-95', 'opacity-0');
+                document.getElementById('successContent').classList.add('scale-100', 'opacity-100');
+
+                // Redirect to invoice page after a short delay
+                setTimeout(() => {
+                  window.location.href = `${document.body.dataset.domain}/invoice/${result.id}`;
+                }, 1500);
+              }, 100);
+            } else {
+              throw new Error('Failed to submit order');
+            }
           } else {
             alert('Gagal membuat pesanan. Silakan coba lagi.');
           }
         } catch (error) {
+          console.error('Error submitting order:', error);
           alert('Terjadi kesalahan. Silakan coba lagi.');
         } finally {
           submitBtn.disabled = false;
