@@ -468,7 +468,7 @@
 
           if (data.success && data.data) {
             // data.data adalah objek { courierName: { price, estimatedDate } }
-            const allowedCouriers = ["JNE", "JNECargo", "SiCepat", "SiCepatCargo", "SAP", "SapCargo", "iDexpress", "JT", "lion", "iDexpressCargo", "paxel", "Ninja"];
+const allowedCouriers = (() => { try { return JSON.parse((document.body.dataset.couriers || '[]').replace(/'/g, '"')); } catch { return ["JNE", "JNECargo", "SiCepat", "SiCepatCargo", "SAP", "SapCargo", "iDexpress", "JT", "lion", "iDexpressCargo", "paxel", "Ninja"]; } })();
             Object.entries(data.data).forEach(([courierName, details]) => {
               if (!allowedCouriers.includes(courierName) || !details || !details.price || details.price <= 0) return;
               const courierEl = courierItemTemplate.cloneNode(true);

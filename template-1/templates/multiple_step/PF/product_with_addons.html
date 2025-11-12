@@ -629,9 +629,21 @@
       } finally { courierLoadingEl && courierLoadingEl.classList.add('hidden'); }
     }
 
-    function displayCourierOptions(shippingData) {
-      const allowedCouriers = ["JNE", "JNECargo", "SiCepat", "SiCepatCargo", "SAP", "SapCargo", "iDexpress", "JT", "lion", "iDexpressCargo", "paxel", "Ninja"];
-      const preSelectedCourier = (window.customerData && window.customerData.courier_name) || null;
+      function displayCourierOptions(shippingData) {
+        // allowedCouriers akan dibaca dari body[data-couriers] jika tersedia, fallback ke daftar default
+        const allowedCouriers = (() => {
+          const defaultList = ["JNE", "JNECargo", "SiCepat", "SiCepatCargo", "SAP", "SapCargo", "iDexpress", "JT", "lion", "iDexpressCargo", "paxel", "Ninja"];
+          const raw = (document.body && document.body.dataset && document.body.dataset.couriers) || '';
+          if (!raw) return defaultList;
+          try {
+            const parsed = JSON.parse(raw.replace(/'/g, '"'));
+            return Array.isArray(parsed) ? parsed : defaultList;
+          } catch {
+            const arr = raw.split(',').map(s => s.trim()).filter(Boolean);
+            return arr.length ? arr : defaultList;
+          }
+        })();
+        const preSelectedCourier = (window.customerData && window.customerData.courier_name) || null;
       courierLoadingEl && courierLoadingEl.classList.add('hidden');
       let template = courierList ? courierList.querySelector('#courierItemTemplate') : null;
       if (!template && window.courierItemTemplate) { template = window.courierItemTemplate; }

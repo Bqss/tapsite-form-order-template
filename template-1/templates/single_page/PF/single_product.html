@@ -15,7 +15,7 @@
           <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
             <span
               class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">1</span>
-            Pilih Produk
+            Produk
           </h2>
           <div class="flex flex-col gap-2" id="products">
             <div
@@ -39,29 +39,6 @@
                       <span class="text-xl sm:text-2xl font-bold text-blue-600 hover-highlight custom-cursor"
                         data-value="price">Rp
                         0</span>
-                      <div class="flex items-center flex-shrink-0" bis_skin_checked="1">
-                        <button type="button" id="decreaseQty"
-                          class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors hover-highlight custom-cursor">
-                          <svg xmlns="http://www.w3.org/2000/svg"
-                            class="h-4 w-4 sm:h-5 sm:w-5 hover-highlight custom-cursor" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                              clip-rule="evenodd"></path>
-                          </svg>
-                        </button>
-                        <input type="number" id="quantity" value="0" min="0"
-                          class="w-12 h-8 sm:w-16 sm:h-10 text-center border-2 border-gray-200 rounded-lg mx-1 sm:mx-2 focus:border-blue-500 focus:outline-none hover-highlight custom-cursor text-sm sm:text-base">
-                        <button type="button" id="increaseQty"
-                          class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors hover-highlight custom-cursor">
-                          <svg xmlns="http://www.w3.org/2000/svg"
-                            class="h-4 w-4 sm:h-5 sm:w-5 hover-highlight custom-cursor" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fill-rule="evenodd"
-                              d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                              clip-rule="evenodd"></path>
-                          </svg>
-                        </button>
-                      </div>
                     </div>
                   </div>
                   <div class="flex items-center text-xs sm:text-sm text-gray-500" bis_skin_checked="1">
@@ -122,8 +99,8 @@
               <div id="dropdown"
                 class="absolute bottom-full left-0 right-0 bg-white border-2 border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto hidden w-full mb-2"
                 bis_skin_checked="1">
-                <div id="loading" class="p-3 text-center hidden" bis_skin_checked="1" data-placeholder="true">
-                  Mencari...</div>
+                <div id="loading" class="p-3 text-center hidden" bis_skin_checked="1" data-placeholder="true">Mencari...
+                </div>
                 <div id="results" bis_skin_checked="1"></div>
               </div>
               <div bis_skin_checked="1" class="mt-5">
@@ -142,8 +119,8 @@
                 Kurir <span class="text-red-500 hover-highlight custom-cursor">*</span></label>
               <div id="courierGuard"
                 class="mb-3 p-3 border-2 border-dashed border-gray-300 rounded-lg text-center text-sm text-gray-600"
-                data-placeholder="true">Pilih alamat terlebih dahulu untuk melihat pilihan kurir dan menghitung
-                ongkir.</div>
+                data-placeholder="true">Pilih alamat terlebih dahulu untuk melihat pilihan kurir dan menghitung ongkir.
+              </div>
               <div id="courierList" class="space-y-3 grid grid-cols-2 gap-2" bis_skin_checked="1">
                 <div id="courierLoading"
                   class="col-span-2 p-3 border-2 border-gray-200 rounded-lg text-gray-600 text-sm flex items-center gap-2 hidden"
@@ -198,7 +175,7 @@
                 <div class="text-right" bis_skin_checked="1">
                   <p class="text-sm text-gray-500 hover-highlight custom-cursor">Rp <span data-summary="unit_price"
                       class="hover-highlight custom-cursor">10.000</span> × <span data-summary="qty"
-                      class="hover-highlight custom-cursor">2</span></p>
+                      class="hover-highlight custom-cursor">1</span></p>
                   <p class="font-semibold text-gray-900 hover-highlight custom-cursor">Rp <span
                       data-summary="line_total" class="hover-highlight custom-cursor">0</span></p>
                 </div>
@@ -322,10 +299,11 @@
         const raw = document.body.dataset.products || '[]';
         // Convert single quotes to double quotes to make it valid JSON
         const products = JSON.parse(raw.replace(/'/g, '"'));
+        const product = products[0];
 
         const container = document.getElementById('products');
         const template = container ? container.querySelector('[data-role="product"]') : null;
-        if (!container || !template || !Array.isArray(products)) return;
+        if (!container || !template || !product) return;
 
         const buildProductHTML = (product) => {
           const el = template.cloneNode(true);
@@ -351,31 +329,26 @@
           const priceNum = typeof product.price === 'number' ? product.price : parseInt(product.price, 10) || 0;
           if (priceEl) priceEl.textContent = 'Rp ' + priceNum.toLocaleString('id-ID');
 
-          // Quantity default: always start from 0 (ignore incoming product.quantity)
-          const qtyEl = el.querySelector('#quantity');
-          if (qtyEl) qtyEl.value = 0;
-
           // Tag product id on root
           el.setAttribute('data-product-id', product.id || '');
 
           return el.outerHTML;
         };
 
-        container.innerHTML = products.map(buildProductHTML).join('');
+        container.innerHTML = buildProductHTML(product);
 
         // Simpan harga awal produk pertama untuk dipakai oleh kalkulasi global
-        if (products[0] && products[0].price != null) {
-          window.initialProductPrice = typeof products[0].price === 'number'
-            ? products[0].price
-            : parseInt(products[0].price, 10) || 0;
+        if (product && product.price != null) {
+          window.initialProductPrice = typeof product.price === 'number'
+            ? product.price
+            : parseInt(product.price, 10) || 0;
         }
         // Persist data produk untuk interaksi dan hitung ringkasan
         // Persist products with quantity forced to 0 on initial load
-        window.productsData = products.map(p => ({
-          ...p,
-          quantity: 0
-        }));
-        window.activeProductIndex = 0;
+        window.productData = {
+          ...product,
+          quantity: 1
+        };
       } catch (e) {
         console.warn('Gagal render produk dari data-products:', e);
       }
@@ -430,93 +403,34 @@
       }
     })();
 
-    // Product quantity management dengan event delegation (mendukung multi-produk)
-    // Delegasi klik tombol +/-, perubahan input quantity, dan pemilihan kartu produk
-    function getProductIndexFromChild(child) {
-      if (!productsContainer) return -1;
-      const cards = Array.from(productsContainer.querySelectorAll('[data-role="product"]'));
-      const card = child.closest('[data-role="product"]');
-      return cards.indexOf(card);
-    }
-
-    function setActiveProduct(byChild) {
-      const idx = getProductIndexFromChild(byChild);
-      if (idx >= 0) window.activeProductIndex = idx;
-    }
-
-    if (productsContainer) {
-      productsContainer.addEventListener('click', (e) => {
-        if (e.target.closest('#decreaseQty')) {
-          const idx = getProductIndexFromChild(e.target);
-          if (idx >= 0 && window.productsData) {
-            const current = window.productsData[idx].quantity || 0;
-            window.productsData[idx].quantity = Math.max(0, current - 1);
-            const qtyEl = productsContainer.querySelectorAll('input#quantity')[idx];
-            if (qtyEl) qtyEl.value = window.productsData[idx].quantity;
-            setActiveProduct(e.target);
-            updateSummary();
-          }
-        } else if (e.target.closest('#increaseQty')) {
-          const idx = getProductIndexFromChild(e.target);
-          if (idx >= 0 && window.productsData) {
-            const current = window.productsData[idx].quantity || 0;
-            window.productsData[idx].quantity = current + 1;
-            const qtyEl = productsContainer.querySelectorAll('input#quantity')[idx];
-            if (qtyEl) qtyEl.value = window.productsData[idx].quantity;
-            setActiveProduct(e.target);
-            updateSummary();
-          }
-        } else if (e.target.closest('[data-role="product"]')) {
-          setActiveProduct(e.target);
-          updateSummary();
-        }
-      });
-
-      productsContainer.addEventListener('change', (e) => {
-        if (e.target.matches('input#quantity')) {
-          const idx = getProductIndexFromChild(e.target);
-          if (idx >= 0 && window.productsData) {
-            const val = parseInt(e.target.value, 10);
-            window.productsData[idx].quantity = isNaN(val) || val < 0 ? 0 : val;
-            setActiveProduct(e.target);
-            updateSummary();
-          }
-        }
-      });
-    }
-
     function updateSummary() {
-      const itemsForOrder = (window.productsData || []).filter(p => (p.quantity || 0) > 0);
+      const p = window.productData;
+      if (!p) return;
+
       // Render list items
       if (summaryItemsContainer && summaryItemTemplate) {
-        const innerHTML = itemsForOrder.map(p => {
-          const qty = p.quantity || 0;
-          const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
-          const lineTotal = priceNum * qty;
-          const lineWeight = productWeight * qty;
-          const el = summaryItemTemplate.cloneNode(true);
-          el.classList.remove('hidden');
-          const nameEl = el.querySelector('[data-summary="name"]');
-          const weightEl = el.querySelector('[data-summary="weight"]');
-          const unitPriceEl = el.querySelector('[data-summary="unit_price"]');
-          const qtyEl = el.querySelector('[data-summary="qty"]');
-          const lineTotalEl = el.querySelector('[data-summary="line_total"]');
-          if (nameEl) nameEl.textContent = p.name || '';
-          if (weightEl) weightEl.textContent = lineWeight;
-          if (unitPriceEl) unitPriceEl.textContent = priceNum.toLocaleString('id-ID');
-          if (qtyEl) qtyEl.textContent = qty;
-          if (lineTotalEl) lineTotalEl.textContent = lineTotal.toLocaleString('id-ID');
-          return el.outerHTML;
-        }).join('');
-        summaryItemsContainer.innerHTML = innerHTML || '';
+        const qty = 1;
+        const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
+        const lineTotal = priceNum * qty;
+        const lineWeight = productWeight * qty;
+        const el = summaryItemTemplate.cloneNode(true);
+        el.classList.remove('hidden');
+        const nameEl = el.querySelector('[data-summary="name"]');
+        const weightEl = el.querySelector('[data-summary="weight"]');
+        const unitPriceEl = el.querySelector('[data-summary="unit_price"]');
+        const qtyEl = el.querySelector('[data-summary="qty"]');
+        const lineTotalEl = el.querySelector('[data-summary="line_total"]');
+        if (nameEl) nameEl.textContent = p.name || '';
+        if (weightEl) weightEl.textContent = lineWeight;
+        if (unitPriceEl) unitPriceEl.textContent = priceNum.toLocaleString('id-ID');
+        if (qtyEl) qtyEl.textContent = qty;
+        if (lineTotalEl) lineTotalEl.textContent = lineTotal.toLocaleString('id-ID');
+        summaryItemsContainer.innerHTML = el.outerHTML;
       }
 
       // Hitung subtotal dan total berat agregat
-      const subtotal = itemsForOrder.reduce((acc, p) => {
-        const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
-        return acc + priceNum * (p.quantity || 0);
-      }, 0);
-      const totalWeight = itemsForOrder.reduce((acc, p) => acc + (p.quantity || 0) * productWeight, 0);
+      const subtotal = (typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0));
+      const totalWeight = productWeight;
 
       // Update total keseluruhan
       const shippingCostElement = document.getElementById('shippingCost');
@@ -537,10 +451,9 @@
 
     // Initialize customer data berdasarkan produk aktif
     (function initCustomerData() {
-      const idx = typeof window.activeProductIndex === 'number' ? window.activeProductIndex : 0;
-      const activeProduct = (window.productsData && window.productsData[idx]) || null;
-      const quantity = activeProduct ? (activeProduct.quantity || 0) : 0;
-      const currentPrice = activeProduct ? (typeof activeProduct.price === 'number' ? activeProduct.price : (parseInt(activeProduct.price, 10) || 0)) : productPrice;
+      const p = window.productData;
+      const quantity = 1;
+      const currentPrice = p ? (typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0)) : productPrice;
       window.customerData = {
         quantity,
         subtotal: currentPrice * quantity,
@@ -628,18 +541,7 @@
         return;
       }
 
-      // Gunakan total berat dari seluruh item dalam keranjang
-      const totalQty = (window.productsData || []).reduce((acc, p) => acc + (p.quantity || 0), 0);
-      // Jika belum ada item yang dipilih, jangan hitung ongkir dulu
-      if (totalQty <= 0) {
-        const shippingInfo = document.getElementById('shippingInfo');
-        courierOptions && courierOptions.classList.add('hidden');
-        courierGuard && courierGuard.classList.add('hidden');
-        courierLoadingEl && courierLoadingEl.classList.add('hidden');
-        shippingInfo && shippingInfo.classList.add('hidden');
-        return;
-      }
-      const weight = totalQty * productWeight;
+      const weight = productWeight;
       const destinationId = selectedAddress.id;
 
       try {
@@ -772,13 +674,7 @@ const allowedCouriers = (() => { try { return JSON.parse((document.body.dataset.
       shippingCost.textContent = price.toLocaleString('id-ID');
 
       // Update total price
-      // Subtotal gabungan semua item dengan quantity > 0
-      const subtotal = (window.productsData || []).reduce((acc, p) => {
-        const qty = p.quantity || 0;
-        if (qty <= 0) return acc;
-        const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
-        return acc + priceNum * qty;
-      }, 0);
+      const subtotal = (typeof window.productData.price === 'number' ? window.productData.price : (parseInt(window.productData.price, 10) || 0));
       const total = subtotal + price;
       totalPriceElement.textContent = total.toLocaleString('id-ID');
 
@@ -829,37 +725,22 @@ const allowedCouriers = (() => { try { return JSON.parse((document.body.dataset.
       window.customerData.full_address = `${addrVal}, ${selectedAddress.subdistrict}, ${selectedAddress.district}, ${selectedAddress.city}, ${selectedAddress.province}`;
 
       // Calculate total
-      // Hitung ulang subtotal berdasarkan semua produk dengan quantity > 0
-      const itemsForOrder = (window.productsData || []).filter(p => (p.quantity || 0) > 0);
-      const subtotal = itemsForOrder.reduce((acc, p) => {
-        const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
-        return acc + priceNum * (p.quantity || 0);
-      }, 0);
+      const subtotal = (typeof window.productData.price === 'number' ? window.productData.price : (parseInt(window.productData.price, 10) || 0));
       window.customerData.subtotal = subtotal;
-      // Update weight total
-      const totalQty = itemsForOrder.reduce((acc, p) => acc + (p.quantity || 0), 0);
-      window.customerData.weight = productWeight * totalQty;
+      window.customerData.weight = productWeight;
       const shippingCost = window.customerData.shipping_cost || 0;
       const total = subtotal + shippingCost;
 
-      // Prepare product data (multi-produk)
-      const product = itemsForOrder.length ? itemsForOrder.map((p, i) => ({
-        id: p.id || `SKU-${i + 1}`,
-        code: p.id || `SKU-${i + 1}`,
-        name: p.name || `Produk ${i + 1}`,
+      // Prepare product data (single-produk)
+      const p = window.productData;
+      const product = {
+        id: p.id || `SKU-1`,
+        code: p.id || `SKU-1`,
+        name: p.name || `Produk 1`,
         price: typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0),
-        quantity: p.quantity || 0,
+        quantity: 1,
         is_addon: !!p.is_addon
-      })) : [];
-
-      if (!product.length) {
-        alert('Pilih minimal 1 item sebelum menyelesaikan pesanan.');
-        // Re-enable submit button
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Selesaikan Pesanan';
-        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
-        return;
-      }
+      };
 
       // Get UTM parameters
       const urlParams = new URLSearchParams(window.location.search);
@@ -881,7 +762,7 @@ const allowedCouriers = (() => { try { return JSON.parse((document.body.dataset.
         },
         subtotal: subtotal,
         total: total,
-        product: product
+        product: [product]
       };
 
       // Disable submit button
@@ -918,6 +799,7 @@ const allowedCouriers = (() => { try { return JSON.parse((document.body.dataset.
             currency: 'IDR'
           });
         }
+
 
         const result = await response.json();
 

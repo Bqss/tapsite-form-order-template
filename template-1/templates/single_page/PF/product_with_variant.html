@@ -724,7 +724,7 @@
     }
 
     function displayCourierOptions(shippingData) {
-      const allowedCouriers = ["JNE", "JNECargo", "SiCepat", "SiCepatCargo", "SAP", "SapCargo", "iDexpress", "JT", "lion", "iDexpressCargo", "paxel", "Ninja"];
+const allowedCouriers = (() => { try { return JSON.parse((document.body.dataset.couriers || '[]').replace(/'/g, '"')); } catch { return ["JNE", "JNECargo", "SiCepat", "SiCepatCargo", "SAP", "SapCargo", "iDexpress", "JT", "lion", "iDexpressCargo", "paxel", "Ninja"]; } })();
       const preSelectedCourier = (window.customerData && window.customerData.courier_name) || null;
       courierLoadingEl && courierLoadingEl.classList.add('hidden');
 
