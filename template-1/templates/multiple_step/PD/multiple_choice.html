@@ -63,7 +63,7 @@
                     <span class="text-sm text-gray-500">200g</span>
                   </div>
                 </div>
-                <input type="radio" name="product_selection" class="hidden">
+                <input type="checkbox" name="product_selection[]" class="hidden">
               </div>
             </div>
           </div>
@@ -178,34 +178,34 @@
           const descEl = productEl.querySelector('[data-value="description"]');
           const priceEl = productEl.querySelector('[data-value="price"]');
           const imgEl = productEl.querySelector('[data-value="image_url"]');
-          const radio = productEl.querySelector('input[type="radio"]');
+          const checkbox = productEl.querySelector('input[type="checkbox"]');
           if (nameEl) nameEl.textContent = product.name;
           if (descEl) descEl.textContent = product.description || '';
           if (priceEl) priceEl.textContent = `Rp ${formatCurrency(product.price || 0)}`;
           if (imgEl) imgEl.src = product.image_url || 'https://placehold.co/300x300/e2e8f0/64748b?text=Produk';
-          if (radio) radio.value = product.id;
+          if (checkbox) checkbox.value = product.id;
 
           productEl.addEventListener('click', () => {
-            // Deselect others
-            document.querySelectorAll('[data-role="product"]').forEach(el => {
-              el.classList.remove('border-blue-500', 'shadow-lg');
-              const circle = el.querySelector('.w-6.h-6.bg-white');
-              const dot = el.querySelector('.w-3.h-3.bg-blue-500');
-              if (circle) circle.classList.remove('border-blue-500');
-              if (dot) dot.classList.add('scale-0');
-              const r = el.querySelector('input[type="radio"]');
-              if (r) r.checked = false;
-            });
-
-            // Select current
-            productEl.classList.add('border-blue-500', 'shadow-lg');
+            // Toggle current selection (allow multi-select)
             const circle = productEl.querySelector('.w-6.h-6.bg-white');
             const dot = productEl.querySelector('.w-3.h-3.bg-blue-500');
-            if (circle) circle.classList.add('border-blue-500');
-            if (dot) dot.classList.remove('scale-0');
-            if (radio) radio.checked = true;
+            const isSelected = checkbox ? checkbox.checked : false;
 
-            state.products.forEach(p => p.quantity = (p.id === product.id) ? 1 : 0);
+            const nextSelected = !isSelected;
+            if (checkbox) checkbox.checked = nextSelected;
+
+            if (nextSelected) {
+              productEl.classList.add('border-blue-500', 'shadow-lg');
+              if (circle) circle.classList.add('border-blue-500');
+              if (dot) dot.classList.remove('scale-0');
+              product.quantity = 1; // default quantity per selected product
+            } else {
+              productEl.classList.remove('border-blue-500', 'shadow-lg');
+              if (circle) circle.classList.remove('border-blue-500');
+              if (dot) dot.classList.add('scale-0');
+              product.quantity = 0;
+            }
+
             updateSummary();
           });
           productContainer.appendChild(productEl);
@@ -237,19 +237,22 @@
         const summaryItemsContainer = document.getElementById('summaryItems');
         const summaryItemTemplate = document.getElementById('summaryItemTemplate');
         summaryItemsContainer.innerHTML = '';
-        const selectedProduct = state.products.find(p => (p.quantity || 0) > 0);
+        const selectedProducts = state.products.filter(p => (p.quantity || 0) > 0);
         let subtotal = 0;
-        if (selectedProduct) {
+        selectedProducts.forEach(sp => {
           const itemEl = summaryItemTemplate.cloneNode(true);
           itemEl.classList.remove('hidden');
-          itemEl.querySelector('[data-summary="name"]').textContent = selectedProduct.name;
-          itemEl.querySelector('[data-summary="weight"]').textContent = 200;
-          itemEl.querySelector('[data-summary="unit_price"]').textContent = formatCurrency(selectedProduct.price || 0);
-          itemEl.querySelector('[data-summary="qty"]').textContent = 1;
-          itemEl.querySelector('[data-summary="line_total"]').textContent = formatCurrency(selectedProduct.price || 0);
+          itemEl.querySelector('[data-summary="name"]').textContent = sp.name;
+          const weight = (typeof sp.weight !== 'undefined' && sp.weight !== null) ? sp.weight : 200;
+          itemEl.querySelector('[data-summary="weight"]').textContent = weight;
+          const unitPrice = sp.price || 0;
+          const qty = sp.quantity || 1;
+          itemEl.querySelector('[data-summary="unit_price"]').textContent = formatCurrency(unitPrice);
+          itemEl.querySelector('[data-summary="qty"]').textContent = qty;
+          itemEl.querySelector('[data-summary="line_total"]').textContent = formatCurrency(unitPrice * qty);
           summaryItemsContainer.appendChild(itemEl);
-          subtotal = selectedProduct.price || 0;
-        }
+          subtotal += unitPrice * qty;
+        });
         state.totalPrice = subtotal;
         document.getElementById('totalPrice').textContent = formatCurrency(state.totalPrice);
       }
@@ -304,10 +307,10 @@
       orderForm.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        // Get selected product
-        const selectedProduct = state.products.find(p => (p.quantity || 0) > 0);
-        if (!selectedProduct) {
-          alert('Silakan pilih salah satu produk terlebih dahulu.');
+        // Get selected products (multi-select)
+        const selectedProducts = state.products.filter(p => (p.quantity || 0) > 0);
+        if (!selectedProducts.length) {
+          alert('Silakan pilih setidaknya satu produk terlebih dahulu.');
           return;
         }
 
@@ -336,15 +339,15 @@
         const formId = document.body.dataset.formId || '';
         const submitEvent = document.body.dataset.submitEvent || '';
 
-        const priceNum = selectedProduct.price || 0;
-        const productData = {
-          id: selectedProduct.id,
-          code: selectedProduct.id,
-          name: selectedProduct.name,
-          price: priceNum,
-          quantity: 1,
-          is_addon: !!selectedProduct.is_addon
-        };
+        const productList = selectedProducts.map(p => ({
+          id: p.id,
+          code: p.id,
+          name: p.name,
+          price: p.price || 0,
+          quantity: p.quantity || 1,
+          is_addon: !!p.is_addon
+        }));
+        const priceNum = productList.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
         // Get UTM parameters
         const urlParams = new URLSearchParams(window.location.search);
@@ -365,7 +368,7 @@
           },
           subtotal: priceNum,
           total: priceNum,
-          product: [productData]
+          product: productList
         };
 
         // Disable submit button

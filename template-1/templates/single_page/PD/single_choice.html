@@ -15,45 +15,34 @@
           <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center hover-highlight custom-cursor">
             <span
               class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-sm mr-2 hover-highlight custom-cursor">1</span>
-            Produk
+            Pilih Produk
           </h2>
-          <div class="flex flex-col gap-2" id="products">
+          <div class="flex flex-col gap-4" id="products">
             <div
-              class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 space-y-2 sm:p-6 border border-blue-100"
-              bis_skin_checked="1" data-role="product" data-template="product">
-              <div class="flex flex-col sm:flex-row gap-3 sm:gap-4" bis_skin_checked="1">
-                <div class="w-full sm:w-1/3 flex-shrink-0" bis_skin_checked="1">
+              class="bg-white rounded-xl p-4 border-2 border-transparent transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg hover:border-blue-500"
+              bis_skin_checked="1" data-placeholder="true" data-role="product" data-template="product">
+              <div class="flex flex-row gap-4 items-center" bis_skin_checked="1">
+                <div class="flex-shrink-0">
                   <img data-value="image_url" src="https://placehold.co/300x300/e2e8f0/64748b?text=Produk"
-                    alt="asdfafdsfdsa"
-                    class="w-full h-32 sm:h-48 object-cover rounded-lg shadow-md hover-highlight custom-cursor">
+                    alt="asdfafdsfdsa" class="w-24 h-24 object-cover rounded-lg shadow-md border border-gray-200">
                 </div>
-                <div class="w-full sm:w-2/3 min-w-0" bis_skin_checked="1">
-                  <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2 hover-highlight custom-cursor"
-                    data-value="name">
-                    asdfafdsfdsa</h3>
-                  <p class="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 hover-highlight custom-cursor"
-                    data-value="description">asdfafdsds
-                  </p>
-                  <div class="flex flex-col gap-3 mb-3 sm:mb-4" bis_skin_checked="1">
-                    <div class="flex items-center justify-between" bis_skin_checked="1">
-                      <span class="text-xl sm:text-2xl font-bold text-blue-600 hover-highlight custom-cursor"
-                        data-value="price">Rp
-                        0</span>
+                <div class="w-full min-w-0">
+                  <div class="flex justify-between items-start mb-1">
+                    <h3 class="text-lg font-bold text-gray-900" data-value="name">
+                      asdfafdsfdsa</h3>
+                    <div
+                      class="w-6 h-6 bg-white rounded-full border-2 border-gray-300 flex items-center justify-center transition-all duration-300 flex-shrink-0 ml-4">
+                      <div class="w-3 h-3 bg-blue-500 rounded-full transform scale-0 transition-all duration-300">
+                      </div>
                     </div>
                   </div>
-                  <div class="flex items-center text-xs sm:text-sm text-gray-500" bis_skin_checked="1">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                      class="h-4 w-4 sm:h-5 sm:w-5 mr-1 hover-highlight custom-cursor" viewBox="0 0 20 20"
-                      fill="currentColor">
-                      <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z">
-                      </path>
-                      <path
-                        d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z">
-                      </path>
-                    </svg>
-                    <span class="hidden sm:inline">Berat: </span>200g per item
+                  <p class="text-sm text-gray-500 mt-1 truncate" data-value="description">asdfafdsds</p>
+                  <div class="flex items-center justify-between mt-3">
+                    <span class="text-lg font-bold text-blue-600" data-value="price">Rp 0</span>
+                    <span class="text-sm text-gray-500">200g</span>
                   </div>
                 </div>
+                <input type="radio" name="product_selection" class="hidden">
               </div>
             </div>
           </div>
@@ -68,7 +57,7 @@
           </h2>
 
           <div class="space-y-6" bis_skin_checked="1" id="forms">
-            <div bis_skin_checked="1" data-role="field" data-template="field">
+            <div bis_skin_checked="1" data-role="field" data-placeholder="true" data-template="field">
               <label for="name"
                 class="block text-base sm:text-sm font-medium text-gray-700 mb-2 hover-highlight custom-cursor"
                 data-value="label">Nama
@@ -105,9 +94,6 @@
                       class="hover-highlight custom-cursor">1000</span>g</p>
                 </div>
                 <div class="text-right" bis_skin_checked="1">
-                  <p class="text-sm text-gray-500 hover-highlight custom-cursor">Rp <span data-summary="unit_price"
-                      class="hover-highlight custom-cursor">10.000</span> × <span data-summary="qty"
-                      class="hover-highlight custom-cursor">1</span></p>
                   <p class="font-semibold text-gray-900 hover-highlight custom-cursor">Rp <span
                       data-summary="line_total" class="hover-highlight custom-cursor">0</span></p>
                 </div>
@@ -167,359 +153,259 @@
         <div class="text-center" bis_skin_checked="1">
           <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
             bis_skin_checked="1">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500 hover-highlight custom-cursor"
-              viewBox="0 0 20 20" fill="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" viewBox="0 0 20 20"
+              fill="currentColor">
               <path fill-rule="evenodd"
                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                 clip-rule="evenodd"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-2 hover-highlight custom-cursor">Pesanan Berhasil!</h3>
-          <p class="text-gray-600 mb-6 hover-highlight custom-cursor">Terima kasih telah melakukan pemesanan. Anda
-            akan diarahkan ke halaman pembayaran.</p>
-          <div class="w-full bg-gray-200 rounded-full h-2" bis_skin_checked="1">
-            <div class="bg-blue-600 h-2 rounded-full" id="progressBar" style="width: 0%" bis_skin_checked="1"></div>
-          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">Pesanan Berhasil!</h2>
+          <p class="text-gray-600 mb-6">Terima kasih! Pesanan Anda telah kami terima dan akan segera diproses.</p>
+          <a href="#" id="backToHome"
+            class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors">Kembali ke
+            Halaman Utama</a>
         </div>
       </div>
     </div>
   </div>
-
   <script>
-    // Rendering dinamis list produk berbasis template [data-role="product"]
-    const domain = document.body.dataset.domain || '';
-    const originId = document.body.dataset.originId || '';
-    const submitEvent = document.body.dataset.submitEvent || '';
+    document.addEventListener('DOMContentLoaded', () => {
+      const state = {
+        products: [],
+        fields: [],
+        // Shipping-related state removed
+        formValues: {},
+        totalWeight: 0,
+        totalPrice: 0,
+        // shippingCost removed
+      };
 
-    const productsContainer = document.getElementById('products');
-    // Elemen ringkasan multi-item
-    const summaryItemsContainer = document.getElementById('summaryItems');
-    const summaryItemTemplate = document.getElementById('summaryItemTemplate');
-    const totalPriceElement = document.getElementById('totalPrice');
+      function formatCurrency(amount) {
+        return new Intl.NumberFormat('id-ID').format(amount);
+      }
 
-    const productPrice = window.initialProductPrice || 0;
-    const productWeight = 200;
-    // Shipping-related elements removed
-    // Form submission (dynamic fields + multi-produk)
-    const orderForm = document.getElementById('orderForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const successMessage = document.getElementById('successMessage');
-    const successContent = document.getElementById('successContent');
-    const progressBar = document.getElementById('progressBar');
-    let debounceTimer;
-    let selectedAddress = null;
+      function getElementData(element, key) {
+        return element.dataset[key];
+      }
 
+      function initializeData() {
+        const body = document.body;
+        state.products = JSON.parse(getElementData(body, 'products'));
+        state.fields = JSON.parse(getElementData(body, 'fields')).fields;
+        // Couriers removed
+      }
 
-    (function initProductRendering() {
-      try {
-        const raw = document.body.dataset.products || '[]';
-        // Convert single quotes to double quotes to make it valid JSON
-        const products = JSON.parse(raw.replace(/'/g, '"'));
-        const product = products[0];
+      function renderProducts() {
+        const productContainer = document.getElementById('products');
+        const productTemplate = document.querySelector('[data-template="product"]');
+        productContainer.innerHTML = '';
 
-        const container = document.getElementById('products');
-        const template = container ? container.querySelector('[data-role="product"]') : null;
-        if (!container || !template || !product) return;
+        state.products.forEach((product, index) => {
+          const productEl = productTemplate.cloneNode(true);
+          productEl.dataset.productId = product.id;
+          productEl.querySelector('[data-value="name"]').textContent = product.name;
+          productEl.querySelector('[data-value="description"]').textContent = product.description;
+          productEl.querySelector('[data-value="price"]').textContent = `Rp ${formatCurrency(product.price)}`;
+          productEl.querySelector('[data-value="image_url"]').src = product.image_url;
 
-        const buildProductHTML = (product) => {
-          const el = template.cloneNode(true);
+          const radio = productEl.querySelector('input[type="radio"]');
+          radio.value = product.id;
 
-          // Image
-          const imgEl = el.querySelector('[data-value="image_url"]') || el.querySelector('img');
-          if (imgEl) {
-            if (product.image_url) imgEl.src = product.image_url;
-            if (product.name) imgEl.alt = product.name;
-          }
+          productEl.addEventListener('click', () => {
+            // Deselect all other products
+            document.querySelectorAll('[data-role="product"]').forEach(el => {
+              el.classList.remove('border-blue-500', 'shadow-lg');
+              el.querySelector('.w-6.h-6.bg-white').classList.remove('border-blue-500');
+              el.querySelector('.w-3.h-3.bg-blue-500').classList.add('scale-0');
+            });
 
-          // Name
-          el.querySelectorAll('[data-value="name"]').forEach(node => {
-            node.textContent = product.name || '';
+            // Select the clicked product
+            productEl.classList.add('border-blue-500', 'shadow-lg');
+            productEl.querySelector('.w-6.h-6.bg-white').classList.add('border-blue-500');
+            productEl.querySelector('.w-3.h-3.bg-blue-500').classList.remove('scale-0');
+            radio.checked = true;
+
+            state.products.forEach(p => p.quantity = (p.id === product.id) ? 1 : 0);
+            updateSummary();
           });
 
-          // Description
-          const descEl = el.querySelector('[data-value="description"]');
-          if (descEl) descEl.textContent = product.description || '';
+          productContainer.appendChild(productEl);
+        });
+      }
 
-          // Price
-          const priceEl = el.querySelector('[data-value="price"]');
-          const priceNum = typeof product.price === 'number' ? product.price : parseInt(product.price, 10) || 0;
-          if (priceEl) priceEl.textContent = 'Rp ' + priceNum.toLocaleString('id-ID');
+      function renderForms() {
+        const formsContainer = document.getElementById('forms');
+        const fieldTemplate = document.querySelector('[data-template="field"]');
+        formsContainer.innerHTML = '';
 
-          // Tag product id on root
-          el.setAttribute('data-product-id', product.id || '');
+        state.fields.forEach(field => {
+          const fieldEl = fieldTemplate.cloneNode(true);
+          const label = fieldEl.querySelector('[data-value="label"]');
+          label.textContent = field.label;
+          if (field.required) {
+            label.innerHTML += ' <span class="text-red-500">*</span>';
+          }
 
-          return el.outerHTML;
-        };
+          const input = fieldEl.querySelector('input');
+          input.id = field.id;
+          input.name = field.id;
+          input.type = field.type;
+          input.required = field.required;
+          input.placeholder = `Masukkan ${field.label.toLowerCase()}`;
 
-        container.innerHTML = buildProductHTML(product);
+          formsContainer.appendChild(fieldEl);
+        });
+      }
 
-        // Simpan harga awal produk pertama untuk dipakai oleh kalkulasi global
-        if (product && product.price != null) {
-          window.initialProductPrice = typeof product.price === 'number'
-            ? product.price
-            : parseInt(product.price, 10) || 0;
+      function updateSummary() {
+        const summaryItemsContainer = document.getElementById('summaryItems');
+        const summaryItemTemplate = document.querySelector('[data-template="summary-item"]');
+        summaryItemsContainer.innerHTML = '';
+        let subtotal = 0;
+        state.totalWeight = 0;
+
+        const selectedProduct = state.products.find(p => p.quantity > 0);
+
+        if (selectedProduct) {
+          const itemEl = summaryItemTemplate.cloneNode(true);
+          itemEl.classList.remove('hidden');
+          itemEl.querySelector('[data-summary="name"]').textContent = selectedProduct.name;
+          itemEl.querySelector('[data-summary="weight"]').textContent = 200; // Assuming static weight
+          itemEl.querySelector('[data-summary="line_total"]').textContent = formatCurrency(selectedProduct.price);
+          summaryItemsContainer.appendChild(itemEl);
+          subtotal = selectedProduct.price;
+          state.totalWeight = 200;
         }
-        // Persist data produk untuk interaksi dan hitung ringkasan
-        // Persist products with quantity forced to 0 on initial load
-        window.productData = {
-          ...product,
-          quantity: 1
-        };
-      } catch (e) {
-        console.warn('Gagal render produk dari data-products:', e);
+
+        // Shipping removed; total equals subtotal
+        state.totalPrice = subtotal;
+        document.getElementById('totalPrice').textContent = formatCurrency(state.totalPrice);
       }
-    })();
+      // Shipping subdistrict search and courier options removed
 
-    // Rendering dinamis list fields berbasis template [data-role="field"]
-    (function initFieldRendering() {
-      try {
-        const raw = document.body.dataset.fields || '{}';
-        const parsed = JSON.parse(raw.replace(/'/g, '"'));
-        const fields = Array.isArray(parsed.fields) ? parsed.fields : [];
+      document.getElementById('orderForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Memproses...';
 
-        const container = document.getElementById('forms');
-        const template = container ? container.querySelector('[data-role="field"]') : null;
-        if (!container || !template || !fields.length) return;
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
 
-        const buildFieldHTML = (field) => {
-          const el = template.cloneNode(true);
+        // Get UTM parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmSource = urlParams.get('utm_source') || '';
+        const utmMedium = urlParams.get('utm_medium') || '';
+        const utmCampaign = urlParams.get('utm_campaign') || '';
+        const utmContent = urlParams.get('utm_content') || '';
 
-          const labelEl = el.querySelector('[data-value="label"]') || el.querySelector('label');
-          const inputEl = el.querySelector('input');
-
-          // Set label text + asterisk if required
-          if (labelEl) {
-            const labelText = field.label || '';
-            labelEl.innerHTML = `${labelText}${field.required ? ' <span class="text-red-500 hover-highlight custom-cursor">*</span>' : ''}`;
-            if (field.id) labelEl.setAttribute('for', field.id);
-          }
-
-          // Configure input attributes
-          if (inputEl) {
-            if (field.type) inputEl.setAttribute('type', field.type);
-            if (field.id) {
-              inputEl.setAttribute('id', field.id);
-              inputEl.setAttribute('name', field.id);
-            }
-            inputEl.required = !!field.required;
-            // Placeholder heuristik
-            let placeholder = inputEl.getAttribute('placeholder') || '';
-            if (field.type === 'email') placeholder = 'email@example.com';
-            else if (field.type === 'tel') placeholder = '08xxxxxxxxxx';
-            else if (field.type === 'text') placeholder = `Masukkan ${field.label || ''}`.trim();
-            inputEl.setAttribute('placeholder', placeholder);
-          }
-
-          return el.outerHTML;
-        };
-
-        container.innerHTML = fields.map(buildFieldHTML).join('');
-      } catch (e) {
-        console.warn('Gagal render fields dari data-fields:', e);
-      }
-    })();
-
-    function updateSummary() {
-      const p = window.productData;
-      if (!p) return;
-
-      // Render list items
-      if (summaryItemsContainer && summaryItemTemplate) {
-        const qty = 1;
-        const priceNum = typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0);
-        const lineTotal = priceNum * qty;
-        const lineWeight = productWeight * qty;
-        const el = summaryItemTemplate.cloneNode(true);
-        el.classList.remove('hidden');
-        const nameEl = el.querySelector('[data-summary="name"]');
-        const weightEl = el.querySelector('[data-summary="weight"]');
-        const unitPriceEl = el.querySelector('[data-summary="unit_price"]');
-        const qtyEl = el.querySelector('[data-summary="qty"]');
-        const lineTotalEl = el.querySelector('[data-summary="line_total"]');
-        if (nameEl) nameEl.textContent = p.name || '';
-        if (weightEl) weightEl.textContent = lineWeight;
-        if (unitPriceEl) unitPriceEl.textContent = priceNum.toLocaleString('id-ID');
-        if (qtyEl) qtyEl.textContent = qty;
-        if (lineTotalEl) lineTotalEl.textContent = lineTotal.toLocaleString('id-ID');
-        summaryItemsContainer.innerHTML = el.outerHTML;
-      }
-
-      // Hitung subtotal dan total berat agregat
-      const subtotal = (typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0));
-      const totalWeight = productWeight;
-
-      // Update total keseluruhan
-      const total = subtotal;
-      if (totalPriceElement) totalPriceElement.textContent = total.toLocaleString('id-ID');
-
-      // Update customer data
-      if (window.customerData) {
-        window.customerData.subtotal = subtotal;
-        window.customerData.weight = totalWeight;
-        // Shipping cost removed; total equals subtotal
-      }
-    }
-
-    // Initialize customer data berdasarkan produk aktif
-    (function initCustomerData() {
-      const p = window.productData;
-      const quantity = 1;
-      const currentPrice = p ? (typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0)) : productPrice;
-      window.customerData = {
-        quantity,
-        subtotal: currentPrice * quantity,
-        weight: productWeight * quantity
-      };
-    })();
-
-
-    orderForm.addEventListener('submit', async function (e) {
-      e.preventDefault();
-
-      // Validate form dari data-fields
-      let fields = [];
-      try {
-        const rawFields = document.body.dataset.fields || '{}';
-        const parsedFields = JSON.parse(rawFields.replace(/'/g, '"'));
-        fields = Array.isArray(parsedFields.fields) ? parsedFields.fields : [];
-      } catch (err) { /* ignore */ }
-
-      const formValues = {};
-      const missingRequired = [];
-      fields.forEach(f => {
-        const el = document.getElementById(f.id) || orderForm.querySelector(`[name="${f.id}"]`);
-        const val = el ? (el.value || '').trim() : '';
-        formValues[f.id] = val;
-        if (f.required && !val) missingRequired.push(f.label || f.id);
-      });
-
-      // Pastikan minimal field wajib: name, phone, address jika ada di konfigurasi
-      if (missingRequired.length) {
-        alert('Mohon lengkapi field wajib: ' + missingRequired.join(', '));
-        return;
-      }
-
-      // Shipping address and courier selection not required anymore
-
-      // Update customer data dari formValues
-      Object.assign(window.customerData, formValues);
-      // Shipping address removed
-
-      // Calculate total
-      const subtotal = (typeof window.productData.price === 'number' ? window.productData.price : (parseInt(window.productData.price, 10) || 0));
-      window.customerData.subtotal = subtotal;
-      window.customerData.weight = productWeight;
-      const total = subtotal;
-
-      // Prepare product data (single-produk)
-      const p = window.productData;
-      const product = {
-        id: p.id || `SKU-1`,
-        code: p.id || `SKU-1`,
-        name: p.name || `Produk 1`,
-        price: typeof p.price === 'number' ? p.price : (parseInt(p.price, 10) || 0),
-        quantity: 1,
-        is_addon: !!p.is_addon
-      };
-
-      // Get UTM parameters
-      const urlParams = new URLSearchParams(window.location.search);
-      const utmSource = urlParams.get('utm_source') || '';
-      const utmMedium = urlParams.get('utm_medium') || '';
-      const utmCampaign = urlParams.get('utm_campaign') || '';
-      const utmContent = urlParams.get('utm_content') || '';
-
-      // Prepare submission data
-      const submissionData = {
-        customer_data: {
-          ...window.customerData,
+        // Prepare customer data
+        const customerData = {
+          ...data,
+          address: data.address || '',
+          full_address: data.address || '',
           utm_meta: {
             utm_source: utmSource,
             utm_medium: utmMedium,
             utm_campaign: utmCampaign,
             utm_content: utmContent
           }
-        },
-        subtotal: subtotal,
-        total: total,
-        product: [product]
-      };
+        };
 
-      // Disable submit button
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Memproses...';
-      submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+        // Prepare product data
+        const selectedProduct = state.products.find(p => p.quantity > 0);
+        const productData = selectedProduct ? [{
+          id: selectedProduct.id,
+          code: selectedProduct.id,
+          name: selectedProduct.name,
+          price: selectedProduct.price,
+          quantity: 1,
+          is_addon: false
+        }] : [];
 
-      try {
-        const response = await fetch(`${document.body.dataset.domain}/form/${document.body.dataset.formId}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(submissionData)
-        });
+        // Calculate subtotal and total
+        const subtotal = selectedProduct ? selectedProduct.price : 0;
+        const total = subtotal;
 
-        if (typeof fbq !== 'undefined') {
-          fbq('track', submitEvent, {
-            value: total,
-            currency: 'IDR'
+        const payload = {
+          customer_data: customerData,
+          subtotal: subtotal,
+          total: total,
+          product: productData
+        };
+
+        try {
+          const response = await fetch(`${document.body.dataset.domain}/form/${document.body.dataset.formId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
           });
-        }
 
-        if (typeof ttq !== 'undefined') {
-          ttq.track(submitEvent, {
-            value: total,
-            currency: 'IDR'
-          });
-        }
+          const result = await response.json();
 
-        if (typeof twq !== 'undefined') {
-          twq('event', submitEvent, {
-            value: total,
-            currency: 'IDR'
-          });
-        }
+          // Track pixel events
+          const submitEvent = document.body.dataset.submitEvent || 'Lead';
+          if (typeof fbq !== 'undefined') {
+            fbq('track', submitEvent, {
+              value: total,
+              currency: 'IDR'
+            });
+          }
 
+          if (typeof ttq !== 'undefined') {
+            ttq.track(submitEvent, {
+              value: total,
+              currency: 'IDR'
+            });
+          }
 
-        const result = await response.json();
+          if (typeof twq !== 'undefined') {
+            twq('event', submitEvent, {
+              value: total,
+              currency: 'IDR'
+            });
+          }
 
-        if (result.id) {
-          // Show success message
-          successMessage.classList.remove('hidden');
-          setTimeout(() => {
-            successContent.classList.remove('scale-95', 'opacity-0');
-            successContent.classList.add('scale-100', 'opacity-100');
+          if (response.ok && result.id) {
+            // Show success message
+            document.getElementById('successMessage').classList.remove('hidden');
+            const successContent = document.getElementById('successContent');
+            const progressBar = document.getElementById('progressBar');
 
-            // Animate progress bar
-            let width = 0;
-            const interval = setInterval(() => {
-              width += 10;
-              progressBar.style.width = width + '%';
+            setTimeout(() => {
+              successContent.classList.remove('scale-95', 'opacity-0');
+              successContent.classList.add('scale-100', 'opacity-100');
 
-              if (width >= 100) {
-                clearInterval(interval);
-                // Redirect to invoice page
-                window.location.href = `${domain}/invoice/${result.id}`;
-              }
+              // Animate progress bar
+              let width = 0;
+              const interval = setInterval(() => {
+                width += 10;
+                progressBar.style.width = width + '%';
+
+                if (width >= 100) {
+                  clearInterval(interval);
+                  // Redirect to invoice page
+                  window.location.href = `${document.body.dataset.domain}/invoice/${result.id}`;
+                }
+              }, 100);
             }, 100);
-          }, 100);
-        } else {
-          throw new Error('Failed to submit order');
+          } else {
+            alert('Gagal membuat pesanan. Silakan coba lagi.');
+          }
+        } catch (error) {
+          console.error('Error submitting order:', error);
+          alert('Terjadi kesalahan. Silakan coba lagi.');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Selesaikan Pesanan';
         }
-      } catch (error) {
-        console.error('Error submitting order:', error);
-        alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.');
+      });
 
-        // Re-enable submit button
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Selesaikan Pesanan';
-        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
-      }
+      initializeData();
+      renderProducts();
+      renderForms();
+      updateSummary();
     });
-
-    // Shipping dropdown interactions removed
-
-    // Initialize summary setelah render
-    updateSummary();
   </script>
 </section>

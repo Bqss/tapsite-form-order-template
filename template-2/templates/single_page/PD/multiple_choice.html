@@ -2,8 +2,8 @@
   <div class="max-w-6xl mx-auto px-4">
     <header class="mb-6 lg:mb-8">
       <div class="rounded-3xl bg-gradient-to-b from-teal-700 to-emerald-600 text-white p-6 sm:p-8 shadow-xl">
-        <h1 class="text-3xl font-extrabold tracking-tight">Order Form • Single Product Selection</h1>
-        <p class="mt-2 opacity-90">Pilih satu dari beberapa produk, ringkasan dan form di sisi kanan.</p>
+        <h1 class="text-3xl font-extrabold tracking-tight">Order Form • Multiple Product Selection</h1>
+        <p class="mt-2 opacity-90">Pilih satu atau lebih produk, ringkasan dan form di sisi kanan.</p>
       </div>
     </header>
 
@@ -139,7 +139,7 @@
     const originId = document.body.dataset.originId || '';
     const productWeight = 200; // gram per item
     const fmt = (n) => Number(n || 0).toLocaleString('id-ID');
-    const state = { products: [], selectedId: null, fields: [] };
+    const state = { products: [], selectedIds: [], fields: [] };
     const orderForm = document.getElementById('orderForm');
     const successMessage = document.getElementById('successMessage');
     const successContent = document.getElementById('successContent');
@@ -164,12 +164,19 @@
         el.querySelector('[data-value="description"]').textContent = p.description || '';
         el.querySelector('[data-value="price"]').textContent = 'Rp ' + fmt(p.price);
         const img = el.querySelector('[data-value="image_url"]'); if (img && p.image_url) img.src = p.image_url;
-        el.addEventListener('click', () => {
-          state.selectedId = p.id;
-          Array.from(document.querySelectorAll('[data-role="product"]')).forEach(node => {
-            node.classList.remove('border-teal-500', 'shadow');
-          });
+        // pre-highlight jika sudah dipilih
+        if (state.selectedIds.includes(p.id)) {
           el.classList.add('border-teal-500', 'shadow');
+        }
+        el.addEventListener('click', () => {
+          const idx = state.selectedIds.indexOf(p.id);
+          if (idx >= 0) {
+            state.selectedIds.splice(idx, 1);
+            el.classList.remove('border-teal-500', 'shadow');
+          } else {
+            state.selectedIds.push(p.id);
+            el.classList.add('border-teal-500', 'shadow');
+          }
           updateSummary();
         });
         container.appendChild(el);
@@ -193,17 +200,17 @@
       const summaryItems = document.getElementById('summaryItems');
       const template = document.getElementById('summaryItemTemplate');
       summaryItems.innerHTML = '';
-      const sel = state.products.find(p => p.id === state.selectedId);
-      if (sel) {
+      const selectedProducts = state.products.filter(p => state.selectedIds.includes(p.id));
+      let subtotal = 0;
+      selectedProducts.forEach(p => {
         const el = template.cloneNode(true); el.classList.remove('hidden');
-        el.querySelector('[data-summary="name"]').textContent = sel.name;
+        el.querySelector('[data-summary="name"]').textContent = p.name;
         el.querySelector('[data-summary="weight"]').textContent = productWeight;
-        el.querySelector('[data-summary="line_total"]').textContent = fmt(sel.price);
+        el.querySelector('[data-summary="line_total"]').textContent = fmt(p.price);
         summaryItems.appendChild(el);
-        document.getElementById('totalPrice').textContent = fmt(sel.price);
-      } else {
-        document.getElementById('totalPrice').textContent = '0';
-      }
+        subtotal += Number(p.price || 0);
+      });
+      document.getElementById('totalPrice').textContent = fmt(subtotal);
     }
 
     // Submit Handling mengikuti pola template-1
@@ -213,9 +220,9 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Memproses...';
 
-      const sel = state.products.find(p => p.id === state.selectedId);
-      if (!sel) {
-        alert('Mohon pilih satu produk terlebih dahulu.');
+      const selectedProducts = state.products.filter(p => state.selectedIds.includes(p.id));
+      if (!selectedProducts.length) {
+        alert('Mohon pilih minimal satu produk terlebih dahulu.');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Selesaikan Pesanan';
         return;
@@ -245,17 +252,17 @@
         }
       };
 
-      // Prepare product data
-      const productData = [{
-        id: sel.id,
-        code: sel.id,
-        name: sel.name,
-        price: sel.price,
+      // Prepare product data (multi-select, qty=1 per item)
+      const productData = selectedProducts.map(p => ({
+        id: p.id,
+        code: p.id,
+        name: p.name,
+        price: Number(p.price || 0),
         quantity: 1,
         is_addon: false
-      }];
+      }));
 
-      const subtotal = sel.price;
+      const subtotal = productData.reduce((sum, item) => sum + Number(item.price || 0), 0);
       const total = subtotal;
 
       const payload = {

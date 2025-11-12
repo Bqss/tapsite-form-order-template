@@ -42,7 +42,7 @@
                     <span class="text-sm text-gray-500">200g</span>
                   </div>
                 </div>
-                <input type="radio" name="product_selection" class="hidden">
+                <input type="checkbox" name="product_selection[]" class="hidden">
               </div>
             </div>
           </div>
@@ -209,24 +209,28 @@
           productEl.querySelector('[data-value="price"]').textContent = `Rp ${formatCurrency(product.price)}`;
           productEl.querySelector('[data-value="image_url"]').src = product.image_url;
 
-          const radio = productEl.querySelector('input[type="radio"]');
-          radio.value = product.id;
+          const checkbox = productEl.querySelector('input[type="checkbox"]');
+          checkbox.value = product.id;
 
           productEl.addEventListener('click', () => {
-            // Deselect all other products
-            document.querySelectorAll('[data-role="product"]').forEach(el => {
-              el.classList.remove('border-blue-500', 'shadow-lg');
-              el.querySelector('.w-6.h-6.bg-white').classList.remove('border-blue-500');
-              el.querySelector('.w-3.h-3.bg-blue-500').classList.add('scale-0');
-            });
+            const ring = productEl.querySelector('.w-6.h-6.bg-white');
+            const dot = productEl.querySelector('.w-3.h-3.bg-blue-500');
+            const isSelected = checkbox.checked;
+            const nextSelected = !isSelected;
+            checkbox.checked = nextSelected;
 
-            // Select the clicked product
-            productEl.classList.add('border-blue-500', 'shadow-lg');
-            productEl.querySelector('.w-6.h-6.bg-white').classList.add('border-blue-500');
-            productEl.querySelector('.w-3.h-3.bg-blue-500').classList.remove('scale-0');
-            radio.checked = true;
+            if (nextSelected) {
+              productEl.classList.add('border-blue-500', 'shadow-lg');
+              if (ring) ring.classList.add('border-blue-500');
+              if (dot) dot.classList.remove('scale-0');
+              state.products[index].quantity = 1;
+            } else {
+              productEl.classList.remove('border-blue-500', 'shadow-lg');
+              if (ring) ring.classList.remove('border-blue-500');
+              if (dot) dot.classList.add('scale-0');
+              state.products[index].quantity = 0;
+            }
 
-            state.products.forEach(p => p.quantity = (p.id === product.id) ? 1 : 0);
             updateSummary();
           });
 
@@ -265,18 +269,17 @@
         let subtotal = 0;
         state.totalWeight = 0;
 
-        const selectedProduct = state.products.find(p => p.quantity > 0);
-
-        if (selectedProduct) {
+        const selectedProducts = state.products.filter(p => (p.quantity || 0) > 0);
+        selectedProducts.forEach(p => {
           const itemEl = summaryItemTemplate.cloneNode(true);
           itemEl.classList.remove('hidden');
-          itemEl.querySelector('[data-summary="name"]').textContent = selectedProduct.name;
-          itemEl.querySelector('[data-summary="weight"]').textContent = 200; // Assuming static weight
-          itemEl.querySelector('[data-summary="line_total"]').textContent = formatCurrency(selectedProduct.price);
+          itemEl.querySelector('[data-summary="name"]').textContent = p.name;
+          itemEl.querySelector('[data-summary="weight"]').textContent = 200; // Assuming static weight per item
+          itemEl.querySelector('[data-summary="line_total"]').textContent = formatCurrency(p.price);
           summaryItemsContainer.appendChild(itemEl);
-          subtotal = selectedProduct.price;
-          state.totalWeight = 200;
-        }
+          subtotal += (typeof p.price === 'number' ? p.price : parseInt(p.price, 10) || 0);
+          state.totalWeight += 200;
+        });
 
         // Shipping removed; total equals subtotal
         state.totalPrice = subtotal;
@@ -314,18 +317,18 @@
         };
 
         // Prepare product data
-        const selectedProduct = state.products.find(p => p.quantity > 0);
-        const productData = selectedProduct ? [{
-          id: selectedProduct.id,
-          code: selectedProduct.id,
-          name: selectedProduct.name,
-          price: selectedProduct.price,
-          quantity: 1,
+        const selectedProducts = state.products.filter(p => (p.quantity || 0) > 0);
+        const productData = selectedProducts.map(p => ({
+          id: p.id,
+          code: p.id,
+          name: p.name,
+          price: (typeof p.price === 'number' ? p.price : parseInt(p.price, 10) || 0),
+          quantity: p.quantity || 1,
           is_addon: false
-        }] : [];
+        }));
 
         // Calculate subtotal and total
-        const subtotal = selectedProduct ? selectedProduct.price : 0;
+        const subtotal = productData.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
         const total = subtotal;
 
         const payload = {
